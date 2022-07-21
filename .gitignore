@@ -1,6 +1,7 @@
 # System files
 *.log
 .DS_Store
+*.error
 
 # R
 .Rhistory
