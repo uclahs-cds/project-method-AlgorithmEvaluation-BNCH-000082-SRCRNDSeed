@@ -16,7 +16,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [0.0.1] - YYYY-MM-DD
 ### Added
 - For new analysis or config files.
-- Added item 1.
+- Added test-script for pipeline run using Mutect2.
+- Added test-script for pipeline run using Strelka2.
+- Added test-script for pipeline run using SomaticSniper.
 
 ### Changed
 - For changes in existing config files, commands and analyses.
