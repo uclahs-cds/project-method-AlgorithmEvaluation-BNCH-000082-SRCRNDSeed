@@ -1,0 +1,12 @@
+---
+patient_id: "SRC_pipeline_test_empty_string_runname"
+sample_id: "ILHNLNEV000001-N002-A01-F_test_strelka2"
+input:
+  SNV:
+    algorithm: "Strelka2"
+    path:
+      - "/hot/users/yiyangliu/ILHNLNEV/SNV/strelka2/recsnv/vcfs/ILHNLNEV000001-N002-A01-F.vcf"
+  CNA:
+    algorithm: "HATCHet"
+    path:
+      - "/hot/software/package/tool-SRC-util/Python/development/test_inputs/converted.seg.ucn.tsv"
