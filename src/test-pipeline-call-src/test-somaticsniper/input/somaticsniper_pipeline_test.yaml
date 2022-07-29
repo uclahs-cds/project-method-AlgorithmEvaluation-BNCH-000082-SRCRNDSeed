@@ -1,5 +1,5 @@
 ---
-patient_id: "SRC_pipeline_test_empty_string_runname"
+patient_id: "SRC_pipeline_test"
 sample_id: "ILHNLNEV000001-N002-A01-F_test"
 input:
   SNV:
