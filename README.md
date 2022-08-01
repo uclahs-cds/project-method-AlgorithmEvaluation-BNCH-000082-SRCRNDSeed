@@ -6,26 +6,36 @@ The project goal is to quantify:
 
 ## Description
 
-In this project, we have expanded the subclonal reconstruction pipeline https://github.com/uclahs-cds/pipeline-call-SRC to accept output of multiple mutation callers.
+In this project, we have expanded the subclonal reconstruction pipeline https://github.com/uclahs-cds/pipeline-call-SRC to accept the output of multiple mutation callers.
 
-We have integrated 3 new mutation callers (SomaticSniper, Strelka2, Battenberg) by creating parsers that extract variant data from different tools. The parsers can be found here https://github.com/uclahs-cds/tool-SRC-util. 
+We have integrated 4 additional mutation callers (Mutect2 single-sample mode, SomaticSniper, Strelka2, Battenberg) by creating parsers that extract variant data from the different tools' output. The parsers can be found here https://github.com/uclahs-cds/tool-SRC-util. 
 
-How we generated random seeds: 
+## Random seed selection
 
-Pipeline combinations tested:
+### Generating random seeds:
+
+### Chosen random seeds:
+
+## Running the pipeline
+
+### Pipeline template files:
+
+Config file: 
+Yaml file: 
+Submission script:
+
+### Tested pipeline combinations:
+
 - [] MuTect2-Battenberg-PyClone-VI
 - [] SomaticSniper-Battenberg-PyClone-VI
 - [] Strelka2-Battenberg-PyClone-VI
 
-## Running the pipeline
-
-Config file template: 
-Yaml file template: 
+### Results:
 
 
 ## License
 
-Author: Name1(username1@mednet.ucla.edu), Name2(username2@mednet.ucla.edu)
+Author: Anna Neiman-Golden(aneimangolden@mednet.ucla.edu), Philippa Steinberg(psteinberg@mednet.ucla.edu)
 
 [This project] is licensed under the GNU General Public License version 2. See the file LICENSE.md for the terms of the GNU GPL license.
 
