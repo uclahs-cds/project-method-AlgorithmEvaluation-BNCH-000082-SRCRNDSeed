@@ -1,10 +1,27 @@
-# Project/Repo Title
+# Impact of seed selection for subclonal reconstruction solutions
 
-Template Repository for the Boutros Lab general project repos. Describe a simple overview of use/purpose here.
+The project goal is to quantify: 
+1. How SRC results vary depending on the combination of SRC-tools
+2. How SRC results vary depending on the initializing random seed
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+In this project, we have expanded the subclonal reconstruction pipeline https://github.com/uclahs-cds/pipeline-call-SRC to accept output of multiple mutation callers.
+
+We have integrated 3 new mutation callers (SomaticSniper, Strelka2, Battenberg) by creating parsers that extract variant data from different tools. The parsers can be found here https://github.com/uclahs-cds/tool-SRC-util. 
+
+How we generated random seeds: 
+
+Pipeline combinations tested:
+- [] MuTect2-Battenberg-PyClone-VI
+- [] SomaticSniper-Battenberg-PyClone-VI
+- [] Strelka2-Battenberg-PyClone-VI
+
+## Running the pipeline
+
+Config file template: 
+Yaml file template: 
+
 
 ## License
 
