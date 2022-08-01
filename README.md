@@ -20,9 +20,11 @@ We have integrated 4 additional mutation callers (Mutect2 single-sample mode, So
 
 ### Pipeline template files:
 
-Config file: 
-Yaml file: 
-Submission script:
+Template file path: `/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/templates/`
+
+Config file: `./template.config`
+Yaml file: `./template.yaml`
+Submission script: `./template_submission_script.sh`
 
 ### Tested pipeline combinations:
 
