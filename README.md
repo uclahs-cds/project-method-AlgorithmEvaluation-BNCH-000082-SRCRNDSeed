@@ -10,11 +10,27 @@ In this project, we have expanded the subclonal reconstruction pipeline https://
 
 We have integrated 4 additional mutation callers (Mutect2 single-sample mode, SomaticSniper, Strelka2, Battenberg) by creating parsers that extract variant data from the different tools' output. The parsers can be found here https://github.com/uclahs-cds/tool-SRC-util. 
 
+We used primary tumour samples from a cohort of 14 head and neck cancer patients and 10 random seeds per sample to test each pipeline combination output.
+
 ## Random seed selection
 
 ### Generating random seeds:
 
+Generate initial seed:
+`head -c 4 /dev/urandom | od -An -tu4` => `3058353505`
+
+Generate 10 random seeds:
+
+```
+import random
+random.seed(3058353505)
+random.sample(range(0, 1000000), k=10)
+```
+
 ### Chosen random seeds:
+
+Generated/chosen seeds:
+`[51404, 366306, 423647, 838004, 50135, 628019, 97782, 253505, 659767, 13142]`
 
 ## Running the pipeline
 
@@ -34,6 +50,7 @@ Submission script: `./template_submission_script.sh`
 
 ### Results:
 
+Output Strelka2-Battenberg-PyClone-VI: `/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output`
 
 ## License
 
