@@ -18,12 +18,11 @@ patients=(
     "ILHNLNEV000014-T001-P01-F"
     )
 
-# Restrict to submitting no more than 5 jobs to F32 node at a time
 for seed in ${seeds[@]} 
 do
     for patient in ${patients[@]} 
     do
-        # Restrict to submitting no more than 5 jobs to F32 node at a time
+        # Restrict to submitting no more than 5 jobs to node at a time
         submit_signal="false"
         while [ $submit_signal == "false"  ]
         do
@@ -40,7 +39,7 @@ do
             --nextflow_config /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/input/config/seed_${seed}.config \
             --nextflow_yaml /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/input/yaml/${patient}.yaml \
             --pipeline_run_name ${patient}_${seed}_Strelka2-Battenberg-PyClone-VI \
-            --partition_type F32 \
+            --partition_type F2 \
             --email psteinberg@mednet.ucla.edu
     done
 done
