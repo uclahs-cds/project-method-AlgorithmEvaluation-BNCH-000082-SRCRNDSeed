@@ -1,14 +1,60 @@
-# Project/Repo Title
+# Impact of seed selection on subclonal reconstruction solutions
 
-Template Repository for the Boutros Lab general project repos. Describe a simple overview of use/purpose here.
+The project goal is to quantify: 
+1. How SRC results vary depending on the combination of SRC tools
+2. How SRC results vary depending on the initializing random seed
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+In this project, we have expanded the subclonal reconstruction pipeline https://github.com/uclahs-cds/pipeline-call-SRC to accept the output of multiple mutation callers.
+
+We have integrated 4 additional mutation callers (MuTect2 single-sample mode, SomaticSniper, Strelka2, Battenberg) by creating parsers that extract variant data from the different tools' output. The parsers can be found here https://github.com/uclahs-cds/tool-SRC-util. 
+
+We used primary tumour samples from a cohort of 14 head and neck cancer patients and 10 random seeds per sample to test each pipeline combination output.
+
+## Random seed selection
+
+### Generating random seeds:
+
+Generate initial seed:
+`head -c 4 /dev/urandom | od -An -tu4` => `3058353505`
+
+Generate 10 random seeds:
+
+```
+import random
+random.seed(3058353505)
+random.sample(range(0, 1000000), k=10)
+```
+
+### Chosen random seeds:
+
+Generated/chosen seeds:
+`[51404, 366306, 423647, 838004, 50135, 628019, 97782, 253505, 659767, 13142]`
+
+## Running the pipeline
+
+### Pipeline template files:
+
+Template file path: `/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/templates/`
+
+Config file: `./template.config`
+Yaml file: `./template.yaml`
+Submission script: `./template_submission_script.sh`
+
+### Tested pipeline combinations:
+
+- [] MuTect2-Battenberg-PyClone-VI
+- [] SomaticSniper-Battenberg-PyClone-VI
+- [] Strelka2-Battenberg-PyClone-VI
+
+### Results:
+
+Output Strelka2-Battenberg-PyClone-VI: `/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output`
 
 ## License
 
-Author: Name1(username1@mednet.ucla.edu), Name2(username2@mednet.ucla.edu)
+Author: Anna Neiman-Golden(aneimangolden@mednet.ucla.edu), Philippa Steinberg(psteinberg@mednet.ucla.edu)
 
 [This project] is licensed under the GNU General Public License version 2. See the file LICENSE.md for the terms of the GNU GPL license.
 

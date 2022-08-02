@@ -1,4 +1,4 @@
-# submission script for test of pipeline-call-SRC
+# Submission script for test running pipeline-call-SRC #3 https://github.com/uclahs-cds/project-SRC-RandomSeed/issues/3
 
 python3 /hot/software/package/tool-submit-nf/Python/release/2.2.0/submit_nextflow_pipeline.py \
     --nextflow_script /hot/user/yashpatel/pipeline-call-SRC/pipeline-call-SRC/main.nf \
