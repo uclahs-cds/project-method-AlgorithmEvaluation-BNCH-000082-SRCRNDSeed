@@ -2,6 +2,7 @@
 *.log
 *.error
 .DS_Store
+*.error
 
 # R
 .Rhistory
