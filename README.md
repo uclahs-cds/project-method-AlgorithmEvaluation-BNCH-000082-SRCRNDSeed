@@ -1,14 +1,14 @@
-# Impact of seed selection for subclonal reconstruction solutions
+# Impact of seed selection on subclonal reconstruction solutions
 
 The project goal is to quantify: 
-1. How SRC results vary depending on the combination of SRC-tools
+1. How SRC results vary depending on the combination of SRC tools
 2. How SRC results vary depending on the initializing random seed
 
 ## Description
 
 In this project, we have expanded the subclonal reconstruction pipeline https://github.com/uclahs-cds/pipeline-call-SRC to accept the output of multiple mutation callers.
 
-We have integrated 4 additional mutation callers (Mutect2 single-sample mode, SomaticSniper, Strelka2, Battenberg) by creating parsers that extract variant data from the different tools' output. The parsers can be found here https://github.com/uclahs-cds/tool-SRC-util. 
+We have integrated 4 additional mutation callers (MuTect2 single-sample mode, SomaticSniper, Strelka2, Battenberg) by creating parsers that extract variant data from the different tools' output. The parsers can be found here https://github.com/uclahs-cds/tool-SRC-util. 
 
 We used primary tumour samples from a cohort of 14 head and neck cancer patients and 10 random seeds per sample to test each pipeline combination output.
 
