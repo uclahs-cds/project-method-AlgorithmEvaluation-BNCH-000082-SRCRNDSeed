@@ -19,22 +19,22 @@ patients=(
     )
 
 # Restrict to submitting no more than 5 jobs to F32 node at a time
-submit_signal="false"
-    while [ $submit_signal == "false"  ]
-    do
-        sleep 30
-        jobs_running=$((`squeue -u psteinberg --partition F32 | wc -l` - 1))
-        echo "jobs running: $jobs_running"
-        if [ $jobs_running -lt 5 ]
-        then
-            submit_signal="true"
-        fi
-    done
-
 for seed in ${seeds[@]} 
 do
     for patient in ${patients[@]} 
     do
+        # Restrict to submitting no more than 5 jobs to F32 node at a time
+        submit_signal="false"
+        while [ $submit_signal == "false"  ]
+        do
+            sleep 30
+            jobs_running=$((`squeue -u psteinberg | wc -l` - 1))
+            echo "jobs running: $jobs_running"
+            if [ $jobs_running -lt 5 ]
+            then
+                submit_signal="true"
+            fi
+        done
         python3 /hot/software/package/tool-submit-nf/Python/release/2.2.0/submit_nextflow_pipeline.py \
             --nextflow_script /hot/user/yashpatel/pipeline-call-SRC/pipeline-call-SRC/main.nf \
             --nextflow_config /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/input/config/seed_${seed}.config \
