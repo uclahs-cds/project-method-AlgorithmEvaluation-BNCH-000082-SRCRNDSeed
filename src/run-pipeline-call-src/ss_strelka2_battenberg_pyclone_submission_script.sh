@@ -39,7 +39,7 @@ do
             --nextflow_config /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/input/config/seed_${seed}.config \
             --nextflow_yaml /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/input/yaml/${patient}.yaml \
             --pipeline_run_name ${patient}_${seed}_Strelka2-Battenberg-PyClone-VI \
-            --partition_type F2 \
+            --partition_type F32 \
             --email psteinberg@mednet.ucla.edu
     done
 done
