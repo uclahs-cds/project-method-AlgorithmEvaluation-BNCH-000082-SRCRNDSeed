@@ -18,6 +18,19 @@ patients=(
     "ILHNLNEV000014-T001-P01-F"
     )
 
+# Restrict to submitting no more than 5 jobs to F32 node at a time
+submit_signal="false"
+    while [ $submit_signal == "false"  ]
+    do
+        sleep 30
+        jobs_running=$((`squeue -u psteinberg --partition F32 | wc -l` - 1))
+        echo "jobs running: $jobs_running"
+        if [ $jobs_running -lt 5 ]
+        then
+            submit_signal="true"
+        fi
+    done
+
 for seed in ${seeds[@]} 
 do
     for patient in ${patients[@]} 
@@ -26,8 +39,8 @@ do
             --nextflow_script /hot/user/yashpatel/pipeline-call-SRC/pipeline-call-SRC/main.nf \
             --nextflow_config /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/input/config/seed_${seed}.config \
             --nextflow_yaml /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/input/yaml/${patient}.yaml \
-            --pipeline_run_name ${seed}_${patient}_str-bat-pyc \
-            --partition_type F16 \
+            --pipeline_run_name ${patient}_${seed}_Strelka2-Battenberg-PyClone-VI \
+            --partition_type F32 \
             --email psteinberg@mednet.ucla.edu
     done
 done
