@@ -44,6 +44,7 @@ for (sample in 1:length(samples)) {
     for (seed in 1:length(seeds)) {
         path <- sprintf(
             fmt = '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/pipeline-call-SRC-1.0.0-rc.1/%s/PyClone-VI-0.1.2/output/PyClone-VI-0.1.2_%s_%s_Strelka2-Battenberg.tsv',
+            samples[sample],
             seeds[seed],
             samples[sample]
         )
@@ -60,8 +61,8 @@ get.patient.seed.summary <- function(file.path) {
         sep = '\t',
         header = TRUE
         );
-    seed <- strsplit(file_path, '_')[[1]][2]
-    sample <- strsplit(file_path, '_')[[1]][3]
+    seed <- strsplit(file.path, '_')[[1]][2]
+    sample <- strsplit(file.path, '_')[[1]][3]
     patient <- strsplit(sample, '-')[[1]][1]
     subclones <- length(unique(table$cluster_id))
     sample.summary <- list(patient, seed, subclones)
@@ -80,7 +81,7 @@ for (paths in all.paths) {
 colnames(all.samples.summary) <- c('patient', 'seed', 'n_clones');
 write.table(
     x = all.samples.summary,
-    file = '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/processing/all_subclones_per_patient_seed.tsv',
+    file = '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/all_subclones_per_patient_seed.tsv',
     quote = FALSE,
     sep = '\t'
     );
