@@ -34,7 +34,7 @@ samples <- c(
     );
 
 ### Function_1 ####################################################################################
-# Get all output paths (Referencing Anna's code)
+# Get all output paths (Anna)
 all.paths <- list();
 for (i in 1:length(samples)){
     all.paths[i] <- list(rep(NA, length(seeds)))
@@ -60,13 +60,10 @@ get.patient.seed.summary <- function(file.path) {
         sep = '\t',
         header = TRUE
         );
-    # get metadata
     seed <- strsplit(file_path, '_')[[1]][2]
     sample <- strsplit(file_path, '_')[[1]][3]
     patient <- strsplit(sample, '-')[[1]][1]
-    # get number of subclones
     subclones <- length(unique(table$cluster_id))
-    # make summary list
     sample.summary <- list(patient, seed, subclones)
     return(sample.summary)
     };
@@ -80,11 +77,10 @@ for (paths in all.paths) {
         };
     };
 
-# Add column names and save output table
 colnames(all.samples.summary) <- c('patient', 'seed', 'n_clones');
 write.table(
     x = all.samples.summary,
-    file = 'test_summary_table.tsv',
+    file = '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/processing/all_subclones_per_patient_seed.tsv',
     quote = FALSE,
     sep = '\t'
     );
