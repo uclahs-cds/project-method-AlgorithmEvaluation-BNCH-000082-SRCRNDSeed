@@ -4,20 +4,17 @@
 ### PREAMBLE ######################################################################################
 # Input directory stem to all pipeline output files
 input.dir.stem <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/'
-pipeline.run <- c(
-  'run-strelka2-battenberg-pyclone-vi',
-  'run-strelka2-battenberg-dplclust'
-  );
-
-run-strelka2-battenberg-pyclone-vi/output/pipeline-call-SRC-1.0.0-rc.1/%s/PyClone-VI-0.1.2/output/PyClone-VI-0.1.2_%s_%s_Strelka2-Battenberg.tsv'
+input.pipeline <- 'run-strelka2-battenberg-pyclone-vi/output/pipeline-call-SRC-1.0.0-rc.1/%s/PyClone-VI-0.1.2/output/'
+input.file <- 'PyClone-VI-0.1.2_%s_%s_Strelka2-Battenberg.tsv'
 
 # Output directory
-output.file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/
-  pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/all_subclones_per_patient_seed_edit.tsv'
+output.dir.stem <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/'
+output.pipeline <- 'pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/'
+output.file <- 'all_subclones_per_patient_seed.tsv'
 
 # Pipelines run
 pipeline.runs <- c(
-  'run-strelka2-battenberg-pyclone-vi', 
+  'run-strelka2-battenberg-pyclone-vi',
   'run-strelka2-battenberg-dpclust'
   );
 
@@ -61,7 +58,7 @@ for (i in 1:length(samples)){
 for (sample in 1:length(samples)) {
     for (seed in 1:length(seeds)) {
         path <- sprintf(
-            fmt = '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/pipeline-call-SRC-1.0.0-rc.1/%s/PyClone-VI-0.1.2/output/PyClone-VI-0.1.2_%s_%s_Strelka2-Battenberg.tsv',
+            fmt = paste0(input.dir.stem, input.pipeline, input.file),
             samples[sample],
             seeds[seed],
             samples[sample]
@@ -99,7 +96,7 @@ colnames(all.samples.summary) <- c('patient', 'seed', 'n_clones');
 Sys.Date()
 write.table(
     x = all.samples.summary,
-    file = output.file,
+    file = paste0(output.dir.stem, output.pipeline, output.file),
     quote = FALSE,
     sep = '\t'
     );
