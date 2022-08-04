@@ -2,6 +2,25 @@
 # Extract Strelka2-Battenberg-PyClone-VI output from 14 head and neck samples across 10 seeds.
 
 ### PREAMBLE ######################################################################################
+# Input directory stem to all pipeline output files
+input.dir.stem <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/'
+pipeline.run <- c(
+  'run-strelka2-battenberg-pyclone-vi',
+  'run-strelka2-battenberg-dplclust'
+  );
+
+run-strelka2-battenberg-pyclone-vi/output/pipeline-call-SRC-1.0.0-rc.1/%s/PyClone-VI-0.1.2/output/PyClone-VI-0.1.2_%s_%s_Strelka2-Battenberg.tsv'
+
+# Output directory
+output.file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/
+  pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/all_subclones_per_patient_seed_edit.tsv'
+
+# Pipelines run
+pipeline.runs <- c(
+  'run-strelka2-battenberg-pyclone-vi', 
+  'run-strelka2-battenberg-dpclust'
+  );
+
 # 10 random seeds and 14 primary tumour sample data.
 seeds <- c(
     '51404',
@@ -33,7 +52,6 @@ samples <- c(
     'ILHNLNEV000014-T001-P01-F'
     );
 
-### Function_1 ####################################################################################
 # Get all output paths (Anna)
 all.paths <- list();
 for (i in 1:length(samples)){
@@ -52,7 +70,7 @@ for (sample in 1:length(samples)) {
         };
     };
 
-### Function_2 ####################################################################################
+### get.patient.seed.summary ######################################################################
 # Get summary data per patient file without creating lists of tables
 get.patient.seed.summary <- function(file.path) {
     # read in file
@@ -77,11 +95,11 @@ for (paths in all.paths) {
         all.samples.summary <- rbind(all.samples.summary, get.patient.seed.summary(path))
         };
     };
-
 colnames(all.samples.summary) <- c('patient', 'seed', 'n_clones');
+Sys.Date()
 write.table(
     x = all.samples.summary,
-    file = '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/all_subclones_per_patient_seed.tsv',
+    file = output.file,
     quote = FALSE,
     sep = '\t'
     );
