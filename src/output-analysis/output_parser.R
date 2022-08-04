@@ -48,7 +48,7 @@ samples <- c(
     'ILHNLNEV000013-T001-P01-F',
     'ILHNLNEV000014-T001-P01-F'
     );
-
+### CODE #########################################################################################
 # Get all output paths (Anna)
 all.paths <- list();
 for (i in 1:length(samples)){
@@ -84,7 +84,7 @@ get.patient.seed.summary <- function(file.path) {
     return(sample.summary)
     };
 
-### Function_3 ####################################################################################
+### write.table ###################################################################################
 # Add patient vs. seed summary data to summary table
 all.samples.summary <- data.frame();
 for (paths in all.paths) {
