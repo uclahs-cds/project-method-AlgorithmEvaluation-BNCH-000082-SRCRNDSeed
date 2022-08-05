@@ -25,7 +25,7 @@ seeds <- c(
     '659767',
     '13142'
     );
-missing <- c('423647', '628019')
+
 samples <- c(
     'ILHNLNEV000001-T001-P01-F',
     'ILHNLNEV000002-T001-P01-F',
