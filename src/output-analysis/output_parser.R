@@ -93,10 +93,10 @@ for (paths in all.paths) {
         };
     };
 colnames(all.samples.summary) <- c('patient', 'seed', 'n_clones');
-Sys.Date()
 write.table(
     x = all.samples.summary,
-    file = paste0(output.dir.stem, output.pipeline, output.file),
+    file = paste0(output.dir.stem, output.pipeline, Sys.Date(), '_', output.file),
+    sep = '\t',
     quote = FALSE,
-    sep = '\t'
+    row.names = FALSE
     );
