@@ -1,5 +1,5 @@
 ### PARSER ########################################################################################
-# Extract Strelka2-Battenberg-PyClone-VI ms output from 14 head and neck samples across 10 seeds.
+# Extract Strelka2-Battenberg-PyClone-VI ms output from 7 head and neck samples across 10 seeds.
 
 ### PREAMBLE ######################################################################################
 # Input directory stem to all pipeline output files
@@ -12,7 +12,7 @@ output.dir.stem <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSe
 output.pipeline <- 'pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/'
 output.file <- 'pyclone_ms_subclones_per_patient_seed.tsv'
 
-# 10 random seeds and 14 primary tumour sample data.
+# 10 random seeds and 7 primary tumour sample data.
 seeds <- c(
     '51404',
     '366306',
