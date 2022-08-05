@@ -1,22 +1,16 @@
 ### PARSER ########################################################################################
-# Extract Strelka2-Battenberg-PyClone-VI output from 14 head and neck samples across 10 seeds.
+# Extract Strelka2-Battenberg-DPClust output from ss 14 head and neck samples across 10 seeds.
 
 ### PREAMBLE ######################################################################################
 # Input directory stem to all pipeline output files
-input.dir.stem <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/'
-input.pipeline <- 'run-strelka2-battenberg-pyclone-vi/output/pipeline-call-SRC-1.0.0-rc.1/%s/PyClone-VI-0.1.2/output/'
-input.file <- 'PyClone-VI-0.1.2_%s_%s_Strelka2-Battenberg.tsv'
+input.dir.stem <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src'
+input.pipeline <- '/run-strelka2-battenberg-dpclust/output/pipeline-call-SRC-1.0.0-rc.1/%s/DPClust-75f5d7e/output'
+input.file <- '/%s_DPoutput_2000iters_1000burnin_seed%s/%s_2000iters_1000burnin_bestClusterInfo.txt'
 
 # Output directory
 output.dir.stem <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/'
-output.pipeline <- 'pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/'
-output.file <- 'all_subclones_per_patient_seed.tsv'
-
-# Pipelines run
-pipeline.runs <- c(
-  'run-strelka2-battenberg-pyclone-vi',
-  'run-strelka2-battenberg-dpclust'
-  );
+output.pipeline <- 'pipeline-call-src/run-strelka2-battenberg-dpclust/output/'
+output.file <- 'all_dpclust_subclones_per_patient_seed.tsv'
 
 # 10 random seeds and 14 primary tumour sample data.
 seeds <- c(
@@ -60,6 +54,7 @@ for (sample in 1:length(samples)) {
         path <- sprintf(
             fmt = paste0(input.dir.stem, input.pipeline, input.file),
             samples[sample],
+            samples[sample],
             seeds[seed],
             samples[sample]
         )
@@ -76,10 +71,11 @@ get.patient.seed.summary <- function(file.path) {
         sep = '\t',
         header = TRUE
         );
-    seed <- strsplit(file.path, '_')[[1]][2]
-    sample <- strsplit(file.path, '_')[[1]][3]
+    file.name <- strsplit(file.path, '/')[[1]][14]
+    seed <- strsplit(file.name, 'seed')[[1]][2]
+    sample <- strsplit(file.name, '_')[[1]][1]
     patient <- strsplit(sample, '-')[[1]][1]
-    subclones <- length(unique(table$cluster_id))
+    subclones <- nrow(table)
     sample.summary <- list(patient, seed, subclones)
     return(sample.summary)
     };
@@ -97,6 +93,6 @@ write.table(
     x = all.samples.summary,
     file = paste0(output.dir.stem, output.pipeline, Sys.Date(), '_', output.file),
     sep = '\t',
-    quote = FALSE,
-    row.names = FALSE
+    row.names = FALSE,
+    quote = FALSE
     );
