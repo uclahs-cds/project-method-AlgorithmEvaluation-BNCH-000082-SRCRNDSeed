@@ -88,4 +88,3 @@ write.table(
     quote = FALSE,
     row.names = FALSE
     );
-
