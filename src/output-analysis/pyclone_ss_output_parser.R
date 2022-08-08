@@ -107,7 +107,7 @@ write.table(
 # Get number of ccf and snvs per cluster
 get.snvs.per.cluster <- function(table) {
     cluster.summary <- table %>% group_by(cluster_id) %>% summarise(
-        snv_per_cluster = n(), 
+        snv_per_cluster = n(),
         ccf_per_cluster = mean(cellular_prevalence)
         )
     return(cluster.summary)
@@ -125,7 +125,6 @@ get.snv.ccf.summary <- function(file.path) {
     seed <- strsplit(file.path, '_')[[1]][2]
     sample <- strsplit(file.path, '_')[[1]][3]
     patient <- strsplit(sample, '-')[[1]][1]
-    
     # get snv and ccf summary data and add metadata
     snv.ccf.summary <- get.snvs.per.cluster(table)
     snv.ccf.summary$seed <- rep(seed, nrow(snv.ccf.summary))
@@ -149,5 +148,3 @@ write.table(
     quote = FALSE,
     row.names = FALSE
     );
-
-

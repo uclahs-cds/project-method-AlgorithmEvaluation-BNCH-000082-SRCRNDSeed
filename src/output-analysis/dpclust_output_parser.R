@@ -111,7 +111,6 @@ get.ccf.sv.summary <- function(file.path) {
     seed <- strsplit(file.name, 'seed')[[1]][2]
     sample <- strsplit(file.name, '_')[[1]][1]
     patient <- strsplit(sample, '-')[[1]][1]
-    
     # add metadata to table
     table$seed <- rep(seed, nrow(table))
     table$patient <- rep(patient, nrow(table))
@@ -134,4 +133,3 @@ write.table(
     row.names = FALSE,
     quote = FALSE
     );
-
