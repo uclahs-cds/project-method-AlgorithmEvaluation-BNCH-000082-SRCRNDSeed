@@ -11,7 +11,7 @@
 library(BoutrosLab.plotting.general);
 library(BoutrosLab.statistics.general);
 library(BoutrosLab.utilities);
-library(dplyr);
+library(data.table);
 
 # Output directory for generated plots
 setwd('/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/plots');
@@ -55,33 +55,33 @@ subclone.summary <- rbind(pyclone.ms.subclones, pyclone.ss.subclones, dpclust.ss
 
 ### get.subclone.summary ##########################################################################
 # get subclone mean and sd per src algorithm tool
-pyclone.ss.summary <- pyclone.ss.subclones %>% group_by(patient) %>% summarise(
-    mean.clones = mean(n_clones),
-    sd.clones = sd(n_clones),
-    tool = 'pyclone_ss'
+pyclone.ss.summary <- setDT(pyclone.ss.subclones)[ , .(mean.clones = mean(n_clones), sd.clones = sd(n_clones), tool = 'pyclone_ss'), by = patient];
+pyclone.ms.incomplete <- setDT(pyclone.ms.subclones)[ , .(mean.clones = mean(n_clones), sd.clones = sd(n_clones), tool = 'pyclone_ms'), by = patient];
+dpclust.ss.summary <- setDT(dpclust.ss.subclones)[ , .(mean.clones = mean(n_clones), sd.clones = sd(n_clones), tool = 'dpclust_ss'), by = patient];
+
+# Empty ms data
+empty.ms <- data.frame(
+    patient = c('ILHNLNEV000004', 'ILHNLNEV000005', 'ILHNLNEV000008', 'ILHNLNEV000009', 'ILHNLNEV000010', 'ILHNLNEV000011', 'ILHNLNEV000013'),
+    mean.clones = rep(0,7),
+    sd.clones = rep(0,7),
+    tool = rep('pyclone_ss', 7)
     );
 
-pyclone.ms.summary <- pyclone.ms.subclones %>% group_by(patient) %>% summarise(
-  mean.clones = mean(n_clones),
-  sd.clones = sd(n_clones),
-  tool = 'pyclone_ms'
-  );
-
-dpclust.ss.summary <- dpclust.ss.subclones %>% group_by(patient) %>% summarise(
-  mean.clones = mean(n_clones),
-  sd.clones = sd(n_clones),
-  tool = 'dpclust_ms'
-  );
+# Add empty data to have 14 ms samples
+pyclone.ms.summary <- rbind(pyclone.ms.incomplete, empty.ms);
 
 # Summary (mean and sd) of subclones of all src tools
 pipeline.summary <- rbind(pyclone.ms.summary, pyclone.ss.summary, dpclust.ss.summary);
 
+# sort data
+pipeline.summary <- pipeline.summary[order(pipeline.summary$patient, pipeline.summary$tool),];
+pipeline.summary$order <- 1:nrow(pipeline.summary);
+
 ### pipeline.variance.barplot #####################################################################
 # Comparison of mean number of subclones per src pipeline
 pipeline.variance.barplot <- create.barplot(
-    formula = mean.clones ~ patient,
+    formula = mean.clones ~ order,
     data = pipeline.summary,
-    groups = tool,
     filename = generate.filename('proj-seed', 'pipeline.variance.barplot', 'png'),
     main = 'Number of subclones across SRC pipelines',
     xlab.lab = 'Patients',
@@ -106,17 +106,16 @@ pipeline.variance.barplot <- create.barplot(
     left.padding = 4,
     ylab.axis.padding = 2,
     xlab.axis.padding = 2,
-    # Add sd error bars
-    # y.error.up = ifelse(
-    #    test = pipeline.summary$sd.clones != 0,
-    #    yes = pipeline.summary$sd.clones,
-    #    no = NA
-    #    ),
-    # y.error.up = pipeline.summary$sd.clones,
-    # y.error.bar.col = 'black',
-    # error.bar.lwd = 1,
-    # error.whisker.angle = 90,
-    col = c('#f56763', '#4a4ba6', '#cae5ff'),
+    y.error.up = ifelse(
+        test = pipeline.summary$sd.clones != 0,
+        yes = pipeline.summary$sd.clones,
+        no = NA
+        ),
+    y.error.bar.col = 'black',
+    error.bar.lwd = 1.2,
+    error.whisker.width = 0.03, 
+    error.whisker.angle = 90,
+    col = rep(c('#f56763', '#4a4ba6', '#cae5ff'), nrow(pipeline.summary) / 3),
     legend = list(
         inside = list(
             fun = draw.key,
@@ -143,7 +142,7 @@ pipeline.variance.barplot <- create.barplot(
     height = 6,
     width = 9
     );
-
+pipeline.variance.barplot
 
 ### snv.variance.barplot ##########################################################################
 # add here
