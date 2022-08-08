@@ -12,7 +12,7 @@ output.dir.stem <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSe
 output.pipeline <- 'pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/'
 output.file <- 'pyclone_ms_subclones_per_patient_seed.tsv'
 
-# 10 random seeds and 7 primary tumour sample data.
+# 10 random seeds and 7 patients (1 primary tumour and 2 lymph samples each).
 seeds <- c(
     '51404',
     '366306',
