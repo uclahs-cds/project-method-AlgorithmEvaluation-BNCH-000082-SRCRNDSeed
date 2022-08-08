@@ -108,7 +108,7 @@ pipeline.variance.barplot <- create.barplot(
         ),
     y.error.bar.col = 'black',
     error.bar.lwd = 1.2,
-    error.whisker.width = 0.03, 
+    error.whisker.width = 0.03,
     error.whisker.angle = 90,
     col = rep(c('#f56763', '#4a4ba6', '#cae5ff'), nrow(pipeline.summary) / 3),
     legend = list(
