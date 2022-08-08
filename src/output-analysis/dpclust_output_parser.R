@@ -10,7 +10,8 @@ input.file <- '/%s_DPoutput_2000iters_1000burnin_seed%s/%s_2000iters_1000burnin_
 # Output directory
 output.dir.stem <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/'
 output.pipeline <- 'pipeline-call-src/run-strelka2-battenberg-dpclust/output/'
-output.file <- 'all_dpclust_subclones_per_patient_seed.tsv'
+output.file <- 'dpclust_subclones_per_patient_seed.tsv'
+output.file.cluster <- 'dpclust_snv_ccf_per_cluster.tsv'
 
 # 10 random seeds and 14 primary tumour sample data.
 seeds <- c(
@@ -96,3 +97,41 @@ write.table(
     row.names = FALSE,
     quote = FALSE
     );
+
+### get.ccf.sv.summary ############################################################################
+# Get summary data of cluster (ccf and number of snvs) per patient file
+get.ccf.sv.summary <- function(file.path) {
+    # read in file
+    table <- read.table(
+        file = file.path,
+        sep = '\t',
+        header = TRUE
+        );
+    file.name <- strsplit(file.path, '/')[[1]][14]
+    seed <- strsplit(file.name, 'seed')[[1]][2]
+    sample <- strsplit(file.name, '_')[[1]][1]
+    patient <- strsplit(sample, '-')[[1]][1]
+    
+    # add metadata to table
+    table$seed <- rep(seed, nrow(table))
+    table$patient <- rep(patient, nrow(table))
+    return(table)
+    };
+
+### write.table ###################################################################################
+# Add ccf and sv summary data to summary table
+all.ccf.sv.summary <- data.frame();
+    for (paths in all.paths) {
+        for (path in paths) {
+          all.ccf.sv.summary <- rbind(all.ccf.sv.summary, get.ccf.sv.summary(path))
+        };
+    };
+
+write.table(
+    x = all.samples.summary,
+    file = paste0(output.dir.stem, output.pipeline, Sys.Date(), '_', output.file.cluster),
+    sep = '\t',
+    row.names = FALSE,
+    quote = FALSE
+    );
+
