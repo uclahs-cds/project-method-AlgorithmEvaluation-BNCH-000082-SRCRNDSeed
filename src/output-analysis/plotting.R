@@ -112,6 +112,7 @@ pipeline.variance.barplot <- create.barplot(
     #    yes = pipeline.summary$sd.clones,
     #    no = NA
     #    ),
+    # y.error.up = pipeline.summary$sd.clones,
     # y.error.bar.col = 'black',
     # error.bar.lwd = 1,
     # error.whisker.angle = 90,
@@ -142,6 +143,7 @@ pipeline.variance.barplot <- create.barplot(
     height = 6,
     width = 9
     );
+
 
 ### snv.variance.barplot ##########################################################################
 # add here
@@ -180,7 +182,7 @@ dplcust.boxplot <- create.boxplot(
     height = 6,
     width = 9
     );
-
+dplcust.boxplot
 ### pyclone.ss.boxplot ############################################################################
 pyclone.ss.boxplot <- create.boxplot(
     formula = n_clones ~ patient,
