@@ -11,6 +11,7 @@
 ### PREAMBLE ######################################################################################
 # load libraries
 library(BoutrosLab.plotting.general);
+library(BoutrosLab.utilities);
 
 # Output directory for generated plots
 setwd('/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/plots');
@@ -176,8 +177,9 @@ dplcust <- create.scatterplot(
     left.padding = 4,
     ylab.axis.padding = 2,
     description = 'Scatterplot created by BoutrosLab.plotting.general',
-    height = 5,
-    width = 15,
+    height = 4,
+    width = 10,
+    resolution = 300
     );
 
 ### pyclone ss ###############################################################################
@@ -220,8 +222,9 @@ pyclone.ss <- create.scatterplot(
     left.padding = 4,
     ylab.axis.padding = 2,
     description = 'Scatterplot created by BoutrosLab.plotting.general',
-    height = 5,
-    width = 15,
+    height = 4,
+    width = 10,
+    resolution = 300
     );
 
 ### pyclone ms ###############################################################################
@@ -267,6 +270,7 @@ pyclone.ms <- create.scatterplot(
     description = 'Scatterplot created by BoutrosLab.plotting.general',
     height = 5,
     width = 11,
+    resolution = 300,
     legend = list(
         right = list(fun = clonality.legends.grob)
         )
