@@ -70,71 +70,118 @@ pipeline.summary <- rbind(pyclone.ms.summary, pyclone.ss.summary, dpclust.ss.sum
 pipeline.summary <- pipeline.summary[order(pipeline.summary$patient, pipeline.summary$tool),];
 pipeline.summary$order <- 1:nrow(pipeline.summary);
 
-### pipeline.variance.barplot #####################################################################
-# Comparison of mean number of subclones per src pipeline
-pipeline.variance.barplot <- create.barplot(
-    formula = mean.clones ~ order,
-    data = pipeline.summary,
-    filename = generate.filename('proj-seed', 'pipeline.variance.barplot', 'png'),
-    main = 'Number of subclones across SRC pipelines',
-    xlab.lab = 'Patients',
-    ylab.lab = 'Mean number of subclones',
-    main.x = 0.52,
-    ylimits = c(0,10),
-    yat = seq(0,10,1),
-    xaxis.tck = c(1,0),
-    yaxis.tck = c(1,0),
-    main.cex = 1.2,
+### dplcust.boxplot ###############################################################################
+dplcust.boxplot <- create.boxplot(
+    formula = n_clones ~ patient,
+    data = dpclust.ss.subclones,
+    filename = generate.filename('proj-seed', 'DPClust_boxplot', 'png'),
+    main = 'DPClust variability of subclones across 10 random seeds',
+    ylab.label = 'Number of subclones',
+    xlab.label = 'Head and neck primary tumour samples from 14 patients',
     main.just = 'center',
-    xaxis.cex = 0.7,
+    main.x = 0.52,
+    # add points
+    add.stripplot = TRUE,
+    points.pch = 19,
+    points.col = 'black',
+    points.cex = 0.3,
+    points.alpha = 1,
+    col = '#f567637f',
+    alpha.rectangle = 0.8,
+    main.cex = 1.2,
+    xaxis.cex = 0,
     yaxis.cex = 0.9,
     xlab.cex = 1.1,
     ylab.cex = 1.1,
+    xaxis.tck = c(1,0),
+    yaxis.tck = c(1,0),
     xaxis.rot = 40,
     xaxis.fontface = 1,
     yaxis.fontface = 1,
-    xat = seq(2, 42, 3),
-    xaxis.lab = pipeline.summary$patient[seq(1, nrow(pipeline.summary), 3)],
     top.padding = 4,
     bottom.padding = 4,
     right.padding = 4,
     left.padding = 4,
     ylab.axis.padding = 2,
-    xlab.axis.padding = 2,
-    y.error.up = ifelse(
-        test = pipeline.summary$sd.clones != 0,
-        yes = pipeline.summary$sd.clones,
-        no = NA
-        ),
-    y.error.bar.col = 'black',
-    error.bar.lwd = 1.2,
-    error.whisker.width = 0.03,
-    error.whisker.angle = 90,
-    col = rep(c('#f56763', '#4a4ba6', '#cae5ff'), nrow(pipeline.summary) / 3),
-    legend = list(
-        inside = list(
-            fun = draw.key,
-                args = list(
-                    key = list(
-                      points = list(
-                          col = 'black',
-                          pch = 22,
-                          cex = 2,
-                          fill = c('#f56763', '#4a4ba6', '#cae5ff')
-                          ),
-                      text = list(
-                          lab = c('DPClust','PyClone-VI multi-sample mode', 'PyClone-VI single-sample mode')
-                          ),
-                      padding.text = 3,
-                      cex = 1
-                      )
-                  ),
-                  x = 0.03,
-                  y = 0.95
-            )
-        ),
-    description = 'Barplot created by BoutrosLab.plotting.general',
-    height = 6,
+    description = 'Boxplot created by BoutrosLab.plotting.general',
+    height = 4,
+    width = 9,
+    );
+
+### pyclone.ss.boxplot ############################################################################
+pyclone.ss.boxplot <- create.boxplot(
+    formula = n_clones ~ patient,
+    data = pyclone.ss.subclones,
+    filename = generate.filename('proj-seed', 'PyClone-VI_ss_boxplot', 'png'),
+    main = 'PyClone-VI (ss) variability of subclones across 10 random seeds',
+    ylab.label = 'Number of subclones',
+    xlab.label = 'Head and neck primary tumour samples from 14 patients',
+    main.just = 'center',
+    main.x = 0.52,
+    # add points
+    add.stripplot = TRUE,
+    points.pch = 19,
+    points.col = 'black',
+    points.cex = 0.3,
+    points.alpha = 1,
+    col = '#cae5ff7f',
+    main.cex = 1.2,
+    xaxis.cex = 0,
+    yaxis.cex = 0.9,
+    ylimits = c(0.8,4),
+    yat = seq(0,4,1),
+    xaxis.tck = c(1,0),
+    yaxis.tck = c(1,0),
+    xlab.cex = 1.1,
+    ylab.cex = 1.1,
+    xaxis.rot = 40,
+    xaxis.fontface = 1,
+    yaxis.fontface = 1,
+    top.padding = 4,
+    bottom.padding = 4,
+    right.padding = 4,
+    left.padding = 4,
+    ylab.axis.padding = 2,
+    description = 'Boxplot created by BoutrosLab.plotting.general',
+    height = 3,
     width = 9
     );
-pipeline.variance.barplot
+  
+### pyclone.ms.boxplot ############################################################################
+pyclone.ms.boxplot <- create.boxplot(
+    formula = n_clones ~ patient,
+    data = pyclone.ms.subclones,
+    filename = generate.filename('proj-seed', 'PyClone-VI_ms_boxplot', 'png'),
+    main = 'PyClone-VI (ms) variability of subclones across 10 random seeds',
+    ylab.label = 'Number of subclones',
+    xlab.label = 'Head and neck (1 primary and 2 lymph) tumour samples from 7 patients',
+    main.just = 'center',
+    main.x = 0.52,
+    # add points
+    add.stripplot = TRUE,
+    points.pch = 19,
+    points.col = 'black',
+    points.cex = 0.3,
+    points.alpha = 1,
+    col = '#4a4ba67f',
+    main.cex = 1.2,
+    xaxis.cex = 0,
+    yaxis.cex = 0.9,
+    ylimits = c(0, 5),
+    yat = seq(0,5,1),
+    xaxis.tck = c(1,0),
+    yaxis.tck = c(1,0),
+    xlab.cex = 1.1,
+    ylab.cex = 1.1,
+    xaxis.rot = 40,
+    xaxis.fontface = 1,
+    yaxis.fontface = 1,
+    top.padding = 4,
+    bottom.padding = 4,
+    right.padding = 4,
+    left.padding = 4,
+    ylab.axis.padding = 2,
+    description = 'Boxplot created by BoutrosLab.plotting.general',
+    height = 3,
+    width = 9
+    );
