@@ -75,7 +75,7 @@ pipeline.summary$order <- 1:nrow(pipeline.summary);
 pipeline.variance.barplot <- create.barplot(
     formula = mean.clones ~ order,
     data = pipeline.summary,
-    filename = generate.filename('proj-seed', 'pipeline.variance.barplot', 'png'),
+    filename = generate.filename('proj-seed', 'pipeline_variance_barplot', 'png'),
     main = 'Number of subclones across SRC pipelines',
     xlab.lab = 'Patients',
     ylab.lab = 'Mean number of subclones',
@@ -110,7 +110,7 @@ pipeline.variance.barplot <- create.barplot(
     error.bar.lwd = 1.2,
     error.whisker.width = 0.03,
     error.whisker.angle = 90,
-    col = rep(c('#f56763', '#4a4ba6', '#cae5ff'), nrow(pipeline.summary) / 3),
+    col = rep(c('#f567637f', '#4a4ba67f', '#cae5ff7f'), nrow(pipeline.summary) / 3),
     legend = list(
         inside = list(
             fun = draw.key,
@@ -120,7 +120,7 @@ pipeline.variance.barplot <- create.barplot(
                           col = 'black',
                           pch = 22,
                           cex = 2,
-                          fill = c('#f56763', '#4a4ba6', '#cae5ff')
+                          fill = c('#f567637f', '#4a4ba67f', '#cae5ff7f')
                           ),
                       text = list(
                           lab = c('DPClust','PyClone-VI multi-sample mode', 'PyClone-VI single-sample mode')
@@ -137,4 +137,3 @@ pipeline.variance.barplot <- create.barplot(
     height = 6,
     width = 9
     );
-pipeline.variance.barplot
