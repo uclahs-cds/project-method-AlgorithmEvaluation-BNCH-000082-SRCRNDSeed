@@ -25,6 +25,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Added script to parse patient, seed and number of subclones from Strelka2-Battenberg-PyClone-VI pipeline single-sample mode output.
 - Added script to parse patient, seed and number of subclones from Strelka2-Battenberg-DPClust pipeline single-sample mode output.
 - Added script to parse patient, seed and number of subclones from Strelka2-Battenberg-PyClone-VI pipeline multi-sample mode output.
+- Added script for barplot of number of subcones across SRC pipelines.
+- Added script for boxplots of number of subclones across random seeds for DPClust, PyClone-VI ms and ss mode. 
 
 ### Changed
 - For changes in existing config files, commands and analyses.
