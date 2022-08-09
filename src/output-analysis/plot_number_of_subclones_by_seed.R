@@ -71,31 +71,42 @@ process.subclones.for.plotting <- function(subclones.df) {
     # split df by patient and determine if each seed had more or fewer subclones than seed 1
     subclones.split <- split(subclones.df, subclones.df$patient)
     subclones.split <- lapply(subclones.split, function(x) {
-                            x$compare <- ifelse(x$n_clones > x$n_clones[x$seed == seeds[1]],
-                                                '+',
-                                                ifelse(x$n_clones < x$n_clones[x$seed == seeds[1]],
-                                                        '-',
-                                                        '='
-                                                        )
-                                                    )
-                            x })
+        x$compare <- ifelse(
+            test = x$n_clones > x$n_clones[x$seed == seeds[1]],
+            yes = '+',
+            no = ifelse(
+                test = x$n_clones < x$n_clones[x$seed == seeds[1]],
+                yes = '-',
+                no = '='
+                )
+            )
+            x
+            }
+        )
 
     # every patient has 3 columns of dots (-, =, +)
-    for (i in 1:length(subclones.split)){
-            subclones.split[[i]]$order <- ifelse(subclones.split[[i]]$compare == '=',
-                                                ((i - 1) * 3 + 2),
-                                                ifelse(subclones.split[[i]]$compare == '+',
-                                                    ((i - 1) * 3 + 3),
-                                                    ((i - 1) * 3 + 1)
-                                                    )
-                                                )
+    for (i in 1:length(subclones.split)) {
+        subclones.split[[i]]$order <- ifelse(
+            test = subclones.split[[i]]$compare == '=',
+            yes = ((i - 1) * 3 + 2),
+            no = ifelse(
+                test = subclones.split[[i]]$compare == '+',
+                yes = ((i - 1) * 3 + 3),
+                no = ((i - 1) * 3 + 1)
+                )
+            )
         }
 
     # add colour for type
     subclones.split <- lapply(subclones.split, function(x) {
-            x$col <- ifelse(x$n_clones == 1, clonality.colour.scheme['monoclonal'], clonality.colour.scheme['polyclonal']);
+        x$col <- ifelse(
+            test = x$n_clones == 1,
+            yes = clonality.colour.scheme['monoclonal'],
+            no = clonality.colour.scheme['polyclonal']
+            )
             x
-        })
+            }
+        )
 
     # combine list back to single data frame
     subclones.df.toplot <- do.call(rbind, subclones.split)
@@ -166,7 +177,7 @@ dplcust <- create.scatterplot(
     ylab.axis.padding = 2,
     description = 'Scatterplot created by BoutrosLab.plotting.general',
     height = 5,
-    width = 11,
+    width = 15,
     );
 
 ### pyclone ss ###############################################################################
@@ -210,7 +221,7 @@ pyclone.ss <- create.scatterplot(
     ylab.axis.padding = 2,
     description = 'Scatterplot created by BoutrosLab.plotting.general',
     height = 5,
-    width = 11,
+    width = 15,
     );
 
 ### pyclone ms ###############################################################################
