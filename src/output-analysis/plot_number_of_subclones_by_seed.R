@@ -1,10 +1,16 @@
 ### PLOTTING ########################################################################################
-#
+# Plotting scatterplot for impact of seed selection on variability of src pipeline output.
+# Comparing number of subclones from 9 random seeds to 1 reference seed (51404).
+# Visualizing relative variability across seeds per patient for each pipeline run.
+
+# 14 patients - head and neck tumour samples
+# Strelka2-Battenberg-DPClust single-sample mode: 14 primary tumour * 10 seeds
+# Strelka2-Battenberg-PyClone-VI single-sample mode: 14 primary tumour samples * 10 seeds
+# Strelka2-Battenberg-PyClone-VI multi-sample mode: 7 primary & 2 lymph tumour samples * 10 seeds
 
 ### PREAMBLE ######################################################################################
 # load libraries
 library(BoutrosLab.plotting.general);
-library(dplyr);
 
 # Output directory for generated plots
 setwd('/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/plots');
@@ -59,7 +65,8 @@ dpclust.ss.subclones$tool <- 'dpclust_ss'
 
 ### function ###############################################################################
 
-process.subclones.for.plotting <- function(subclones.df){
+# Do comparison of random seeds 2-10 to reference seed 1 (51404)
+process.subclones.for.plotting <- function(subclones.df) {
 
     # split df by patient and determine if each seed had more or fewer subclones than seed 1
     subclones.split <- split(subclones.df, subclones.df$patient)
@@ -76,16 +83,16 @@ process.subclones.for.plotting <- function(subclones.df){
     # every patient has 3 columns of dots (-, =, +)
     for (i in 1:length(subclones.split)){
             subclones.split[[i]]$order <- ifelse(subclones.split[[i]]$compare == '=',
-                                                ((i-1)*3 + 2),
-                                                ifelse(subclones.split[[i]]$compare == "+",
-                                                    ((i-1)*3 + 3),
-                                                    ((i-1)*3 + 1)
+                                                ((i - 1) * 3 + 2),
+                                                ifelse(subclones.split[[i]]$compare == '+',
+                                                    ((i - 1) * 3 + 3),
+                                                    ((i - 1) * 3 + 1)
                                                     )
                                                 )
         }
 
     # add colour for type
-    subclones.split <- lapply(subclones.split, function(x){
+    subclones.split <- lapply(subclones.split, function(x) {
             x$col <- ifelse(x$n_clones == 1, clonality.colour.scheme['monoclonal'], clonality.colour.scheme['polyclonal']);
             x
         })
@@ -98,8 +105,7 @@ process.subclones.for.plotting <- function(subclones.df){
     subclones.df.toplot$seed.plot.order <- 11 - subclones.df.toplot$seed.order
 
     return(subclones.df.toplot)
-
-}
+    };
 
 ### legend ###############################################################################
 
@@ -110,7 +116,8 @@ clonality.legends <- list(
         labels = c('Monoclonal', 'Polyclonal'),
         title = expression(bold(underline('Clonality'))),
         lwd = 0.1
-    ))
+        )
+    );
 
 clonality.legends.grob <- legend.grob(
     legends = clonality.legends,
@@ -125,13 +132,13 @@ dpclust.ss.subclones.toplot <- process.subclones.for.plotting(dpclust.ss.subclon
 dplcust <- create.scatterplot(
     formula = seed.plot.order ~ order,
     data = dpclust.ss.subclones.toplot,
-    filename = generate.filename('proj-seed', 'DPClust_num_subclones_by_seed', '.png'),
+    filename = generate.filename('proj-seed', 'DPClust_num_subclones_by_seed', 'png'),
     main = 'DPClust number of subclones across 10 random seeds',
     ylab.label = 'Seed',
     xlab.label = 'Number of Subclones Compared to the First Seed',
     col = dpclust.ss.subclones.toplot$col,
     main.x = 0.52,
-    ylimits = c(0,11.5),
+    ylimits = c(0.5,10.5),
     yat = seq(1,10,1),
     yaxis.lab = rev(seeds),
     xaxis.tck = c(0,0),
@@ -145,8 +152,8 @@ dplcust <- create.scatterplot(
     abline.lty = 1,
     main.cex = 1.2,
     main.just = 'center',
-    xaxis.cex = 0.9,
-    yaxis.cex = 0.9,
+    xaxis.cex = 0.7,
+    yaxis.cex = 0.7,
     xlab.cex = 1.1,
     ylab.cex = 1.1,
     xaxis.rot = 0,
@@ -156,16 +163,100 @@ dplcust <- create.scatterplot(
     bottom.padding = 4,
     right.padding = 4,
     left.padding = 4,
+    ylab.axis.padding = 2,
     description = 'Scatterplot created by BoutrosLab.plotting.general',
-    height = 6,
-    width = 9
+    height = 5,
+    width = 11,
     );
 
 ### pyclone ss ###############################################################################
 
 pyclone.ss.subclones.toplot <- process.subclones.for.plotting(pyclone.ss.subclones)
 
+pyclone.ss <- create.scatterplot(
+    formula = seed.plot.order ~ order,
+    data = pyclone.ss.subclones.toplot,
+    filename = generate.filename('proj-seed', 'PyClone-VI_ss_num_subclones_by_seed', 'png'),
+    main = 'PyClone (ss) number of subclones across 10 random seeds',
+    ylab.label = 'Seed',
+    xlab.label = 'Number of Subclones Compared to the First Seed',
+    col = pyclone.ss.subclones.toplot$col,
+    main.x = 0.52,
+    ylimits = c(0.5,10.5),
+    yat = seq(1,10,1),
+    yaxis.lab = rev(seeds),
+    xaxis.tck = c(0,0),
+    yaxis.tck = c(1,0),
+    xlimits = c(0.5, length(unique(pyclone.ss.subclones.toplot$patient)) * 3 + 0.5),
+    xat = 1:(length(unique(pyclone.ss.subclones.toplot$patient)) * 3),
+    xaxis.lab = rep(c('-', '=', '+'), length(unique(pyclone.ss.subclones.toplot$patient))),
+    abline.v = 1:length(unique(pyclone.ss.subclones.toplot$patient)) * 3 + 0.5,
+    abline.col = 'black',
+    abline.lwd = 1,
+    abline.lty = 1,
+    main.cex = 1.2,
+    main.just = 'center',
+    xaxis.cex = 0.7,
+    yaxis.cex = 0.7,
+    xlab.cex = 1.1,
+    ylab.cex = 1.1,
+    xaxis.rot = 0,
+    xaxis.fontface = 1,
+    yaxis.fontface = 1,
+    top.padding = 4,
+    bottom.padding = 4,
+    right.padding = 4,
+    left.padding = 4,
+    ylab.axis.padding = 2,
+    description = 'Scatterplot created by BoutrosLab.plotting.general',
+    height = 5,
+    width = 11,
+    );
+
 ### pyclone ms ###############################################################################
 
+# Add legend to ms plot
 pyclone.ms.subclones.toplot <- process.subclones.for.plotting(pyclone.ms.subclones)
 
+pyclone.ms <- create.scatterplot(
+    formula = seed.plot.order ~ order,
+    data = pyclone.ms.subclones.toplot,
+    filename = generate.filename('proj-seed', 'PyClone-VI_ms_num_subclones_by_seed', 'png'),
+    main = 'PyClone (ms) number of subclones across 10 random seeds',
+    ylab.label = 'Seed',
+    xlab.label = 'Number of Subclones Compared to the First Seed',
+    col = pyclone.ms.subclones.toplot$col,
+    main.x = 0.5,
+    ylimits = c(0.5,10.5),
+    yat = seq(1,10,1),
+    yaxis.lab = rev(seeds),
+    xaxis.tck = c(0,0),
+    yaxis.tck = c(1,0),
+    xlimits = c(0.5, length(unique(pyclone.ms.subclones.toplot$patient)) * 3 + 0.5),
+    xat = 1:(length(unique(pyclone.ss.subclones.toplot$patient)) * 3),
+    xaxis.lab = rep(c('-', '=', '+'), length(unique(pyclone.ms.subclones.toplot$patient))),
+    abline.v = 1:length(unique(pyclone.ms.subclones.toplot$patient)) * 3 + 0.5,
+    abline.col = 'black',
+    abline.lwd = 1,
+    abline.lty = 1,
+    main.cex = 1.2,
+    main.just = 'center',
+    xaxis.cex = 0.7,
+    yaxis.cex = 0.7,
+    xlab.cex = 1.1,
+    ylab.cex = 1.1,
+    xaxis.rot = 0,
+    xaxis.fontface = 1,
+    yaxis.fontface = 1,
+    top.padding = 4,
+    bottom.padding = 4,
+    right.padding = 4,
+    left.padding = 4,
+    ylab.axis.padding = 2,
+    description = 'Scatterplot created by BoutrosLab.plotting.general',
+    height = 5,
+    width = 11,
+    legend = list(
+        right = list(fun = clonality.legends.grob)
+        )
+    );
