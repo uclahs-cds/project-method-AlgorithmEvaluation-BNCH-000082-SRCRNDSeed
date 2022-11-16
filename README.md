@@ -56,7 +56,7 @@ sSNV-caller output:
 
 `/hot/project/disease/HeadNeckTumor/HNSC-000084-LNMEvolution/data/SNV/<sSNV-caller>/recsnv/vcfs/` 
 
-cCNA-caller output: 
+sCNA-caller output: 
 
 `/hot/project/disease/HeadNeckTumor/HNSC-000084-LNMEvolution/data/<sCNA-caller>/`
 
