@@ -30,6 +30,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - For changes in existing config files, commands and analyses.
 - Changed item 1.
+- Changed README to include changed file directories and project details. 
 
 ### Deprecated
 - For soon-to-be removed out-of-date configs and analyses.
