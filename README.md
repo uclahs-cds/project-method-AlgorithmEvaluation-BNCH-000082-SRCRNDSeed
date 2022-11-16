@@ -62,8 +62,12 @@ sCNA-caller output:
 
 
 ## Modes:
+[HNSC]
 - Single region mode (sr) (run on primary tumour only)
 - Multi region mode (mr) (run on primary and metastatic tumours)
+
+[CPGENE]
+- Multi region mode (mr) (run on multiple regions of primary tumour)
 
 ## Running The Pipeline
 
@@ -79,7 +83,6 @@ configs:
 - 1 config per `seed`
 - indicates `src-tool` choice and parameters
 - indicates pipeline run output directory
-
 
 yamls: 
 
