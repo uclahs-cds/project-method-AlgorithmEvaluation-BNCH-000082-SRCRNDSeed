@@ -1,18 +1,17 @@
 # Impact of seed selection on subclonal reconstruction solutions
 
-The project goal is to quantify: 
-1. How SRC results vary depending on the combination of SRC tools
-2. How SRC results vary depending on the initializing random seed
+Project goal:
+1. Quantify SRC result variability across SRC tools
+2. Quantify SRC result variability across initializing random seed
+
 
 ## Description
 
 In this project, we have expanded the subclonal reconstruction pipeline https://github.com/uclahs-cds/pipeline-call-SRC to accept the output of multiple mutation callers.
 
-We have integrated 4 additional mutation callers (MuTect2 single-sample mode, SomaticSniper, Strelka2, Battenberg) by creating parsers that extract variant data from the different tools' output. The parsers can be found here https://github.com/uclahs-cds/tool-SRC-util. 
+We have integrated 4 additional mutation callers (MuTect2, SomaticSniper, Strelka2, Battenberg) by creating parsers that extract variant data from the different tools' output. The parsers can be found here https://github.com/uclahs-cds/tool-SRC-util.   
 
-We used primary tumour samples from a cohort of 14 head and neck cancer patients and 10 random seeds per sample to test each pipeline combination output.
-
-## Random seed selection
+## Random Seed Selection
 
 ### Generating random seeds:
 
@@ -32,25 +31,88 @@ random.sample(range(0, 1000000), k=10)
 Generated/chosen seeds:
 `[51404, 366306, 423647, 838004, 50135, 628019, 97782, 253505, 659767, 13142]`
 
-## Running the pipeline
+## Tumour Sample Data:
 
-### Pipeline template files:
+[HNSC] Head and Neck cohort: `/hot/project/disease/HeadNeckTumor/HNSC-000084-LNMEvolution/data/`
 
-Template file path: `/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/templates/`
+[CPCGENE] Prostate cohort: `/hot/project/disease/ProstateTumor/PRAD-000005-293PT/`
 
-Config file: `./template.config`
-Yaml file: `./template.yaml`
-Submission script: `./template_submission_script.sh`
+## Tools:
 
-### Tested pipeline combinations:
+sSNV-caller: `mutect2`, `strelka2`, `somaticsniper`
 
-- [] MuTect2-Battenberg-PyClone-VI
-- [] SomaticSniper-Battenberg-PyClone-VI
-- [] Strelka2-Battenberg-PyClone-VI
+sCNA-caller: `battenberg`
+
+src-tool: `pyclone-vi`, `dpclust`, `phylowgs` 
+
+### Node selection:
+- PyClone-VI: F32 (average run time 15s - 10min)
+- DPClust: F32 (average run time 5min - 40min)
+- PhyloWGS: F72 (average run time 5h - 13h)
+
+## sSNV-caller and sCNA-caller results:
+
+sSNV-caller output: 
+
+`/hot/project/disease/HeadNeckTumor/HNSC-000084-LNMEvolution/data/SNV/<sSNV-caller>/recsnv/vcfs/` 
+
+cCNA-caller output: 
+
+`/hot/project/disease/HeadNeckTumor/HNSC-000084-LNMEvolution/data/<sCNA-caller>/`
+
+
+## Modes:
+- Single region mode (sr) (run on primary tumour only)
+- Multi region mode (mr) (run on primary and metastatic tumours)
+
+## Running The Pipeline
+
+The pipeline is run for each sample and seed in both single region and multi region mode.
+
+Templates: `/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/templates/`
+
+### Pipeline input files:
+configs: 
+
+`/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-<sSNV-caller>-<sCNA-caller>-<src-tool>/input/config/<seed>_seed.config`
+
+- 1 config per `seed`
+- indicates `src-tool` choice and parameters
+- indicates pipeline run output directory
+
+
+yamls: 
+
+`/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/<sSNV-caller>_<sCNA-caller>_yamls/<mode>/<patient_id>.yaml`
+
+- 1 yaml per patient (multiple samples for multi region mode in the same yaml)
+- path to `sSNV-caller` output
+- path to `sCNA-caller` output
+
+### Submission script:
+submission script: `<mode>_<sSNV-caller>_<sCNA-caller>_<src-tool>_submission_script.sh`
+
+### Completed pipeline combinations:
+
+- [x] Strelka2-Battenberg-PyClone-VI (sr/mr)
+- [x] Strelka2-Battenberg-DPClust (sr)
+- [x] SomaticSniper-Battenberg-PyClone-VI (sr)
+- [x] SomaticSniper-Battenberg-DPClust (sr)
+- [x] Mutect2-Battenberg-DPClust (sr)
+- [x] Mutect2-Battenberg-PhyloWGS ()
+
+*insert pipeline overview graphic here*
 
 ### Results:
 
-Output Strelka2-Battenberg-PyClone-VI: `/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output`
+Output files:
+
+`/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-<sSNV-caller>-<sCNA-caller>-<src-tool>/output/`
+
+Log files:
+
+`/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-<sSNV-caller>-<sCNA-caller>-<src-tool>/logs/`
+
 
 ## License
 
