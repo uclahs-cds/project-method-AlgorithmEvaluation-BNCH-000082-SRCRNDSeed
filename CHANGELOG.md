@@ -52,3 +52,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Removed
 - Old script ss_strelka2_battenberg_dpclust_submission_script.sh
+
+## [Unreleased] - 2022-11-28
+### Added
+- new script sr_somticsniper_battenberg_pyclone-vi_submission_script.sh
