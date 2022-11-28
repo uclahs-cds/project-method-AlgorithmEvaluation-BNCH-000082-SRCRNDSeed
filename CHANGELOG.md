@@ -56,3 +56,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased] - 2022-11-28
 ### Added
 - new script sr_somticsniper_battenberg_pyclone-vi_submission_script.sh
+
+### Changed
+- Changed SomaticSniper-Battenberg yaml location to /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/somaticsniper_battenberg_yaml
+- Changed --nextflow_yaml directory in sr_somticsniper_battenberg_pyclone_submission_script.sh
