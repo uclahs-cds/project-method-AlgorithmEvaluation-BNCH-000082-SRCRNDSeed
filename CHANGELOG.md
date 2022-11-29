@@ -57,3 +57,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Added new script sr_somaticsniper_battenberg_pyclone-vi_submission_script.sh
 - Added new script sr_somaticsniper_battenberg_dpclust_submission_script.sh
+- Added new script sr_mutect2_battenberg_dpclust_submission_script.sh
