@@ -1,4 +1,4 @@
-# Submission script for SRC pipeline
+# Submission script for SRC pipeline (multi-region mode Strelka2-Battenberg-PyClone-VI)
 
 seeds=("51404" "366306" "423647" "838004" "50135" "628019" "97782" "253505" "659767" "13142")
 patients=(
@@ -19,8 +19,8 @@ do
         submit_signal="false"
         while [ $submit_signal == "false" ]
         do
-            sleep 30
-            jobs_running=$((`squeue -u aneimangolden | wc -l` - 1))
+            sleep 60
+            jobs_running=$((`squeue -u psteinberg | wc -l` - 1))
             echo "jobs running: $jobs_running"
             if [ $jobs_running -lt 5 ]
             then
@@ -30,9 +30,9 @@ do
         python3 /hot/software/package/tool-submit-nf/Python/release/2.2.0/submit_nextflow_pipeline.py \
             --nextflow_script /hot/user/yashpatel/pipeline-call-SRC/pipeline-call-SRC/main.nf \
             --nextflow_config /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/input/config/seed_${seed}.config \
-            --nextflow_yaml /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/input/yaml/multi-sample/${patient}.yaml \
-            --pipeline_run_name ${patient}_${seed}_Strelka2-Battenberg-PyClone-VI \
+            --nextflow_yaml /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/strelka2_battenberg_yamls/multi-region/${patient}.yaml \
+            --pipeline_run_name ${patient}_${seed}_Strelka2-Battenberg-PyClone-VI-mr \
             --partition_type F32 \
-            --email aneimangolden@mednet.ucla.edu
+            --email psteinberg@mednet.ucla.edu
     done
 done
