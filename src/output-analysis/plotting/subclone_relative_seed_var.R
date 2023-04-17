@@ -16,44 +16,7 @@ parser$add_argument('-p', '--pipeline', type = 'character', help = 'src pipeline
 parser$add_argument('-m', '--mode', type = 'character', help = 'src pipeline mode (single-region or multi-region)');
 parser$add_argument('-o', '--output', type = 'character', help = 'path to plot output directory');
 args <- parser$parse_args();
-### TEST FILES ###################################################################################
-args <- list();
-args$output <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/plots/stripplot/';
-# args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/2023-04-02_num_subclones_strelka2_battenberg_pyclone-vi_sr.tsv';
-# args$pipeline <- 'Strelka2-Battenberg-PyClone-VI';
-# args$mode <- 'sr';
-#
-# args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-dpclust/output/2023-04-02_num_subclones_strelka2_battenberg_dpclust_sr.tsv';
-# args$pipeline <- 'Strelka2-Battenberg-DPClust';
-# args$mode <- 'sr';
-#
-# args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/2023-04-02_num_subclones_strelka2_battenberg_pyclone-vi_mr.tsv';
-# args$pipeline <- 'Strelka2-Battenberg-PyClone-VI';
-# args$mode <- 'mr';
-#
-# args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-mutect2-battenberg-pyclone-vi/output/2023-04-02_num_subclones_mutect2_battenberg_pyclone-vi_sr.tsv';
-# args$pipeline <- 'Mutect2-Battenberg-PyClone-VI';
-# args$mode <- 'sr';
-#
-# args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-mutect2-battenberg-pyclone-vi/output/2023-04-02_num_subclones_mutect2_battenberg_pyclone-vi_mr.tsv';
-# args$pipeline <- 'Mutect2-Battenberg-PyClone-VI';
-# args$mode <- 'mr';
-#
-# args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-mutect2-battenberg-dpclust/output/2023-04-02_num_subclones_mutect2_battenberg_dpclust_sr.tsv';
-# args$pipeline <- 'Mutect2-Battenberg-DPClust';
-# args$mode <- 'sr';
-#
-# args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-pyclone-vi/output/2023-04-02_num_subclones_somaticsniper_battenberg_pyclone-vi_sr.tsv';
-# args$pipeline <- 'SomaticSniper-Battenberg-PyClone-VI';
-# args$mode <- 'sr';
-#
-# args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-pyclone-vi/output/2023-04-02_num_subclones_somaticsniper_battenberg_pyclone-vi_mr.tsv';
-# args$pipeline <- 'SomaticSniper-Battenberg-PyClone-VI';
-# args$mode <- 'mr';
-#
-# args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-dpclust/output/2023-04-02_num_subclones_somaticsniper_battenberg_dpclust_sr.tsv';
-# args$pipeline <- 'SomaticSniper-Battenberg-DPClust';
-# args$mode <- 'sr';
+
 ### PROCESS DATA ##################################################################################
 # 10 random seeds
 seeds <- c(
@@ -117,7 +80,6 @@ process.subclones.for.plotting.mode <- function(subclones.df) {
             x
         }
         )
-    
     # every patient has 3 columns of dots (-, =, +)
     for (i in 1:length(subclones.split)) {
         subclones.split[[i]]$order <- ifelse(
@@ -130,7 +92,6 @@ process.subclones.for.plotting.mode <- function(subclones.df) {
                 )
             )
         }
-    
     # add colour for type
     subclones.split <- lapply(subclones.split, function(x) {
         x$col <- ifelse(
@@ -141,14 +102,11 @@ process.subclones.for.plotting.mode <- function(subclones.df) {
             x
         }
         )
-    
     # combine list back to single data frame
     subclones.df.toplot <- do.call(rbind, subclones.split)
-    
     # order seeds from 1 to 10 (1 at the top)
     subclones.df.toplot$seed.order <- match(subclones.df.toplot$seed, seeds)
     subclones.df.toplot$seed.plot.order <- 11 - subclones.df.toplot$seed.order
-    
     return(subclones.df.toplot)
     };
 
@@ -246,8 +204,8 @@ plot.mr <- function(df) {
         left.padding = 4,
         ylab.axis.padding = 2,
         description = 'Scatterplot created by BoutrosLab.plotting.general',
-        height = 5,
-        width = 11,
+        height = 4,
+        width = 10,
         resolution = 300,
         legend = list(
             right = list(fun = clonality.legends.grob)
@@ -260,6 +218,8 @@ plot.mr <- function(df) {
 setwd(args$output);
 if (args$mode == 'sr') {
     plot.sr(subclones.data)
+    print('plotting sr')
     } else {
         plot.mr(subclones.data)
+        print('plotting mr')
     };
