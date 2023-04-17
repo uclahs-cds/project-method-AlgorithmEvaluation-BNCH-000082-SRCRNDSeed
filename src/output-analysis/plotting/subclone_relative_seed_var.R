@@ -22,39 +22,38 @@ args$output <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/p
 # args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/2023-04-02_num_subclones_strelka2_battenberg_pyclone-vi_sr.tsv';
 # args$pipeline <- 'Strelka2-Battenberg-PyClone-VI';
 # args$mode <- 'sr';
-
+#
 # args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-dpclust/output/2023-04-02_num_subclones_strelka2_battenberg_dpclust_sr.tsv';
 # args$pipeline <- 'Strelka2-Battenberg-DPClust';
 # args$mode <- 'sr';
-
+#
 # args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/2023-04-02_num_subclones_strelka2_battenberg_pyclone-vi_mr.tsv';
 # args$pipeline <- 'Strelka2-Battenberg-PyClone-VI';
 # args$mode <- 'mr';
-
+#
 # args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-mutect2-battenberg-pyclone-vi/output/2023-04-02_num_subclones_mutect2_battenberg_pyclone-vi_sr.tsv';
 # args$pipeline <- 'Mutect2-Battenberg-PyClone-VI';
 # args$mode <- 'sr';
-
+#
 # args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-mutect2-battenberg-pyclone-vi/output/2023-04-02_num_subclones_mutect2_battenberg_pyclone-vi_mr.tsv';
 # args$pipeline <- 'Mutect2-Battenberg-PyClone-VI';
 # args$mode <- 'mr';
-
+#
 # args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-mutect2-battenberg-dpclust/output/2023-04-02_num_subclones_mutect2_battenberg_dpclust_sr.tsv';
 # args$pipeline <- 'Mutect2-Battenberg-DPClust';
 # args$mode <- 'sr';
-
+#
 # args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-pyclone-vi/output/2023-04-02_num_subclones_somaticsniper_battenberg_pyclone-vi_sr.tsv';
 # args$pipeline <- 'SomaticSniper-Battenberg-PyClone-VI';
 # args$mode <- 'sr';
-
+#
 # args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-pyclone-vi/output/2023-04-02_num_subclones_somaticsniper_battenberg_pyclone-vi_mr.tsv';
 # args$pipeline <- 'SomaticSniper-Battenberg-PyClone-VI';
 # args$mode <- 'mr';
-
+#
 # args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-dpclust/output/2023-04-02_num_subclones_somaticsniper_battenberg_dpclust_sr.tsv';
 # args$pipeline <- 'SomaticSniper-Battenberg-DPClust';
 # args$mode <- 'sr';
-
 ### PROCESS DATA ##################################################################################
 # 10 random seeds
 seeds <- c(
@@ -259,7 +258,7 @@ plot.mr <- function(df) {
 ### PLOT ##########################################################################################
 # do either sr or mr plot
 setwd(args$output);
-if(args$mode == 'sr') {
+if( args$mode == 'sr' ) {
     plot.sr(subclones.data)
     } else {
         plot.mr(subclones.data)
