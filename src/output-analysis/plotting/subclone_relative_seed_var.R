@@ -258,7 +258,7 @@ plot.mr <- function(df) {
 ### PLOT ##########################################################################################
 # do either sr or mr plot
 setwd(args$output);
-if( args$mode == 'sr' ) {
+if (args$mode == 'sr') {
     plot.sr(subclones.data)
     } else {
         plot.mr(subclones.data)
