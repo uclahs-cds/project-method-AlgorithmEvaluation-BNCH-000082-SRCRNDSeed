@@ -11,19 +11,14 @@ library(argparse);
 
 ### OBTAIN COMMAND LINE ARGUMENTS #################################################################
 parser <- ArgumentParser();
-
 parser$add_argument('-f', '--file', type = 'character', help = 'path to num_subclones tsv');
 parser$add_argument('-p', '--pipeline', type = 'character', help = 'src pipeline (snv-cnv-src)');
 parser$add_argument('-m', '--mode', type = 'character', help = 'src pipeline mode (single-region or multi-region)');
 parser$add_argument('-o', '--output', type = 'character', help = 'path to plot output directory');
-
 args <- parser$parse_args();
-
 ### TEST FILES ###################################################################################
 args <- list();
-
 args$output <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/plots/stripplot/';
-
 # args$file <- '/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-pyclone-vi/output/2023-04-02_num_subclones_strelka2_battenberg_pyclone-vi_sr.tsv';
 # args$pipeline <- 'Strelka2-Battenberg-PyClone-VI';
 # args$mode <- 'sr';
@@ -166,10 +161,10 @@ plot.sr <- function(df) {
         formula = seed.plot.order ~ order,
         data = subclones.data.toplot,
         filename = generate.filename(
-            'proj-seed', 
-            paste0(args$pipeline, '_', args$mode, '_relative_seed_var'), 
+            'proj-seed',
+            paste0(args$pipeline, '_', args$mode, '_relative_seed_var'),
             'pdf'
-        ),
+            ),
         main = paste(args$pipeline, ' (', args$mode, ') ', 'Subclone Variability Across 10 Seeds'),
         ylab.label = 'Seed',
         xlab.label = 'Number of Subclones Compared to Mode of Subclones',
@@ -216,10 +211,10 @@ plot.mr <- function(df) {
         formula = seed.plot.order ~ order,
         data = subclones.data.toplot,
         filename = generate.filename(
-            'proj-seed', 
-            paste0(args$pipeline, '_', args$mode, '_relative_seed_var'), 
+            'proj-seed',
+            paste0(args$pipeline, '_', args$mode, '_relative_seed_var'),
             'pdf'
-        ),
+            ),
         main = paste(args$pipeline, ' (', args$mode, ') ', 'Subclone Variability Across 10 Seeds'),
         ylab.label = 'Seed',
         xlab.label = 'Number of Subclones Compared to Mode of Subclones',
@@ -264,7 +259,7 @@ plot.mr <- function(df) {
 ### PLOT ##########################################################################################
 # do either sr or mr plot
 setwd(args$output);
-if(args$mode == 'sr'){
+if(args$mode == 'sr') {
     plot.sr(subclones.data)
     } else {
         plot.mr(subclones.data)
