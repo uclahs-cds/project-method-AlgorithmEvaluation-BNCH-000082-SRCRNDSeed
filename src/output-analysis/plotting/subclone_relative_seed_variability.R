@@ -13,7 +13,7 @@ library(argparse);
 parser <- ArgumentParser();
 parser$add_argument('-f', '--file', type = 'character', help = 'path to num_subclones tsv');
 parser$add_argument('-p', '--pipeline', type = 'character', help = 'src pipeline (snv-cnv-src)');
-parser$add_argument('-m', '--mode', type = 'character', help = 'src pipeline mode (single-region or multi-region)');
+parser$add_argument('-m', '--mode', type = 'character', help = 'src pipeline mode (sr or mr)');
 parser$add_argument('-o', '--output', type = 'character', help = 'path to plot output directory');
 args <- parser$parse_args();
 
@@ -77,7 +77,7 @@ process.subclones.for.plotting.mode <- function(subclones.df) {
                 no = '='
                 )
             )
-            x
+        x
         }
         )
     # every patient has 3 columns of dots (-, =, +)
@@ -99,7 +99,7 @@ process.subclones.for.plotting.mode <- function(subclones.df) {
             yes = clonality.colour.scheme['monoclonal'],
             no = clonality.colour.scheme['polyclonal']
             )
-            x
+        x
         }
         )
     # combine list back to single data frame
@@ -127,11 +127,11 @@ plot.sr <- function(df) {
         xlab.label = 'Number of Subclones Compared to Mode of Subclones',
         col = subclones.data.toplot$col,
         main.x = 0.52,
-        ylimits = c(0.5,10.5),
-        yat = seq(1,10,1),
+        ylimits = c(0.5, 10.5),
+        yat = seq(1, 10, 1),
         yaxis.lab = rev(seeds),
-        xaxis.tck = c(0,0),
-        yaxis.tck = c(1,0),
+        xaxis.tck = c(0, 0),
+        yaxis.tck = c(1, 0),
         xlimits = c(0.5, length(unique(subclones.data.toplot$patient)) * 3 + 0.5),
         xat = 1:(length(unique(subclones.data.toplot$patient)) * 3),
         xaxis.lab = rep(c('-', '=', '+'), length(unique(subclones.data.toplot$patient))),
@@ -177,11 +177,11 @@ plot.mr <- function(df) {
         xlab.label = 'Number of Subclones Compared to Mode of Subclones',
         col = subclones.data.toplot$col,
         main.x = 0.5,
-        ylimits = c(0.5,10.5),
-        yat = seq(1,10,1),
+        ylimits = c(0.5, 10.5),
+        yat = seq(1, 10, 1),
         yaxis.lab = rev(seeds),
-        xaxis.tck = c(0,0),
-        yaxis.tck = c(1,0),
+        xaxis.tck = c(0, 0),
+        yaxis.tck = c(1, 0),
         xlimits = c(0.5, length(unique(subclones.data.toplot$patient)) * 3 + 0.5),
         xat = 1:(length(unique(subclones.data.toplot$patient)) * 3),
         xaxis.lab = rep(c('-', '=', '+'), length(unique(subclones.data.toplot$patient))),
