@@ -221,6 +221,6 @@ num.subclones;
 
 write(
     paste(sample, seed, num.subclones, sep = '\t'),
-    file = paste0(args$outd, Sys.Date(), '_', sample, '_num_subclones_strelka2_battenberg_pyloWGS_sr.tsv'),
+    file = paste0(args$outd, Sys.Date(), '_', sample, '_num_subclones_strelka2_battenberg_pylowgs_sr.tsv'),
     append = TRUE
     );
