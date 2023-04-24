@@ -10,6 +10,9 @@ library(BoutrosLab.utilities);
 library(argparse);
 library(data.table);
 
+# import colour scheme
+source('plot_accessories.R');
+
 ### OBTAIN COMMAND LINE ARGUMENTS #################################################################
 parser <- ArgumentParser();
 parser$add_argument('-f', '--file', type = 'character', help = 'path to num_subclones tsv');
@@ -17,24 +20,6 @@ parser$add_argument('-p', '--pipeline', type = 'character', help = 'src pipeline
 parser$add_argument('-m', '--mode', type = 'character', help = 'src pipeline mode (sr or mr)');
 parser$add_argument('-o', '--output', type = 'character', help = 'path to plot output directory');
 args <- parser$parse_args();
-
-### PLOT ACCESSORIES ##############################################################################
-# colour scheme for Pipelines
-pipeline.colour.scheme <- c('DPClust' = '#f567637f', 'PyClone-VI' = '#cae5ff', 'PhyloWGS' = '#4a4ba6');
-
-# 10 random seeds
-seeds <- c(
-    '51404',
-    '366306',
-    '423647',
-    '838004',
-    '50135',
-    '628019',
-    '97782',
-    '253505',
-    '659767',
-    '13142'
-    );
 
 ### PROCESS DATA ##################################################################################
 subclones.data <- read.table(file = args$file, sep = '\t', header = TRUE);
