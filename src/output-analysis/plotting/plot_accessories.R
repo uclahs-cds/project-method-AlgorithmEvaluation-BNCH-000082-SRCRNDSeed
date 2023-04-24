@@ -1,5 +1,5 @@
 ### plot_accessories.R ############################################################################
-# coloUrs schemes, seeds and samples for project-SRC-RandomSeed
+# colour schemes, seeds and samples for project-SRC-RandomSeed
 
 ### SEEDS #########################################################################################
 # 10 random seeds
