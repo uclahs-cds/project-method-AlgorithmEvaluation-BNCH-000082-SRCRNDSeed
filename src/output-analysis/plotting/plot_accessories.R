@@ -50,8 +50,8 @@ patients.mr <- c(
 # colour scheme for pipelines
 pipeline.colour.scheme <- c(
     'DPClust' = '#f567637f',
-    'PyClone-VI' = '#cae5ff',
-    'PhyloWGS' = '#4a4ba6'
+    'PyClone' = '#cae5ff7f',
+    'PhyloWGS' = '#4a4ba67f'
     );
 
 # subclone_relative_seed_variability.R

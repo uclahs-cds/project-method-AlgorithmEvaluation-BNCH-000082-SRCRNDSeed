@@ -1,5 +1,5 @@
 ### plot_num_subclones_box.R ######################################################################
-# Boxplot of num, mean, and sd of subclones called per seed x sample.
+# Boxplot of median, max, first and third quartile of subclones called per seed x sample.
 ### PREAMBLE ######################################################################################
 # load libraries
 # install.packages('BoutrosLab.plotting.general');
@@ -38,37 +38,36 @@ plot.sr <- function(df) {
             paste0(args$pipeline, '_', args$mode, '_subclones_box'),
             'pdf'
             ),
-        main = paste(args$pipeline, ' (', args$mode, ') ', 'Subclone Variability Across 10 Seeds'),
+        main = paste(args$pipeline, ' (', args$mode, ')'),
         ylab.label = 'Number of subclones',
-        xlab.label = 'Head and neck primary tumour samples from 14 patients',
+        xlab.label = 'Patient',
         main.just = 'center',
         main.x = 0.52,
-        # add points
         add.stripplot = TRUE,
         points.pch = 19,
         points.col = 'black',
-        points.cex = 0.3,
+        points.cex = 0.4,
         points.alpha = 1,
         col = src.colour,
         alpha.rectangle = 0.8,
         main.cex = 1.1,
         xaxis.cex = 0,
-        yaxis.cex = 0.9,
-        xlab.cex = 1.1,
-        ylab.cex = 1.1,
-        xaxis.tck = c(1,0),
-        yaxis.tck = c(1,0),
+        yaxis.cex = 0.8,
+        xlab.cex = 1,
+        ylab.cex = 1,
+        xaxis.tck = c(1, 0),
+        yaxis.tck = c(1, 0),
         xaxis.rot = 40,
         xaxis.fontface = 1,
         yaxis.fontface = 1,
-        top.padding = 4,
-        bottom.padding = 4,
-        right.padding = 4,
-        left.padding = 4,
-        ylab.axis.padding = 2,
+        top.padding = 1,
+        bottom.padding = 1,
+        right.padding = 1,
+        left.padding = 1,
+        ylab.axis.padding = 1,
         description = 'Boxplot created by BoutrosLab.plotting.general',
         height = 4,
-        width = 9,
+        width = 7
         );
     };
 
@@ -78,42 +77,40 @@ plot.mr <- function(df) {
         formula = n_clones ~ patient,
         data = subclones.data,
         filename = generate.filename(
-          'proj-seed',
-          paste0(args$pipeline, '_', args$mode, '_subclones_box'),
-          'pdf'
-        ),
-        main = paste(args$pipeline, ' (', args$mode, ') ', 'Subclone Variability Across 10 Seeds'),
+            'proj-seed',
+            paste0(args$pipeline, '_', args$mode, '_subclones_box'),
+            'pdf'
+            ),
+        main = paste(args$pipeline, ' (', args$mode, ')'),
         ylab.label = 'Number of subclones',
-        xlab.label = 'Head and neck primary tumour samples from 14 patients',
+        xlab.label = 'Patient',
         main.just = 'center',
         main.x = 0.52,
-        # add points
         add.stripplot = TRUE,
         points.pch = 19,
         points.col = 'black',
-        points.cex = 0.3,
+        points.cex = 0.6,
         points.alpha = 1,
-        col = '#cae5ff7f',
+        col = src.colour,
         alpha.rectangle = 0.8,
         main.cex = 1.1,
         xaxis.cex = 0,
-        yaxis.cex = 0.9,
-        xlab.cex = 1.1,
-        ylab.cex = 1.1,
-        xat = seq(1,14,1),
-        yaxis.tck = c(1,0),
-        xaxis.tck = c(1,0),
+        yaxis.cex = 0.8,
+        xlab.cex = 1,
+        ylab.cex = 1,
+        xaxis.tck = c(1, 0),
+        yaxis.tck = c(1, 0),
         xaxis.rot = 40,
         xaxis.fontface = 1,
         yaxis.fontface = 1,
-        top.padding = 4,
-        bottom.padding = 4,
-        right.padding = 4,
-        left.padding = 4,
-        ylab.axis.padding = 2,
+        top.padding = 1,
+        bottom.padding = 1,
+        right.padding = 1,
+        left.padding = 1,
+        ylab.axis.padding = 1,
         description = 'Boxplot created by BoutrosLab.plotting.general',
         height = 4,
-        width = 9
+        width = 7
         );
     };
 
