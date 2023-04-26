@@ -9,6 +9,9 @@ library(BoutrosLab.plotting.general);
 library(BoutrosLab.utilities);
 library(argparse);
 
+# import seeds and colour schemes
+source('plot_accessories.R');
+
 ### OBTAIN COMMAND LINE ARGUMENTS #################################################################
 parser <- ArgumentParser();
 parser$add_argument('-f', '--file', type = 'character', help = 'path to num_subclones tsv');
@@ -18,43 +21,8 @@ parser$add_argument('-o', '--output', type = 'character', help = 'path to plot o
 args <- parser$parse_args();
 
 ### PROCESS DATA ##################################################################################
-# 10 random seeds
-seeds <- c(
-    '51404',
-    '366306',
-    '423647',
-    '838004',
-    '50135',
-    '628019',
-    '97782',
-    '253505',
-    '659767',
-    '13142'
-    );
-
-# read input data
 subclones.data <- read.table(file = args$file, sep = '\t', header = TRUE);
 subclones.data;
-
-### PLOT ACCESSORIES ##############################################################################
-# colour scheme for clonality
-clonality.colour.scheme <- c('monoclonal' = 'pink', 'polyclonal' = '#825EBC', 'polytumour' = '#C681D8');
-
-# clonality legend
-clonality.legends <- list(
-    legend = list(
-        colours = clonality.colour.scheme[1:2],
-        labels = c('Monoclonal', 'Polyclonal'),
-        title = expression(bold(underline('Clonality'))),
-        lwd = 0.1
-        )
-    );
-
-clonality.legends.grob <- legend.grob(
-    legends = clonality.legends,
-    label.cex = 0.75,
-    title.just = 'left'
-    );
 
 ### MODE COMPARISON FUNCTION ######################################################################
 # mode function

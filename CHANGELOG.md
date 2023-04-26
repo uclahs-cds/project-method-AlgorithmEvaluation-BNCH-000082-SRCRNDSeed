@@ -86,3 +86,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased] - 2022-04-17
 ### Added
 - Added new plotting script subclone_relative_seed_variability.R
+
+## [Unreleased] - 2022-04-23
+### Added
+- Added new plotting script plot_num_subclones_box.R
+- Added plot_accessories.R
+
+### Changed
+- Moved seed, colour scheme and legends to plot_accesories.R
