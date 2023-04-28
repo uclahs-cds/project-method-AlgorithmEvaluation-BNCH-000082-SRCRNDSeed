@@ -1,8 +1,5 @@
 ### parse_consensus_tree_PhyloWGS.R ################################################################
 # Get the best tree per sample x seed x pipeline.
-# Rscript ~/parse_consensus_tree_PhyloWGS.R \
-# -s *summ.json.gz \
-# -o /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/<pipeline>/output/consensus_tree/
 
 ###################################################################################################
 options(error = function() traceback(2))
