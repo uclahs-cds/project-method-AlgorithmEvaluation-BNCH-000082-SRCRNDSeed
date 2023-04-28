@@ -19,40 +19,43 @@ date <- Sys.Date();
 
 ### OBTAIN COMMAND LINE ARGUMENTS #################################################################
 parser <- ArgumentParser();
-parser$add_argument('-t', '--tree', type = 'character', help = 'path to consensus tree txt file');
-parser$add_argument('-o', '--outd', type = 'character', help = 'path to output directory');
+parser$add_argument('-i', '--input', type = 'character', help = 'path to consensus tree file directory');
+parser$add_argument('-o', '--output', type = 'character', help = 'path to output directory');
+parser$add_argument('-p', '--pipeline', type = 'character', help = 'pipeline combination with PhyloWGS');
 args <- parser$parse_args();
 
 ### PROCESS DATA ##################################################################################
-tree.df <- read.table(file = args$tree, sep = '\t', header = TRUE);
-tree.df;
+# read in all consensus tree files for input pipeline
+setwd(args$input);
+tree.files <- list.files(pattern = '*.txt');
+subclones.df <- data.frame(patient = character(), seed = character(), n_clones = integer());
 
-# get sample name
-get.sample <- function(path) {
-    f.dirs <- strsplit(path, '/')[[1]]
-    f.name <- f.dirs[length(f.dirs)]
-    f.seed <- strsplit(f.name, '_')[[1]][1]
+# extract sample name, seed and number of subclones per consensus tree file
+for (file in tree.files) {
+    tree.data <- read.table(file = file, sep = '\t', header = TRUE)
+    sample <- strsplit(file, '_')[[1]][1]
+    seed <- strsplit(file, '_')[[1]][2]
+    # get the num children = rows = subclones in the text file
+    num.subclones <- length(tree.data)
+    print(num.subclones)
+    # write output
+    subclones.df <- rbind(
+        subclones.df,
+        data.frame(
+            patient = sample,
+            seed = seed,
+            n_clones = num.subclones
+            )
+        )
     };
-sample <- get.sample(args$tree);
-sample;
-
-# get sample seed
-get.seed <- function(path) {
-    f.dirs <- strsplit(path, '/')[[1]]
-    f.name <- f.dirs[length(f.dirs)]
-    f.seed <- strsplit(f.name, '_')[[1]][2]
-    return(f.seed)
-    };
-seed <- get.seed(args$tree);
-seed;
-
-# get sample number of subclones
-num.subclones <- nrow(tree.df);
-num.subclones;
+subclones.df;
 
 #### WRITE OUTPUT FILE ####################################################################
-write(
-    paste(sample, seed, num.subclones, sep = '\t'),
-    file = paste0(args$outd, Sys.Date(), '_num_subclones_strelka2_battenberg_pylowgs_sr.tsv'),
-    append = TRUE
+setwd(args$output);
+write.table(
+    subclones.df,
+    file = paste0(Sys.Date(), '_num_subclones_', args$pipeline, '_sr.tsv'),
+    sep = '\t',
+    quote = FALSE,
+    row.names = FALSE
     );
