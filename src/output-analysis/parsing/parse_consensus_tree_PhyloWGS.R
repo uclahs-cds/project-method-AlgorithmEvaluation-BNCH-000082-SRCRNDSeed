@@ -192,7 +192,7 @@ renumber <- function(t) {
 tree <- renumber(heapify(tree));
 node.map <- names(tree$populations)[-1];
 
-#### SAVE STRUCTURE BEST TREE ###########################################################
+### SAVE STRUCTURE BEST TREE ############################################################
 clist <- list();
 chil <- function(c) {
     tree$populations[[as.character(c)]]
@@ -214,12 +214,102 @@ stru <- function(t) {
 clist <- stru(tree);
 structure <- do.call(rbind, clist);
 structure <- data.frame(structure[,c('parent', 'child', 'num_ssms', 'num_cnvs', 'cellular_prevalence')]);
-tree.df <- data.frame(lapply(structure, as.character), stringsAsFactors = FALSE);
+my.df <- data.frame(lapply(structure, as.character), stringsAsFactors = FALSE);
 
-#### WRITE OUTPUT FILE ####################################################################
+### CLEAN CP ############################################################################
+# cleanup cellular prevalence column, for multi-samples
+my.df$cellular_prevalence <- gsub('c\\(|\\)| ','',my.df$cellular_prevalence);
+
+# use median as a representative value for each node
+get.rep.col <- function(d, col.name) {
+	laply(strsplit(as.character(d[, col.name]), ','), function(x) {
+	    median(as.numeric(x))
+		}
+        )
+#   median(as.numeric(unlist(strsplit(as.character(d[, col.name]), ','))))
+	};
+
+# if 0 has 2+ children everything is branch, or else 1 is trunk
+# filter for nodes with high cellular prevalence from no cna runs
+# for multi-samples, use median cellular prevalence as representative
+ if (get.rep.col(my.df[my.df$child == 1, ], 'cellular_prevalence') > 0.98) {
+ 			if (nrow(my.df) == 1) {
+ 				my.df$location <- 'AbNorm'
+ 				structure <- 'monoclonal'
+ 			} else if (sum(my.df$parent == 1) == 2) {
+ 				my.df$location <- 'Branch'
+ 				my.df[my.df$child == 1, ]$location <- 'AbNorm'
+ 				structure <- 'polytumour'
+ 			} else {
+ 				my.df$location <- 'Branch'
+ 				my.df[my.df$child == 1, ]$location <- 'AbNorm'
+ 				my.df[my.df$parent == 1, ]$location <- 'Trunk'
+ 				structure <- 'polyclonal'
+ 			}
+ 	} else {
+			if (nrow(my.df) == 1) {
+				my.df$location <- 'Trunk'
+				structure <- 'monoclonal'
+			} else if (my.df[1, ]$parent == 0 && my.df[2, ]$parent == 0) {
+				my.df$location <- 'Branch'
+				structure <- 'polytumour'
+			} else {
+				my.df$location <- 'Branch'
+				my.df[1,]$location <- 'Trunk'
+				structure <- 'polyclonal'
+			}
+	};
+
+# number of samples
+num.mult.samples <- unique(laply(strsplit(my.df$cellular_prevalence, ','), length));
+
+# given a node and a multi-sample number, return its a field name that corresponds to that multi-sample
+get.node.col <- function(d, node, n, col.name) {
+	cp <- strsplit(d[, col.name], ',')
+	# rename to use actual node
+	names(cp) <- d$child
+	return(as.numeric(cp[[as.character(node)]][n]))
+	};
+
+### GET CCF ##########################################################################
+# given the total number of multi-samples, calculate ccf for each node, for each sample
+calc.ccf <- function(d, n) {
+	all.ccfs <- c()
+	# find which samples are direct descendants of normal
+	normal.desc <- filter(d, parent == 0)$child
+
+	# for each sample
+	for (s in seq(1, n)) {
+		# get total cellular prevalence of normal's descendant nodes
+		sum.cp <- sum(aaply(normal.desc, 1, function(x) {
+			get.node.col(d, x, s, 'cellular_prevalence')
+			} ) )
+		ccf <- aaply(d$child, 1, function(x) {
+			get.node.col(d, x, s, 'cellular_prevalence')
+			} ) / sum.cp
+		ccf <- round(ccf, 5)
+		ifelse(is.null(all.ccfs),
+			all.ccfs <- ccf,
+			all.ccfs <- aaply(seq(1:nrow(d)), 1, function(x) {
+				paste(sep = ',', all.ccfs[x], ccf[x])
+				} )
+			)
+		}
+	return(all.ccfs)
+	};
+
+#my.df$ccf <- my.df$cellular_prevalence / sum(filter(my.df, parent == 0)$cellular_prevalence)
+my.df$ccf <- calc.ccf(my.df, num.mult.samples);
+my.df <- arrange(my.df, parent, child);
+my.df <- cbind(sample = sample, my.df);
+names(my.df)[1] <- sample;
+my.df;
+
+### WRITE OUTPUT FILE #####################################################################
+# write tree output data frame into file
 setwd(args$outd);
 write.table(
-    tree.df,
+    my.df,
     file = paste0(sample, '_', seed, '_consensus_tree.txt'),
     sep = '\t',
     quote = FALSE,
