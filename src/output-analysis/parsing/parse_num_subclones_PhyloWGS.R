@@ -5,9 +5,6 @@ options(error = function() traceback(2))
 
 ### PREAMBLE ######################################################################################
 # load libraries
-# install.packages('argparse');
-# install.packages('rjson');
-# install.packages('R.utils');
 library(argparse);
 library(rjson);
 library(R.utils);
@@ -21,7 +18,7 @@ date <- Sys.Date();
 parser <- ArgumentParser();
 parser$add_argument('-i', '--input', type = 'character', help = 'path to consensus tree file directory');
 parser$add_argument('-o', '--output', type = 'character', help = 'path to output directory');
-parser$add_argument('-p', '--pipeline', type = 'character', help = 'pipeline combination with PhyloWGS');
+parser$add_argument('-p', '--pipeline', type = 'character', help = 'pipeline combination snv-cna-phylowgs-mode');
 args <- parser$parse_args();
 
 ### PROCESS DATA ##################################################################################
@@ -36,7 +33,7 @@ for (file in tree.files) {
     sample <- strsplit(file, '_')[[1]][1]
     seed <- strsplit(file, '_')[[1]][2]
     # get the num children = rows = subclones in the text file
-    num.subclones <- length(tree.data)
+    num.subclones <- nrow(tree.data)
     print(num.subclones)
     # write output
     subclones.df <- rbind(
@@ -54,7 +51,7 @@ subclones.df;
 setwd(args$output);
 write.table(
     subclones.df,
-    file = paste0(Sys.Date(), '_num_subclones_', args$pipeline, '_sr.tsv'),
+    file = paste0(Sys.Date(), '_num_subclones_', args$pipeline, '.tsv'),
     sep = '\t',
     quote = FALSE,
     row.names = FALSE

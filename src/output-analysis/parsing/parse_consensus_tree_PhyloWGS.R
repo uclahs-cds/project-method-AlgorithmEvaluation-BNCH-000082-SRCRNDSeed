@@ -6,9 +6,6 @@ options(error = function() traceback(2))
 
 ### PREAMBLE ######################################################################################
 # load libraries
-# install.packages('argparse');
-# install.packages('rjson');
-# install.packages('R.utils');
 library(argparse);
 library(rjson);
 library(R.utils);
@@ -219,9 +216,11 @@ my.df$cellular_prevalence <- gsub('c\\(|\\)| ','',my.df$cellular_prevalence);
 
 # use median as a representative value for each node
 get.rep.col <- function(d, col.name) {
-	laply(strsplit(as.character(d[, col.name]), ','), function(x) {
-	    median(as.numeric(x))
-		}
+	laply(
+        strsplit(as.character(d[, col.name]), ','),
+        function(x) {
+	        median(as.numeric(x))
+		    }
         )
 #   median(as.numeric(unlist(strsplit(as.character(d[, col.name]), ','))))
 	};
@@ -229,31 +228,31 @@ get.rep.col <- function(d, col.name) {
 # if 0 has 2+ children everything is branch, or else 1 is trunk
 # filter for nodes with high cellular prevalence from no cna runs
 # for multi-samples, use median cellular prevalence as representative
- if (get.rep.col(my.df[my.df$child == 1, ], 'cellular_prevalence') > 0.98) {
- 			if (nrow(my.df) == 1) {
- 				my.df$location <- 'AbNorm'
- 				structure <- 'monoclonal'
- 			} else if (sum(my.df$parent == 1) == 2) {
- 				my.df$location <- 'Branch'
- 				my.df[my.df$child == 1, ]$location <- 'AbNorm'
- 				structure <- 'polytumour'
- 			} else {
- 				my.df$location <- 'Branch'
- 				my.df[my.df$child == 1, ]$location <- 'AbNorm'
- 				my.df[my.df$parent == 1, ]$location <- 'Trunk'
- 				structure <- 'polyclonal'
- 			}
- 	} else {
-			if (nrow(my.df) == 1) {
-				my.df$location <- 'Trunk'
-				structure <- 'monoclonal'
-			} else if (my.df[1, ]$parent == 0 && my.df[2, ]$parent == 0) {
-				my.df$location <- 'Branch'
-				structure <- 'polytumour'
-			} else {
-				my.df$location <- 'Branch'
-				my.df[1,]$location <- 'Trunk'
-				structure <- 'polyclonal'
+if (get.rep.col(my.df[my.df$child == 1, ], 'cellular_prevalence') > 0.98) {
+        if (nrow(my.df) == 1) {
+            my.df$location <- 'AbNorm'
+            structure <- 'monoclonal'
+        } else if (sum(my.df$parent == 1) == 2) {
+            my.df$location <- 'Branch'
+            my.df[my.df$child == 1, ]$location <- 'AbNorm'
+            structure <- 'polytumour'
+        } else {
+            my.df$location <- 'Branch'
+            my.df[my.df$child == 1, ]$location <- 'AbNorm'
+            my.df[my.df$parent == 1, ]$location <- 'Trunk'
+            structure <- 'polyclonal'
+        }
+} else {
+        if (nrow(my.df) == 1) {
+            my.df$location <- 'Trunk'
+            structure <- 'monoclonal'
+        } else if (my.df[1, ]$parent == 0 && my.df[2, ]$parent == 0) {
+            my.df$location <- 'Branch'
+            structure <- 'polytumour'
+        } else {
+            my.df$location <- 'Branch'
+            my.df[1,]$location <- 'Trunk'
+            structure <- 'polyclonal'
 			}
 	};
 
