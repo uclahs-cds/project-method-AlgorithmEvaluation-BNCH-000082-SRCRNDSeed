@@ -89,8 +89,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased] - 2022-04-23
 ### Added
+- Added new parsing script parse_num_subclones_phyloWGS.R
 - Added new plotting script plot_num_subclones_box.R
 - Added plot_accessories.R
 
 ### Changed
 - Moved seed, colour scheme and legends to plot_accesories.R
+
+## [Unreleased] - 2022-04-27
+### Added
+- Added script for running parse_num_subclones_phyloWGS.R
+
+### Changed
+- Split phyloWGS parsing into parse_consensus_tree_phyloWGS.R and parse_num_subclones_phyloWGS.R
