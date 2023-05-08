@@ -26,8 +26,8 @@ do
     for patient in ${patients[@]} 
     do
         Rscript /hot/users/psteinberg/work-code/parse_consensus_tree_PhyloWGS.R \
-        -s /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-mutect2-battenberg-phylowgs/output/call-SRC-1.0.0-rc.1/${patient}/PhyloWGS-2205be1/output/PhyloWGS-2205be1_${seed}_${patient}_Mutect2-Battenberg-summ.json.gz \
-        -o /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-mutect2-battenberg-phylowgs/output/consensus_tree
+        -s /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-phylowgs/output/call-SRC-1.0.0-rc.1/${patient}/PhyloWGS-2205be1/output/PhyloWGS-2205be1_${seed}_${patient}_Strelka2-Battenberg-summ.json.gz \
+        -o /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-phylowgs/output/consensus_tree
     done
 done
 
@@ -40,3 +40,6 @@ done
 # -s /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-phylowgs/output/call-SRC-1.0.0-rc.1/${patient}/PhyloWGS-2205be1/output/PhyloWGS-2205be1_${seed}_${patient}_SomaticSniper-Battenberg-summ.json.gz \
 # -s /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-phylowgs/output/call-SRC-1.1.0/${patient}/PhyloWGS-2205be1/output/PhyloWGS-2205be1_${seed}_${patient}_SomaticSniper-Battenberg-summ.json.gz \
 # -o /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-phylowgs/output/consensus_tree
+
+ #       -s /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-mutect2-battenberg-phylowgs/output/call-SRC-1.0.0-rc.1/${patient}/PhyloWGS-2205be1/output/PhyloWGS-2205be1_${seed}_${patient}_Mutect2-Battenberg-summ.json.gz \
+ #       -o /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-mutect2-battenberg-phylowgs/output/consensus_tree

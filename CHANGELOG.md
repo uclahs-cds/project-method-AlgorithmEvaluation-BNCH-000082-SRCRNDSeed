@@ -102,3 +102,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 - Split phyloWGS parsing into parse_consensus_tree_phyloWGS.R and parse_num_subclones_phyloWGS.R
+
+## [Unreleased] - 2022-05-08
+### Added
+- Added new script sr_somaticsniper_battenberg_phylowgs_submission_script.sh
