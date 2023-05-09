@@ -4,7 +4,6 @@
 
 ### PREAMBLE ######################################################################################
 # load libraries
-# install.packages("BoutrosLab.plotting.general");
 library(BoutrosLab.plotting.general);
 library(BoutrosLab.utilities);
 library(argparse);
@@ -22,7 +21,6 @@ args <- parser$parse_args();
 
 ### PROCESS DATA ##################################################################################
 subclones.data <- read.table(file = args$file, sep = '\t', header = TRUE);
-subclones.data;
 
 ### MODE COMPARISON FUNCTION ######################################################################
 # mode function
@@ -87,12 +85,12 @@ plot.sr <- function(df) {
         data = subclones.data.toplot,
         filename = generate.filename(
             'proj-seed',
-            paste0(args$pipeline, '_', args$mode, '_relative_seed_var'),
+            paste0(args$pipeline, '_', args$mode, '_relative_seed_variability'),
             'pdf'
             ),
-        main = paste(args$pipeline, ' (', args$mode, ') ', 'Subclone Variability Across 10 Seeds'),
+        main = args$pipeline,
         ylab.label = 'Seed',
-        xlab.label = 'Number of Subclones Compared to Mode of Subclones',
+        xlab.label = 'Number of Subclones Relative to Mode',
         col = subclones.data.toplot$col,
         main.x = 0.52,
         ylimits = c(0.5, 10.5),
@@ -107,7 +105,7 @@ plot.sr <- function(df) {
         abline.col = 'black',
         abline.lwd = 1,
         abline.lty = 1,
-        main.cex = 1.2,
+        main.cex = 1.1,
         main.just = 'center',
         xaxis.cex = 0.7,
         yaxis.cex = 0.7,
@@ -137,12 +135,12 @@ plot.mr <- function(df) {
         data = subclones.data.toplot,
         filename = generate.filename(
             'proj-seed',
-            paste0(args$pipeline, '_', args$mode, '_relative_seed_var'),
+            paste0(args$pipeline, '_', args$mode, '_relative_seed_variability'),
             'pdf'
             ),
-        main = paste(args$pipeline, ' (', args$mode, ') ', 'Subclone Variability Across 10 Seeds'),
+        main = args$pipeline,
         ylab.label = 'Seed',
-        xlab.label = 'Number of Subclones Compared to Mode of Subclones',
+        xlab.label = 'Number of Subclones Relative to Mode',
         col = subclones.data.toplot$col,
         main.x = 0.5,
         ylimits = c(0.5, 10.5),
@@ -157,7 +155,7 @@ plot.mr <- function(df) {
         abline.col = 'black',
         abline.lwd = 1,
         abline.lty = 1,
-        main.cex = 1.2,
+        main.cex = 1.1,
         main.just = 'center',
         xaxis.cex = 0.7,
         yaxis.cex = 0.7,
