@@ -48,7 +48,7 @@ src-tool: `pyclone-vi`, `dpclust`, `phylowgs`
 ### Node selection:
 - PyClone-VI: F32 (average run time 15s - 10min)
 - DPClust: F32 (average run time 5min - 40min)
-- PhyloWGS: F72 (average run time 5h - 13h)
+- PhyloWGS: F72 (average run time 7h - 24h)
 
 ## sSNV-caller and sCNA-caller results:
 
@@ -78,44 +78,55 @@ Templates: `/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipel
 ### Pipeline input files:
 configs: 
 
-`/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-<sSNV-caller>-<sCNA-caller>-<src-tool>/input/config/<seed>_seed.config`
+`/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-<sSNV-caller>-<sCNA-caller>-<src-tool>/input/config/seed_<seed>.config`
 
 - 1 config per `seed`
-- indicates `src-tool` choice and parameters
+- indicates `src-tool` choice and pipeline parameters
 - indicates pipeline run output directory
 
 yamls: 
+ 
+`/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/<sSNV-caller>_<sCNA-caller>_yamls/`
 
-`/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/<sSNV-caller>_<sCNA-caller>_yamls/<mode>/<patient_id>.yaml`
+single-region mode (one primary tumor sample:
+`sinlge-region/<sample_id>.yaml`
 
-- 1 yaml per patient (multiple samples for multi region mode in the same yaml)
+multi-region mode (primary and metastatic tumor samples):
+`multi-region/<patient_id>.yaml`
+
+- 1 yaml per patient 
 - path to `sSNV-caller` output
 - path to `sCNA-caller` output
 
 ### Submission script:
+
+Log files:
+
+`/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-<sSNV-caller>-<sCNA-caller>-<src-tool>/logs/`
+
+Create conda environment with `pyyaml` and `numpy` installed. Execute submission script in logs directory and from activated conda environment. 
+
 submission script: `<mode>_<sSNV-caller>_<sCNA-caller>_<src-tool>_submission_script.sh`
 
 ### Completed pipeline combinations:
 
 - [x] Strelka2-Battenberg-PyClone-VI (sr/mr)
 - [x] Strelka2-Battenberg-DPClust (sr)
-- [x] SomaticSniper-Battenberg-PyClone-VI (sr)
+- [x] Strelka2-Battenberg-PhyloWGS (sr)
+- [x] SomaticSniper-Battenberg-PyClone-VI (sr/mr)
 - [x] SomaticSniper-Battenberg-DPClust (sr)
+- [x] SomaticSniper-Battenberg-PhyloWGS (sr)
+- [x] Mutect2-Battenberg-PyClone-VI (sr/mr)
 - [x] Mutect2-Battenberg-DPClust (sr)
-- [x] Mutect2-Battenberg-PhyloWGS ()
+- [x] Mutect2-Battenberg-PhyloWGS (sr)
 
-*insert pipeline overview graphic here*
+<img width="875" alt="Screen Shot 2023-05-30 at 8 05 47 AM" src="https://github.com/uclahs-cds/project-method-AlgorithmEvaluation-BNCH-000082-SRCRNDSeed/assets/108153291/7b3e7dbc-a56d-4cfa-9f11-38b15d0688c9">
 
 ### Results:
 
 Output files:
 
 `/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-<sSNV-caller>-<sCNA-caller>-<src-tool>/output/`
-
-Log files:
-
-`/hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-<sSNV-caller>-<sCNA-caller>-<src-tool>/logs/`
-
 
 ## License
 
