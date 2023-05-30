@@ -34,15 +34,15 @@ plot.sr <- function(df) {
         filename = generate.filename(
             'proj-seed',
             paste0(args$pipeline, '_', args$mode, '_subclones_box'),
-            'png'
+            'pdf'
             ),
         main = args$pipeline,
         ylab.label = 'Number of Subclones',
         xlab.label = 'Patient',
         main.just = 'center',
         main.x = 0.52,
-        ylimits = c(0.5, 8.5),
-        yat = seq(1, 8, 1),
+        ylimits = c(0.5, 9.5),
+        yat = seq(1, 9, 1),
         xaxis.lab = patients.sr,
         add.stripplot = TRUE,
         points.pch = 19,
@@ -80,15 +80,15 @@ plot.mr <- function(df) {
         filename = generate.filename(
             'proj-seed',
             paste0(args$pipeline, '_', args$mode, '_subclones_box'),
-            'png'
+            'pdf'
             ),
         main = args$pipeline,
         ylab.label = 'Number of Subclones',
         xlab.label = 'Patient',
         main.just = 'center',
         main.x = 0.52,
-        ylimits = c(0.5, 8.5),
-        yat = seq(1, 8, 1),
+        ylimits = c(0.5, 9.5),
+        yat = seq(1, 9, 1),
         xaxis.lab = patients.mr,
         add.stripplot = TRUE,
         points.pch = 19,
@@ -113,7 +113,7 @@ plot.mr <- function(df) {
         left.padding = 1,
         ylab.axis.padding = 1,
         description = 'Boxplot created by BoutrosLab.plotting.general',
-        # legend = list(
+        #legend = list(
         #    right = list(fun = algorithm.legends.grob)
         #    ),
         height = 4,

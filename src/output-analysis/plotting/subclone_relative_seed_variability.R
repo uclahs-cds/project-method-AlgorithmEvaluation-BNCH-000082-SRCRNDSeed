@@ -173,9 +173,9 @@ plot.mr <- function(df) {
         height = 4,
         width = 10,
         resolution = 300,
-        legend = list(
-            right = list(fun = clonality.legends.grob)
-            )
+        #legend = list(
+        #    right = list(fun = clonality.legends.grob)
+        #    )
         );
     };
 
