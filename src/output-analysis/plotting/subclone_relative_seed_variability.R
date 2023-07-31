@@ -80,7 +80,7 @@ process.subclones.for.plotting.mode <- function(subclones.df) {
 plot.sr <- function(df) {
     subclones.data.toplot <- process.subclones.for.plotting.mode(df);
     # bold xaxis label
-    xaxis.lab = rep(c(expression(bold('\U2212')), # using unicode for minus sign
+    xaxis.lab <- rep(c(expression(bold('\U2212')), # using unicode for minus sign
                     expression(bold('=')),
                     expression(bold('+'))),
                     length(unique(subclones.data.toplot$patient)))
@@ -141,7 +141,7 @@ plot.sr <- function(df) {
 plot.mr <- function(df) {
     subclones.data.toplot <- process.subclones.for.plotting.mode(df);
     # bold xaxis label
-    xaxis.lab = rep(c(expression(bold('\U2212')), # using unicode for minus sign
+    xaxis.lab <- rep(c(expression(bold('\U2212')), # using unicode for minus sign
                     expression(bold('=')),
                     expression(bold('+'))),
                     length(unique(subclones.data.toplot$patient)))
