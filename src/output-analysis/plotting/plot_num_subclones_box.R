@@ -1,9 +1,8 @@
 ### plot_num_subclones_box.R ######################################################################
 # Boxplot of median, max, first and third quartile of subclones called per seed x sample.
+
 ### PREAMBLE ######################################################################################
 # load libraries
-# install.packages('BoutrosLab.plotting.general');
-# install.packages('argparse');
 library(BoutrosLab.plotting.general);
 library(BoutrosLab.statistics.general);
 library(BoutrosLab.utilities);
@@ -23,7 +22,6 @@ args <- parser$parse_args();
 
 ### PROCESS DATA ##################################################################################
 subclones.data <- read.table(file = args$file, sep = '\t', header = TRUE);
-subclones.data;
 
 src.tool <- strsplit(args$pipeline, '-')[[1]][3];
 src.colour <- pipeline.colour.scheme[src.tool];
@@ -38,11 +36,14 @@ plot.sr <- function(df) {
             paste0(args$pipeline, '_', args$mode, '_subclones_box'),
             'pdf'
             ),
-        main = paste(args$pipeline, ' (', args$mode, ')'),
-        ylab.label = 'Number of subclones',
+        main = args$pipeline,
+        ylab.label = 'Number of Subclones',
         xlab.label = 'Patient',
         main.just = 'center',
         main.x = 0.52,
+        ylimits = c(0.5, 9.5),
+        yat = seq(1, 9, 1),
+        xaxis.lab = patients.sr,
         add.stripplot = TRUE,
         points.pch = 19,
         points.col = 'black',
@@ -51,13 +52,13 @@ plot.sr <- function(df) {
         col = src.colour,
         alpha.rectangle = 0.8,
         main.cex = 1.1,
-        xaxis.cex = 0,
+        xaxis.cex = 0.8,
         yaxis.cex = 0.8,
-        xlab.cex = 1,
-        ylab.cex = 1,
+        xlab.cex = 1.1,
+        ylab.cex = 1.1,
         xaxis.tck = c(1, 0),
         yaxis.tck = c(1, 0),
-        xaxis.rot = 40,
+        xaxis.rot = 0,
         xaxis.fontface = 1,
         yaxis.fontface = 1,
         top.padding = 1,
@@ -81,11 +82,14 @@ plot.mr <- function(df) {
             paste0(args$pipeline, '_', args$mode, '_subclones_box'),
             'pdf'
             ),
-        main = paste(args$pipeline, ' (', args$mode, ')'),
-        ylab.label = 'Number of subclones',
+        main = args$pipeline,
+        ylab.label = 'Number of Subclones',
         xlab.label = 'Patient',
         main.just = 'center',
         main.x = 0.52,
+        ylimits = c(0.5, 9.5),
+        yat = seq(1, 9, 1),
+        xaxis.lab = patients.mr,
         add.stripplot = TRUE,
         points.pch = 19,
         points.col = 'black',
@@ -94,13 +98,13 @@ plot.mr <- function(df) {
         col = src.colour,
         alpha.rectangle = 0.8,
         main.cex = 1.1,
-        xaxis.cex = 0,
+        xaxis.cex = 0.8,
         yaxis.cex = 0.8,
-        xlab.cex = 1,
-        ylab.cex = 1,
+        xlab.cex = 1.1,
+        ylab.cex = 1.1,
         xaxis.tck = c(1, 0),
         yaxis.tck = c(1, 0),
-        xaxis.rot = 40,
+        xaxis.rot = 0,
         xaxis.fontface = 1,
         yaxis.fontface = 1,
         top.padding = 1,
@@ -109,6 +113,9 @@ plot.mr <- function(df) {
         left.padding = 1,
         ylab.axis.padding = 1,
         description = 'Boxplot created by BoutrosLab.plotting.general',
+        #legend = list(
+        #    right = list(fun = algorithm.legends.grob)
+        #    ),
         height = 4,
         width = 7
         );

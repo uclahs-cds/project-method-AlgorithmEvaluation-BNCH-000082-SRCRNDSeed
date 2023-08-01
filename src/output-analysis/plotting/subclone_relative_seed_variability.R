@@ -4,7 +4,6 @@
 
 ### PREAMBLE ######################################################################################
 # load libraries
-# install.packages("BoutrosLab.plotting.general");
 library(BoutrosLab.plotting.general);
 library(BoutrosLab.utilities);
 library(argparse);
@@ -22,7 +21,6 @@ args <- parser$parse_args();
 
 ### PROCESS DATA ##################################################################################
 subclones.data <- read.table(file = args$file, sep = '\t', header = TRUE);
-subclones.data;
 
 ### MODE COMPARISON FUNCTION ######################################################################
 # mode function
@@ -81,46 +79,57 @@ process.subclones.for.plotting.mode <- function(subclones.df) {
 ### SR FUNCTION ###################################################################################
 plot.sr <- function(df) {
     subclones.data.toplot <- process.subclones.for.plotting.mode(df);
+    # bold xaxis label
+    xaxis.lab <- rep(c(expression(bold('\U2212')), # using unicode for minus sign
+                    expression(bold('=')),
+                    expression(bold('+'))),
+                    length(unique(subclones.data.toplot$patient)))
     # create stripplot of relative seed variability for single-region mode
     plot <- create.scatterplot(
         formula = seed.plot.order ~ order,
         data = subclones.data.toplot,
         filename = generate.filename(
             'proj-seed',
-            paste0(args$pipeline, '_', args$mode, '_relative_seed_var'),
+            paste0(args$pipeline, '_', args$mode, '_relative_seed_variability'),
             'pdf'
             ),
-        main = paste(args$pipeline, ' (', args$mode, ') ', 'Subclone Variability Across 10 Seeds'),
+        main = args$pipeline,
         ylab.label = 'Seed',
-        xlab.label = 'Number of Subclones Compared to Mode of Subclones',
+        xlab.label = 'Number of Subclones Relative to Mode',
         col = subclones.data.toplot$col,
         main.x = 0.52,
-        ylimits = c(0.5, 10.5),
+        ylimits = c(0.5, 11.5),
         yat = seq(1, 10, 1),
         yaxis.lab = rev(seeds),
         xaxis.tck = c(0, 0),
         yaxis.tck = c(1, 0),
         xlimits = c(0.5, length(unique(subclones.data.toplot$patient)) * 3 + 0.5),
         xat = 1:(length(unique(subclones.data.toplot$patient)) * 3),
-        xaxis.lab = rep(c('-', '=', '+'), length(unique(subclones.data.toplot$patient))),
+        xaxis.lab = xaxis.lab,
         abline.v = 1:length(unique(subclones.data.toplot$patient)) * 3 + 0.5,
         abline.col = 'black',
         abline.lwd = 1,
         abline.lty = 1,
-        main.cex = 1.2,
+        main.cex = 1.1,
         main.just = 'center',
-        xaxis.cex = 0.7,
+        xaxis.cex = 1,
         yaxis.cex = 0.7,
         xlab.cex = 1.1,
         ylab.cex = 1.1,
         xaxis.rot = 0,
-        xaxis.fontface = 1,
-        yaxis.fontface = 1,
+        xaxis.fontface = 2,
+        yaxis.fontface = 2,
         top.padding = 4,
         bottom.padding = 4,
         right.padding = 4,
         left.padding = 4,
         ylab.axis.padding = 2,
+        add.text = TRUE,
+        text.labels = patients.sr,
+        text.x = seq(2, length(unique(subclones.data.toplot$patient)) * 3, 3),
+        text.y = rep(11, length(unique(subclones.data.toplot$patient))),
+        text.col = 'black',
+        text.cex = 0.7,
         description = 'Scatterplot created by BoutrosLab.plotting.general',
         height = 4,
         width = 10,
@@ -131,53 +140,64 @@ plot.sr <- function(df) {
 ### MR FUNCTION ###################################################################################
 plot.mr <- function(df) {
     subclones.data.toplot <- process.subclones.for.plotting.mode(df);
+    # bold xaxis label
+    xaxis.lab <- rep(c(expression(bold('\U2212')), # using unicode for minus sign
+                    expression(bold('=')),
+                    expression(bold('+'))),
+                    length(unique(subclones.data.toplot$patient)))
     # create stripplot of relative seed variability for multi-region mode
     plot <- create.scatterplot(
         formula = seed.plot.order ~ order,
         data = subclones.data.toplot,
         filename = generate.filename(
             'proj-seed',
-            paste0(args$pipeline, '_', args$mode, '_relative_seed_var'),
+            paste0(args$pipeline, '_', args$mode, '_relative_seed_variability'),
             'pdf'
             ),
-        main = paste(args$pipeline, ' (', args$mode, ') ', 'Subclone Variability Across 10 Seeds'),
+        main = args$pipeline,
         ylab.label = 'Seed',
-        xlab.label = 'Number of Subclones Compared to Mode of Subclones',
+        xlab.label = 'Number of Subclones Relative to Mode',
         col = subclones.data.toplot$col,
         main.x = 0.5,
-        ylimits = c(0.5, 10.5),
+        ylimits = c(0.5, 11.5),
         yat = seq(1, 10, 1),
         yaxis.lab = rev(seeds),
         xaxis.tck = c(0, 0),
         yaxis.tck = c(1, 0),
         xlimits = c(0.5, length(unique(subclones.data.toplot$patient)) * 3 + 0.5),
         xat = 1:(length(unique(subclones.data.toplot$patient)) * 3),
-        xaxis.lab = rep(c('-', '=', '+'), length(unique(subclones.data.toplot$patient))),
+        xaxis.lab = xaxis.lab,
         abline.v = 1:length(unique(subclones.data.toplot$patient)) * 3 + 0.5,
         abline.col = 'black',
         abline.lwd = 1,
         abline.lty = 1,
-        main.cex = 1.2,
+        main.cex = 1.1,
         main.just = 'center',
-        xaxis.cex = 0.7,
+        xaxis.cex = 1,
         yaxis.cex = 0.7,
         xlab.cex = 1.1,
         ylab.cex = 1.1,
         xaxis.rot = 0,
-        xaxis.fontface = 1,
-        yaxis.fontface = 1,
+        xaxis.fontface = 2,
+        yaxis.fontface = 2,
         top.padding = 4,
         bottom.padding = 4,
         right.padding = 4,
         left.padding = 4,
         ylab.axis.padding = 2,
+        add.text = TRUE,
+        text.labels = patients.mr,
+        text.x = seq(2, length(unique(subclones.data.toplot$patient)) * 3, 3),
+        text.y = rep(11, length(unique(subclones.data.toplot$patient))),
+        text.col = 'black',
+        text.cex = 0.7,
         description = 'Scatterplot created by BoutrosLab.plotting.general',
         height = 4,
         width = 10,
         resolution = 300,
-        legend = list(
-            right = list(fun = clonality.legends.grob)
-            )
+        #legend = list(
+        #    right = list(fun = clonality.legends.grob)
+        #    )
         );
     };
 
