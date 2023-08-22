@@ -13,61 +13,61 @@ library(xlsx);
 setwd('/Users/philippasteinberg/Desktop/Research/BoutrosLab/supplementary_tables/');
 
 # PyClone-VI
-mutect2_battenberg_pyclone_vi_mr <- read.table('./2023-04-02_num_subclones_mutect2_battenberg_pyclone-vi_mr.tsv', header = TRUE);
-strelka2_battenberg_pyclone_vi_mr <- read.table('./2023-04-02_num_subclones_strelka2_battenberg_pyclone-vi_mr.tsv', header = TRUE);
-somaticsniper_battenberg_pyclone_vi_mr <- read.table('./2023-04-02_num_subclones_somaticsniper_battenberg_pyclone-vi_mr.tsv', header = TRUE);
-mutect2_battenberg_pyclone_vi_sr <- read.table('./2023-04-02_num_subclones_mutect2_battenberg_pyclone-vi_sr.tsv', header = TRUE);
-strelka2_battenberg_pyclone_vi_sr <- read.table('./2023-04-02_num_subclones_strelka2_battenberg_pyclone-vi_sr.tsv', header = TRUE);
-somaticsniper_battenberg_pyclone_vi_sr <- read.table('./2023-04-02_num_subclones_somaticsniper_battenberg_pyclone-vi_sr.tsv', header = TRUE);
+mutect2.battenberg.pyclone.vi.mr <- read.table('./2023-04-02_num_subclones_mutect2_battenberg_pyclone-vi_mr.tsv', header = TRUE);
+strelka2.battenberg.pyclone.vi.mr <- read.table('./2023-04-02_num_subclones_strelka2_battenberg_pyclone-vi_mr.tsv', header = TRUE);
+somaticsniper.battenberg.pyclone.vi.mr <- read.table('./2023-04-02_num_subclones_somaticsniper_battenberg_pyclone-vi_mr.tsv', header = TRUE);
+mutect2.battenberg.pyclone.vi.sr <- read.table('./2023-04-02_num_subclones_mutect2_battenberg_pyclone-vi_sr.tsv', header = TRUE);
+strelka2.battenberg.pyclone.vi.sr <- read.table('./2023-04-02_num_subclones_strelka2_battenberg_pyclone-vi_sr.tsv', header = TRUE);
+somaticsniper.battenberg.pyclone.vi.sr <- read.table('./2023-04-02_num_subclones_somaticsniper_battenberg_pyclone-vi_sr.tsv', header = TRUE);
 
 # DPClust
-mutect2_battenberg_dpclust_sr <- read.table ('./2023-04-02_num_subclones_mutect2_battenberg_dpclust_sr.tsv', header = TRUE);
-strelka2_battenberg_dpclust_sr <- read.table('./2023-04-20_num_subclones_strelka2_battenberg_dpclust_sr.tsv', header = TRUE);
-somaticsniper_battenberg_dpclust_sr <- read.table('./2023-04-20_num_subclones_somaticsniper_battenberg_dpclust_sr.tsv', header = TRUE);
+mutect2.battenberg.dpclust.sr <- read.table ('./2023-04-02_num_subclones_mutect2_battenberg_dpclust_sr.tsv', header = TRUE);
+strelka2.battenberg.dpclust.sr <- read.table('./2023-04-20_num_subclones_strelka2_battenberg_dpclust_sr.tsv', header = TRUE);
+somaticsniper.battenberg.dpclust.sr <- read.table('./2023-04-20_num_subclones_somaticsniper_battenberg_dpclust_sr.tsv', header = TRUE);
 
 # PhyloWGS
-mutect2_battenberg_phylowgs_sr <- read.table('./2023-05-01_num_subclones_mutect2_battenberg_phylowgs_sr.tsv', header = TRUE);
-strelka2_battenberg_phylowgs_sr <- read.table('./2023-05-01_num_subclones_strelka2_battenberg_phylowgs_sr.tsv', header = TRUE);
-somaticsniper_battenberg_phylowgs_sr <- read.table('./2023-05-09_num_subclones_somaticsniper_battenberg_phylowgs_sr.tsv', header = TRUE);
+mutect2.battenberg.phylowgs.sr <- read.table('./2023-05-01_num_subclones_mutect2_battenberg_phylowgs_sr.tsv', header = TRUE);
+strelka2.battenberg.phylowgs.sr <- read.table('./2023-05-01_num_subclones_strelka2_battenberg_phylowgs_sr.tsv', header = TRUE);
+somaticsniper.battenberg.phylowgs.sr <- read.table('./2023-05-09_num_subclones_somaticsniper_battenberg_phylowgs_sr.tsv', header = TRUE);
 
 #### Table1_NumberOfSubclones #####################################################################
 # add pipeline name to data frame
-mutect2_battenberg_pyclone_vi_mr$pipeline <- 'Mutect2-Battenberg-PyClone-VI-mr';
-strelka2_battenberg_pyclone_vi_mr$pipeline <- 'Strelka2-Battenberg-PyClone-VI-mr';
-somaticsniper_battenberg_pyclone_vi_mr$pipeline <- 'SomaticSniper-Battenberg-PyClone-VI-mr';
-mutect2_battenberg_pyclone_vi_sr$pipeline <- 'Mutect2-Battenberg-PyClone-VI-sr';
-somaticsniper_battenberg_pyclone_vi_sr$pipeline <- 'SomaticSniper-Battenberg-PyClone-VI-sr';
-strelka2_battenberg_pyclone_vi_sr$pipeline <- 'Strelka2-Battenberg-PyClone-VI-sr';
-mutect2_battenberg_dpclust_sr$pipeline <- 'Mutect2-Battenberg-DPClust-sr';
-strelka2_battenberg_dpclust_sr$pipeline <- 'Strelka2-Battenberg-DPClust-sr';
-somaticsniper_battenberg_dpclust_sr$pipeline <- 'SomaticSniper-Battenberg-DPClust-sr';
-mutect2_battenberg_phylowgs_sr$pipeline <- 'Mutect2-Battenberg-PhyloWGS-sr';
-strelka2_battenberg_phylowgs_sr$pipeline <- 'Strelka2-Battenberg-PhyloWGS-sr';
+mutect2.battenberg.pyclone.vi.mr$pipeline <- 'Mutect2-Battenberg-PyClone-VI-mr';
+strelka2.battenberg.pyclone.vi.mr$pipeline <- 'Strelka2-Battenberg-PyClone-VI-mr';
+somaticsniper.battenberg.pyclone.vi.mr$pipeline <- 'SomaticSniper-Battenberg-PyClone-VI-mr';
+mutect2.battenberg.pyclone.vi.sr$pipeline <- 'Mutect2-Battenberg-PyClone-VI-sr';
+somaticsniper.battenberg.pyclone.vi.sr$pipeline <- 'SomaticSniper-Battenberg-PyClone-VI-sr';
+strelka2.battenberg.pyclone.vi.sr$pipeline <- 'Strelka2-Battenberg-PyClone-VI-sr';
+mutect2.battenberg.dpclust.sr$pipeline <- 'Mutect2-Battenberg-DPClust-sr';
+strelka2.battenberg.dpclust.sr$pipeline <- 'Strelka2-Battenberg-DPClust-sr';
+somaticsniper.battenberg.dpclust.sr$pipeline <- 'SomaticSniper-Battenberg-DPClust-sr';
+mutect2.battenberg.phylowgs.sr$pipeline <- 'Mutect2-Battenberg-PhyloWGS-sr';
+strelka2.battenberg.phylowgs.sr$pipeline <- 'Strelka2-Battenberg-PhyloWGS-sr';
 somaticsniper_battenberg_phylowgs_sr$pipeline <- 'SomaticSniper-Battenberg-PhyloWGS-sr';
 
 number.of.subclones <- rbind(
-    mutect2_battenberg_pyclone_vi_mr,
-    strelka2_battenberg_pyclone_vi_mr,
-    somaticsniper_battenberg_pyclone_vi_mr,
-    mutect2_battenberg_pyclone_vi_sr,
-    strelka2_battenberg_pyclone_vi_sr,
-    somaticsniper_battenberg_pyclone_vi_sr,
-    mutect2_battenberg_dpclust_sr,
-    strelka2_battenberg_dpclust_sr,
-    somaticsniper_battenberg_dpclust_sr,
-    mutect2_battenberg_phylowgs_sr,
-    strelka2_battenberg_phylowgs_sr,
+    mutect2.battenberg.pyclone.vi.mr,
+    strelka2.battenberg.pyclone.vi.mr,
+    somaticsniper.battenberg.pyclone.vi.mr,
+    mutect2.battenberg.pyclone.vi.sr,
+    strelka2.battenberg.pyclone.vi.sr,
+    somaticsniper.battenberg.pyclone.vi.sr,
+    mutect2.battenberg.dpclust.sr,
+    strelka2.battenberg.dpclust.sr,
+    somaticsniper.battenberg.dpclust.sr,
+    mutect2.battenberg.phylowgs.sr,
+    strelka2.battenberg.phylowgs.sr,
     somaticsniper_battenberg_phylowgs_sr
     );
 
 #### PyClone-VI ###################################################################################
 pyclone.vi.all <- rbind(
-    mutect2_battenberg_pyclone_vi_sr,
-    strelka2_battenberg_pyclone_vi_sr,
-    somaticsniper_battenberg_pyclone_vi_sr,
-    mutect2_battenberg_pyclone_vi_mr,
-    strelka2_battenberg_pyclone_vi_mr,
-    somaticsniper_battenberg_pyclone_vi_mr
+    mutect2.battenberg.pyclone.vi.sr,
+    strelka2.battenberg.pyclone.vi.sr,
+    somaticsniper.battenberg.pyclone.vi.sr,
+    mutect2.battenberg.pyclone.vi.mr,
+    strelka2.battenberg.pyclone.vi.mr,
+    somaticsniper.battenberg.pyclone.vi.mr
     );
 
 mr.patients <- c(
@@ -85,19 +85,19 @@ pyclone.vi <- subset(pyclone.vi.all, patient %in% mr.patients);
 pyclone.vi$pipeline <- str_sub(pyclone.vi$pipeline, 0, -4);
 
 pyclone.vi.sr <- rbind(
-    mutect2_battenberg_pyclone_vi_sr,
-    strelka2_battenberg_pyclone_vi_sr,
-    somaticsniper_battenberg_pyclone_vi_sr
+    mutect2.battenberg.pyclone.vi.sr,
+    strelka2.battenberg.pyclone.vi.sr,
+    somaticsniper.battenberg.pyclone.vi.sr
     );
 
 pyclone.vi.mr <- rbind(
-    mutect2_battenberg_pyclone_vi_mr,
-    strelka2_battenberg_pyclone_vi_mr,
-    somaticsniper_battenberg_pyclone_vi_mr
+    mutect2.battenberg.pyclone.vi.mr,
+    strelka2.battenberg.pyclone.vi.mr,
+    somaticsniper.battenberg.pyclone.vi.mr
     );
 
 ## Statistical evaluation
-# PyClone-VI average number of subclones across patients and across SNV callers 
+# PyClone-VI average number of subclones across patients and across SNV callers
 pyc.ave <- mean(pyclone.vi$n_clones);       # 2.233333
 pyc.sr.ave <- mean(pyclone.vi.sr$n_clones); # 2.307143
 pyc.mr.ave <- mean(pyclone.vi.mr$n_clones); # 1.942857
@@ -109,7 +109,6 @@ pyclone.vi.patient <- setDT(pyclone.vi)[,
         IQR = IQR(n_clones),
         mean = mean(n_clones),
         sd = sd(n_clones)
-        
         ),
     by = list(patient, pipeline)
     ];
@@ -169,13 +168,13 @@ pyc.mr.abo4.iqr <- mean(pyclone.vi.mr.patient[pyclone.vi.mr.patient$median >= 4,
 
 #### DPClust ######################################################################################
 dpclust <- rbind(
-    mutect2_battenberg_dpclust_sr,
-    strelka2_battenberg_dpclust_sr,
-    somaticsniper_battenberg_dpclust_sr
+    mutect2.battenberg.dpclust.sr,
+    strelka2.battenberg.dpclust.sr,
+    somaticsniper.battenberg.dpclust.sr
     );
 
 ## Statistical evaluation
-# DPClust average number of subclones across patients and across SNV callers 
+# DPClust average number of subclones across patients and across SNV callers
 dpc.ave <- mean(dpclust$n_clones); # 3.728571
 
 # DPClust stats by patient and per SNV caller
@@ -204,13 +203,13 @@ dpc.abo4.iqr <- mean(dpclust.patient[dpclust.patient$median >= 4, ]$IQR);  # 0.4
 
 #### PhyloWGS #####################################################################################
 phylowgs <- rbind(
-    mutect2_battenberg_phylowgs_sr,
-    strelka2_battenberg_phylowgs_sr,
+    mutect2.battenberg.phylowgs.sr,
+    strelka2.battenberg.phylowgs.sr,
     somaticsniper_battenberg_phylowgs_sr
     );
 
 ## Statistical evaluation
-# PhyloWGS average number of subclones across patients and across SNV callers 
+# PhyloWGS average number of subclones across patients and across SNV callers
 wgs.ave <- mean(phylowgs$n_clones); # 1.957447
 
 # PhyloWGS stats by patient and per SNV caller
@@ -306,7 +305,7 @@ phylowgs.pipeline <- setDT(phylowgs)[,
     by = list(patient)
     ];
 
-# overview of stats by 
+# overview of stats by pipeline
 stats.by.pipeline <- rbind(
     pyclone.vi.pipeline,
     pyclone.vi.sr.pipeline,
@@ -317,28 +316,28 @@ stats.by.pipeline <- rbind(
 
 #### RandomSeed_SupplementaryData.xlsx ############################################################
 write.xlsx(
-    number.of.subclones, 
-    file = "RandomSeed_SupplementaryTables.xlsx", 
-    sheetName = "Table1_NumberOfSubclones", 
-    col.names=TRUE, row.names=FALSE, append = TRUE
+    number.of.subclones,
+    file = 'RandomSeed_SupplementaryTables.xlsx',
+    sheetName = 'Table1_NumberOfSubclones',
+    col.names = TRUE, row.names = FALSE, append = TRUE
     );
 
 write.xlsx(
-    stats.by.patient, 
-    file = "RandomSeed_SupplementaryTables.xlsx", 
-    sheetName = "Table2_StatsByPatient", 
-    col.names=TRUE, row.names=FALSE, append = TRUE
+    stats.by.patient,
+    file = 'RandomSeed_SupplementaryTables.xlsx',
+    sheetName = 'Table2_StatsByPatient',
+    col.names = TRUE, row.names = FALSE, append = TRUE
     );
 
 write.xlsx(
-    stats.by.pipeline, 
-    file = "RandomSeed_SupplementaryTables.xlsx", 
-    sheetName = "Table3_StatsByPipeline", 
-    col.names=TRUE, row.names=FALSE, append = TRUE
+    stats.by.pipeline,
+    file = 'RandomSeed_SupplementaryTables.xlsx',
+    sheetName = 'Table3_StatsByPipeline',
+    col.names = TRUE, row.names = FALSE, append = TRUE
     );
 
 #### RandomSeed_stats.txt #########################################################################
-# Average IQR, and average sd by SRC algorithm 
+# Average IQR, and average sd by SRC algorithm
 stats.by.src <- setDT(stats.by.pipeline)[,
     list(
         mean_IQR = mean(IQR),
@@ -346,7 +345,7 @@ stats.by.src <- setDT(stats.by.pipeline)[,
         ),
     by = list(src)
     ];
-colnames(stats.by.src)[1] = 'pipeline';
+colnames(stats.by.src)[1] <- 'pipeline';
 
 stats.analysis <- rbind(
     stats.by.src,
@@ -367,29 +366,34 @@ wgs.fail.seed <- count(phylowgs, seed);
 wgs.fail.seed.rates <- 1 - wgs.fail.seed$n / 42;
 
 # overall failure rate of 89.5%
-# probability of a seed failing ~10.5%. 
+# probability of a seed failing ~10.5%
 # binomial test to find out at which point we would think the seed "fails more than expected by chance"
 # binom.test(105, 1000, alternative = 'greater', 0.05);
 
-N = 105:1000
-names(N) = 105:1000
-prb = unlist(lapply(N, function(x){sum(dbinom(105:x, x, 0.895))}))
+N <- 105:1000
+names(N) <- 105:1000
+prb <- unlist(lapply(
+    N, 
+    function(x) {
+        sum(dbinom(105:x, x, 0.895))
+        }
+    ));
 prb[prb <= 0.05]
 prb # 111
 
 # P-values of failure rates
 # x failures, n trials, with p hypothesized probability of failure
-binom.test(238,1000,p=0.105,
-           alternative ="greater",
+binom.test(238, 1000, p = 0.105,
+           alternative = "greater",
            conf.level = 0.95) # 2.2e-16
-binom.test(214,1000,p=0.105,
-           alternative ="greater",
+binom.test(214, 1000, p = 0.105,
+           alternative = "greater",
            conf.level = 0.95) # 2.2e-16
-binom.test(167,1000,p=0.105,
-           alternative ="greater",
+binom.test(167, 1000, p = 0.105,
+           alternative = "greater",
            conf.level = 0.95) # 1.653e-09
-binom.test(143,1000,p=0.105,
-           alternative ="greater",
+binom.test(143, 1000, p = 0.105,
+           alternative = "greater",
            conf.level = 0.95) # 0.000106
 
 #### Figure 3 evaluation ##########################################################################
@@ -399,7 +403,7 @@ get.mode <- function(s) {
     uniq[which.max(tabulate(match(s, uniq)))]
     };
 
-# function to see if patient gets the mode 
+# function to see if patient gets the mode
 patient.get.mode <- function(pipeline) {
     pipeline.mode <- setDT(pipeline)[,list(mode = get.mode(n_clones), gets_mode = n_clones == get.mode(n_clones)), by = list(patient)];
     counts <- count(pipeline.mode, gets_mode)
@@ -407,7 +411,7 @@ patient.get.mode <- function(pipeline) {
     return(counts)
     };
 
-# function to see if seed gets the mode 
+# function to see if seed gets the mode
 seed.get.mode <- function(pipeline) {
     pipeline.mode <- setDT(pipeline)[,list(mode = get.mode(n_clones), gets_mode = n_clones == get.mode(n_clones)), by = list(seed)];
     counts <- count(pipeline.mode, gets_mode)
@@ -419,40 +423,40 @@ seed.get.mode <- function(pipeline) {
 patient.get.mode(pyclone.vi);                              # 261/420 => 62.1%
 patient.get.mode(pyclone.vi.sr);                           # 276/420 => 65.7%
 patient.get.mode(pyclone.vi.mr);                           # 157/210 => 74.8%
-patient.get.mode(mutect2_battenberg_pyclone_vi_sr);        # 107/140 => 76.4%
-patient.get.mode(mutect2_battenberg_pyclone_vi_mr);        # 62/70   => 88.6%
-patient.get.mode(strelka2_battenberg_pyclone_vi_sr);       # 111/140 => 79.3%
-patient.get.mode(strelka2_battenberg_pyclone_vi_mr);       # 58/70   => 82.6%
-patient.get.mode(somaticsniper_battenberg_pyclone_vi_sr);  # 128/140 => 91.4%
-patient.get.mode(somaticsniper_battenberg_pyclone_vi_mr);  # 66/70   => 94.3%
+patient.get.mode(mutect2.battenberg.pyclone.vi.sr);        # 107/140 => 76.4%
+patient.get.mode(mutect2.battenberg.pyclone.vi.mr);        # 62/70   => 88.6%
+patient.get.mode(strelka2.battenberg.pyclone.vi.sr);       # 111/140 => 79.3%
+patient.get.mode(strelka2.battenberg.pyclone.vi.mr);       # 58/70   => 82.6%
+patient.get.mode(somaticsniper.battenberg.pyclone.vi.sr);  # 128/140 => 91.4%
+patient.get.mode(somaticsniper.battenberg.pyclone.vi.mr);  # 66/70   => 94.3%
 
 patient.get.mode(dpclust);                                 # 230/420 => 54.8%
-patient.get.mode(mutect2_battenberg_dpclust_sr);           # 125/140 => 89.3%
-patient.get.mode(strelka2_battenberg_dpclust_sr);          # 106/140 => 75.7%
-patient.get.mode(somaticsniper_battenberg_dpclust_sr);     # 111/140 => 79.3%
+patient.get.mode(mutect2.battenberg.dpclust.sr);           # 125/140 => 89.3%
+patient.get.mode(strelka2.battenberg.dpclust.sr);          # 106/140 => 75.7%
+patient.get.mode(somaticsniper.battenberg.dpclust.sr);     # 111/140 => 79.3%
 
 patient.get.mode(phylowgs);                                # 198/376 => 52.7%
-patient.get.mode(mutect2_battenberg_phylowgs_sr);          # 90/118  => 76.3%
-patient.get.mode(strelka2_battenberg_phylowgs_sr);         # 96/121  => 79.3%
+patient.get.mode(mutect2.battenberg.phylowgs.sr);          # 90/118  => 76.3%
+patient.get.mode(strelka2.battenberg.phylowgs.sr);         # 96/121  => 79.3%
 patient.get.mode(somaticsniper_battenberg_phylowgs_sr);    # 113/137 => 82.5%
 
 # Stats of how many seeds get the mode subclone count
 seed.get.mode(pyclone.vi);                                  # 175/420 => 41.7%
 seed.get.mode(pyclone.vi.sr);                               # 168/420 => 40%
 seed.get.mode(pyclone.vi.mr);                               # 102/210 => 48.6%
-seed.get.mode(mutect2_battenberg_pyclone_vi_sr);            # 58/140  => 41.4%
-seed.get.mode(mutect2_battenberg_pyclone_vi_mr);            # 30/70   => 42.9%
-seed.get.mode(strelka2_battenberg_pyclone_vi_sr);           # 53/140  => 37.9%
-seed.get.mode(strelka2_battenberg_pyclone_vi_mr);           # 30/70   => 42.9%
-seed.get.mode(somaticsniper_battenberg_pyclone_vi_sr);      # 95/140  => 67.9%
-seed.get.mode(somaticsniper_battenberg_pyclone_vi_mr);      # 42/70   => 60.0%
+seed.get.mode(mutect2.battenberg.pyclone.vi.sr);            # 58/140  => 41.4%
+seed.get.mode(mutect2.battenberg.pyclone.vi.mr);            # 30/70   => 42.9%
+seed.get.mode(strelka2.battenberg.pyclone.vi.sr);           # 53/140  => 37.9%
+seed.get.mode(strelka2.battenberg.pyclone.vi.mr);           # 30/70   => 42.9%
+seed.get.mode(somaticsniper.battenberg.pyclone.vi.sr);      # 95/140  => 67.9%
+seed.get.mode(somaticsniper.battenberg.pyclone.vi.mr);      # 42/70   => 60.0%
 
 seed.get.mode(dpclust);                                     # 108/420 => 25.7%
-seed.get.mode(mutect2_battenberg_dpclust_sr);               # 53/140  => 37.9%
-seed.get.mode(strelka2_battenberg_dpclust_sr);              # 42/140  => 30%
-seed.get.mode(somaticsniper_battenberg_dpclust_sr);         # 68/140  => 48.6%
+seed.get.mode(mutect2.battenberg.dpclust.sr);               # 53/140  => 37.9%
+seed.get.mode(strelka2.battenberg.dpclust.sr);              # 42/140  => 30%
+seed.get.mode(somaticsniper.battenberg.dpclust.sr);         # 68/140  => 48.6%
 
 seed.get.mode(phylowgs);                                    # 174/376 => 46.3%
-seed.get.mode(mutect2_battenberg_phylowgs_sr);              # 45/118  => 38.1%
-seed.get.mode(strelka2_battenberg_phylowgs_sr);             # 50/121  => 41.3%
-seed.get.mode(somaticsniper_battenberg_phylowgs_sr);        # 100/137 => 23.0%
+seed.get.mode(mutect2.battenberg.phylowgs.sr);              # 45/118  => 38.1%
+seed.get.mode(strelka2.battenberg.phylowgs.sr);             # 50/121  => 41.3%
+seed.get.mode(somaticsniper.battenberg.phylowgs.sr);        # 100/137 => 23.0%
