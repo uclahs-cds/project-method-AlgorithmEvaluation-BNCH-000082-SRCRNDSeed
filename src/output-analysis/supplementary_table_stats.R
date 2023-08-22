@@ -373,7 +373,7 @@ wgs.fail.seed.rates <- 1 - wgs.fail.seed$n / 42;
 N <- 105:1000
 names(N) <- 105:1000
 prb <- unlist(lapply(
-    N, 
+    N,
     function(x) {
         sum(dbinom(105:x, x, 0.895))
         }
