@@ -75,19 +75,19 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Removed
 - Removed old script sr_strelka2_battenberg_pyclone-vi_submission_script.sh
 
-## [Unreleased] - 2022-03-07
+## [Unreleased] - 2023-03-07
 ### Added
 - Added new script sr_mutect2_battenberg_phylowgs_submission_script.sh
 
-## [Unreleased] - 2022-04-13
+## [Unreleased] - 2023-04-13
 ### Added
 - Added new script sr_strelka2_battenberg_phylowgs_submission_script.sh
 
-## [Unreleased] - 2022-04-17
+## [Unreleased] - 2023-04-17
 ### Added
 - Added new plotting script subclone_relative_seed_variability.R
 
-## [Unreleased] - 2022-04-23
+## [Unreleased] - 2023-04-23
 ### Added
 - Added new parsing script parse_num_subclones_phyloWGS.R
 - Added new plotting script plot_num_subclones_box.R
@@ -96,13 +96,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - Moved seed, colour scheme and legends to plot_accesories.R
 
-## [Unreleased] - 2022-04-27
+## [Unreleased] - 2023-04-27
 ### Added
 - Added script for running parse_num_subclones_phyloWGS.R
 
 ### Changed
 - Split phyloWGS parsing into parse_consensus_tree_phyloWGS.R and parse_num_subclones_phyloWGS.R
 
-## [Unreleased] - 2022-05-08
+## [Unreleased] - 2023-05-08
 ### Added
 - Added new script sr_somaticsniper_battenberg_phylowgs_submission_script.sh
+
+## [Unreleased] - 2023-08-22
+### Added
+- Added new analysis script supplementary_tables_stats.R
