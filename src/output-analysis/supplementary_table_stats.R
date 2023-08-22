@@ -21,7 +21,7 @@ strelka2.battenberg.pyclone.vi.sr <- read.table('./2023-04-02_num_subclones_stre
 somaticsniper.battenberg.pyclone.vi.sr <- read.table('./2023-04-02_num_subclones_somaticsniper_battenberg_pyclone-vi_sr.tsv', header = TRUE);
 
 # DPClust
-mutect2.battenberg.dpclust.sr <- read.table ('./2023-04-02_num_subclones_mutect2_battenberg_dpclust_sr.tsv', header = TRUE);
+mutect2.battenberg.dpclust.sr <- read.table('./2023-04-02_num_subclones_mutect2_battenberg_dpclust_sr.tsv', header = TRUE);
 strelka2.battenberg.dpclust.sr <- read.table('./2023-04-20_num_subclones_strelka2_battenberg_dpclust_sr.tsv', header = TRUE);
 somaticsniper.battenberg.dpclust.sr <- read.table('./2023-04-20_num_subclones_somaticsniper_battenberg_dpclust_sr.tsv', header = TRUE);
 
@@ -43,7 +43,7 @@ strelka2.battenberg.dpclust.sr$pipeline <- 'Strelka2-Battenberg-DPClust-sr';
 somaticsniper.battenberg.dpclust.sr$pipeline <- 'SomaticSniper-Battenberg-DPClust-sr';
 mutect2.battenberg.phylowgs.sr$pipeline <- 'Mutect2-Battenberg-PhyloWGS-sr';
 strelka2.battenberg.phylowgs.sr$pipeline <- 'Strelka2-Battenberg-PhyloWGS-sr';
-somaticsniper_battenberg_phylowgs_sr$pipeline <- 'SomaticSniper-Battenberg-PhyloWGS-sr';
+somaticsniper.battenberg.phylowgs.sr$pipeline <- 'SomaticSniper-Battenberg-PhyloWGS-sr';
 
 number.of.subclones <- rbind(
     mutect2.battenberg.pyclone.vi.mr,
@@ -57,7 +57,7 @@ number.of.subclones <- rbind(
     somaticsniper.battenberg.dpclust.sr,
     mutect2.battenberg.phylowgs.sr,
     strelka2.battenberg.phylowgs.sr,
-    somaticsniper_battenberg_phylowgs_sr
+    somaticsniper.battenberg.phylowgs.sr
     );
 
 #### PyClone-VI ###################################################################################
@@ -384,16 +384,16 @@ prb # 111
 # P-values of failure rates
 # x failures, n trials, with p hypothesized probability of failure
 binom.test(238, 1000, p = 0.105,
-           alternative = "greater",
+           alternative = 'greater',
            conf.level = 0.95) # 2.2e-16
 binom.test(214, 1000, p = 0.105,
-           alternative = "greater",
+           alternative = 'greater',
            conf.level = 0.95) # 2.2e-16
 binom.test(167, 1000, p = 0.105,
-           alternative = "greater",
+           alternative = 'greater',
            conf.level = 0.95) # 1.653e-09
 binom.test(143, 1000, p = 0.105,
-           alternative = "greater",
+           alternative = 'greater',
            conf.level = 0.95) # 0.000106
 
 #### Figure 3 evaluation ##########################################################################
