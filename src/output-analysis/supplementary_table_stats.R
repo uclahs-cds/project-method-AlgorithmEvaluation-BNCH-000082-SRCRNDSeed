@@ -103,7 +103,7 @@ pyc.sr.ave <- mean(pyclone.vi.sr$n_clones); # 2.307143
 pyc.mr.ave <- mean(pyclone.vi.mr$n_clones); # 1.942857
 
 # PyClone-VI stats by patient and per SNV caller
-pyclone.vi.patient <- setDT(pyclone.vi)[,
+pyclone.vi.pipeline <- setDT(pyclone.vi)[,
     list(
         median = median(n_clones),
         IQR = IQR(n_clones),
@@ -113,7 +113,7 @@ pyclone.vi.patient <- setDT(pyclone.vi)[,
     by = list(patient, pipeline)
     ];
 
-pyclone.vi.sr.patient <- setDT(pyclone.vi.sr)[,
+pyclone.vi.sr.pipeline <- setDT(pyclone.vi.sr)[,
     list(
         median = median(n_clones),
         IQR = IQR(n_clones),
@@ -123,7 +123,7 @@ pyclone.vi.sr.patient <- setDT(pyclone.vi.sr)[,
     by = list(patient, pipeline)
     ];
 
-pyclone.vi.mr.patient <- setDT(pyclone.vi.mr)[,
+pyclone.vi.mr.pipeline <- setDT(pyclone.vi.mr)[,
     list(
         median = median(n_clones),
         IQR = IQR(n_clones),
@@ -134,7 +134,7 @@ pyclone.vi.mr.patient <- setDT(pyclone.vi.mr)[,
     ];
 
 # PyClone-VI average IQR, and average sd across patients and per SNV caller
-pyclone.vi.stats <- setDT(pyclone.vi.patient)[,
+pyclone.vi.stats <- setDT(pyclone.vi.pipeline)[,
     list(
         mean_IQR = mean(IQR),
         mean_sd = sd(sd)
@@ -142,7 +142,7 @@ pyclone.vi.stats <- setDT(pyclone.vi.patient)[,
     by = list(pipeline)
     ];
 
-pyclone.vi.sr.stats <- setDT(pyclone.vi.sr.patient)[,
+pyclone.vi.sr.stats <- setDT(pyclone.vi.sr.pipeline)[,
     list(
         mean_IQR = mean(IQR),
         mean_sd = sd(sd)
@@ -150,7 +150,7 @@ pyclone.vi.sr.stats <- setDT(pyclone.vi.sr.patient)[,
     by = list(pipeline)
     ];
 
-pyclone.vi.mr.stats <- setDT(pyclone.vi.mr.patient)[,
+pyclone.vi.mr.stats <- setDT(pyclone.vi.mr.pipeline)[,
     list(
         mean_IQR = mean(IQR),
         mean_sd = sd(sd)
@@ -159,12 +159,12 @@ pyclone.vi.mr.stats <- setDT(pyclone.vi.mr.patient)[,
     ];
 
 # PyClone-VI average IQR of patient with median < 4 (high number of) subclones
-pyc.sub4.iqr <- mean(pyclone.vi.patient[pyclone.vi.patient$median < 4, ]$IQR);            # 0.5
-pyc.abo4.iqr <- mean(pyclone.vi.patient[pyclone.vi.patient$median >= 4, ]$IQR);           # 0.6666667
-pyc.sr.sub4.iqr <- mean(pyclone.vi.sr.patient[pyclone.vi.sr.patient$median < 4, ]$IQR);   # 0.1642857
-pyc.sr.abo4.iqr <- mean(pyclone.vi.sr.patient[pyclone.vi.sr.patient$median >= 4, ]$IQR);  # 0.8571429
-pyc.mr.sub4.iqr <- mean(pyclone.vi.mr.patient[pyclone.vi.mr.patient$median < 4, ]$IQR);   # 0.09210526
-pyc.mr.abo4.iqr <- mean(pyclone.vi.mr.patient[pyclone.vi.mr.patient$median >= 4, ]$IQR);  # 0.875
+pyc.sub4.iqr <- mean(pyclone.vi.pipeline[pyclone.vi.pipeline$median < 4, ]$IQR);            # 0.5
+pyc.abo4.iqr <- mean(pyclone.vi.pipeline[pyclone.vi.pipeline$median >= 4, ]$IQR);           # 0.6666667
+pyc.sr.sub4.iqr <- mean(pyclone.vi.sr.pipeline[pyclone.vi.sr.pipeline$median < 4, ]$IQR);   # 0.1642857
+pyc.sr.abo4.iqr <- mean(pyclone.vi.sr.pipeline[pyclone.vi.sr.pipeline$median >= 4, ]$IQR);  # 0.8571429
+pyc.mr.sub4.iqr <- mean(pyclone.vi.mr.pipeline[pyclone.vi.mr.pipeline$median < 4, ]$IQR);   # 0.09210526
+pyc.mr.abo4.iqr <- mean(pyclone.vi.mr.pipeline[pyclone.vi.mr.pipeline$median >= 4, ]$IQR);  # 0.875
 
 #### DPClust ######################################################################################
 dpclust <- rbind(
@@ -178,7 +178,7 @@ dpclust <- rbind(
 dpc.ave <- mean(dpclust$n_clones); # 3.728571
 
 # DPClust stats by patient and per SNV caller
-dpclust.patient <- setDT(dpclust)[,
+dpclust.pipeline <- setDT(dpclust)[,
     list(
         median = median(n_clones),
         IQR = IQR(n_clones),
@@ -189,7 +189,7 @@ dpclust.patient <- setDT(dpclust)[,
     ];
 
 # DPClust average IQR, and average sd across patients and per SNV caller
-dpclust.stats <- setDT(dpclust.patient)[,
+dpclust.stats <- setDT(dpclust.pipeline)[,
     list(
         mean_IQR = mean(IQR),
         mean_sd = sd(sd)
@@ -198,8 +198,8 @@ dpclust.stats <- setDT(dpclust.patient)[,
     ];
 
 # DPCLust average IQR of patient with median < 4 (high number of) subclones
-dpc.sub4.iqr <- mean(dpclust.patient[dpclust.patient$median < 4, ]$IQR);   # 0.175
-dpc.abo4.iqr <- mean(dpclust.patient[dpclust.patient$median >= 4, ]$IQR);  # 0.4545455
+dpc.sub4.iqr <- mean(dpclust.pipeline[dpclust.pipeline$median < 4, ]$IQR);   # 0.175
+dpc.abo4.iqr <- mean(dpclust.pipeline[dpclust.pipeline$median >= 4, ]$IQR);  # 0.4545455
 
 #### PhyloWGS #####################################################################################
 phylowgs <- rbind(
@@ -214,7 +214,7 @@ wgs.ave <- mean(phylowgs$n_clones); # 1.957447
 
 # PhyloWGS stats by patient and per SNV caller
 # No median for PhyloWGS because of inconsistent number of patients due to seed failure
-phylowgs.patient <- setDT(phylowgs)[,
+phylowgs.pipeline <- setDT(phylowgs)[,
     list(
         median = NaN,
         IQR = IQR(n_clones),
@@ -225,7 +225,7 @@ phylowgs.patient <- setDT(phylowgs)[,
     ];
 
 # PhyloWGS average IQR, and average sd across patients and per SNV caller
-phylowgs.stats <- setDT(phylowgs.patient)[,
+phylowgs.stats <- setDT(phylowgs.pipeline)[,
     list(
         mean_IQR = mean(IQR),
         mean_sd = sd(sd)
@@ -235,22 +235,22 @@ phylowgs.stats <- setDT(phylowgs.patient)[,
 
 # PhyloWGS average IQR of patient with median < 4 (high number of) subclones
 # No median for PhyloWGS because of inconsistent number of patients due to seed failure
-wgs.sub4.iqr <- mean(phylowgs.patient[phylowgs.patient$median < 4, ]$IQR);   # NaN
-wgs.abo4.iqr <- mean(phylowgs.patient[phylowgs.patient$median >= 4, ]$IQR);  # NaN
+wgs.sub4.iqr <- mean(phylowgs.pipeline[phylowgs.pipeline$median < 4, ]$IQR);   # NaN
+wgs.abo4.iqr <- mean(phylowgs.pipeline[phylowgs.pipeline$median >= 4, ]$IQR);  # NaN
 
 #### Table2_StatsByPatient ########################################################################
 # Subclone count stats by patient and per SRC algorithm and SNV caller pairing
-stats.by.patient <- rbind(
-    pyclone.vi.patient,
-    pyclone.vi.sr.patient,
-    pyclone.vi.mr.patient,
-    dpclust.patient,
-    phylowgs.patient
+stats.by.pipeline <- rbind(
+    pyclone.vi.pipeline,
+    pyclone.vi.sr.pipeline,
+    pyclone.vi.mr.pipeline,
+    dpclust.pipeline,
+    phylowgs.pipeline
     );
 
 #### Table3_StatsByPipeline #######################################################################
 # Subclone count stats by patient and per SRC algorithm across SNV callers
-pyclone.vi.pipeline <- setDT(pyclone.vi)[,
+pyclone.vi.src <- setDT(pyclone.vi)[,
     list(
         median = median(n_clones),
         IQR = IQR(n_clones),
@@ -261,7 +261,7 @@ pyclone.vi.pipeline <- setDT(pyclone.vi)[,
     by = list(patient)
     ];
 
-pyclone.vi.sr.pipeline <- setDT(pyclone.vi.sr)[,
+pyclone.vi.sr.src <- setDT(pyclone.vi.sr)[,
     list(
         median = median(n_clones),
         IQR = IQR(n_clones),
@@ -272,7 +272,7 @@ pyclone.vi.sr.pipeline <- setDT(pyclone.vi.sr)[,
     by = list(patient)
     ];
 
-pyclone.vi.mr.pipeline <- setDT(pyclone.vi.mr)[,
+pyclone.vi.mr.src <- setDT(pyclone.vi.mr)[,
     list(
         median = median(n_clones),
         IQR = IQR(n_clones),
@@ -283,7 +283,7 @@ pyclone.vi.mr.pipeline <- setDT(pyclone.vi.mr)[,
     by = list(patient)
     ];
 
-dpclust.pipeline <- setDT(dpclust)[,
+dpclust.src <- setDT(dpclust)[,
     list(
         median = median(n_clones),
         IQR = IQR(n_clones),
@@ -294,7 +294,7 @@ dpclust.pipeline <- setDT(dpclust)[,
     by = list(patient)
     ];
 
-phylowgs.pipeline <- setDT(phylowgs)[,
+phylowgs.src <- setDT(phylowgs)[,
     list(
         median = NaN,
         IQR = IQR(n_clones),
@@ -306,12 +306,12 @@ phylowgs.pipeline <- setDT(phylowgs)[,
     ];
 
 # overview of stats by pipeline
-stats.by.pipeline <- rbind(
-    pyclone.vi.pipeline,
-    pyclone.vi.sr.pipeline,
-    pyclone.vi.mr.pipeline,
-    dpclust.pipeline,
-    phylowgs.pipeline
+stats.by.src <- rbind(
+    pyclone.vi.src,
+    pyclone.vi.sr.src,
+    pyclone.vi.mr.src,
+    dpclust.src,
+    phylowgs.src
     );
 
 #### RandomSeed_SupplementaryData.xlsx ############################################################
@@ -323,32 +323,32 @@ write.xlsx(
     );
 
 write.xlsx(
-    stats.by.patient,
+    stats.by.pipeline,
     file = 'RandomSeed_SupplementaryTables.xlsx',
-    sheetName = 'Table2_StatsByPatient',
+    sheetName = 'Table2_StatsByPipeline',
     col.names = TRUE, row.names = FALSE, append = TRUE
     );
 
 write.xlsx(
-    stats.by.pipeline,
+    stats.by.src,
     file = 'RandomSeed_SupplementaryTables.xlsx',
-    sheetName = 'Table3_StatsByPipeline',
+    sheetName = 'Table3_StatsBySRC',
     col.names = TRUE, row.names = FALSE, append = TRUE
     );
 
 #### RandomSeed_stats.txt #########################################################################
 # Average IQR, and average sd by SRC algorithm
-stats.by.src <- setDT(stats.by.pipeline)[,
+src.stats <- setDT(stats.by.src)[,
     list(
         mean_IQR = mean(IQR),
         mean_sd = mean(sd)
         ),
     by = list(src)
     ];
-colnames(stats.by.src)[1] <- 'pipeline';
+colnames(src.stats)[1] <- 'pipeline';
 
 stats.analysis <- rbind(
-    stats.by.src,
+    src.stats,
     pyclone.vi.stats,
     pyclone.vi.sr.stats,
     pyclone.vi.mr.stats,
