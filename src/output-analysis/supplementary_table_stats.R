@@ -129,11 +129,11 @@ pyclone.vi.sr.stats <- setDT(pyclone.vi.sr.pipeline)[,
 
 # PyClone-VI-sr average IQR 0.2797619, average sd 0.3375707
 pyc.sr.ave.iqr <- list(
-    'PyClone-VI-sr', 
-    mean(pyclone.vi.sr.stats$mean_IQR), 
+    'PyClone-VI-sr',
+    mean(pyclone.vi.sr.stats$mean_IQR),
     mean(pyclone.vi.sr.stats$mean_sd)
     );
-pyclone.vi.sr.stats <-rbind(pyclone.vi.sr.stats, pyc.sr.ave.iqr);
+pyclone.vi.sr.stats <- rbind(pyclone.vi.sr.stats, pyc.sr.ave.iqr);
 
 # PyClone-VI-mr number of subclones across patients and per SNV caller
 pyclone.vi.mr.pipeline <- setDT(pyclone.vi.mr)[,
@@ -156,11 +156,11 @@ pyclone.vi.mr.stats <- setDT(pyclone.vi.mr.pipeline)[,
 
 # PyClone-VI-mr average IQR 0.1666667, average sd 0.2172008
 pyc.mr.ave.iqr <- list(
-    'PyClone-VI-mr', 
-    mean(pyclone.vi.mr.stats$mean_IQR), 
+    'PyClone-VI-mr',
+    mean(pyclone.vi.mr.stats$mean_IQR),
     mean(pyclone.vi.mr.stats$mean_sd)
     );
-pyclone.vi.mr.stats <-rbind(pyclone.vi.mr.stats, pyc.mr.ave.iqr);
+pyclone.vi.mr.stats <- rbind(pyclone.vi.mr.stats, pyc.mr.ave.iqr);
 
 # PyClone-VI average IQR of patient with high subclone count (85th quantile)
 quantile(pyclone.vi.sr.pipeline$median, 0.85); # high median is a subclone count above 3.85
@@ -320,7 +320,7 @@ binom.test(143, 1000, p = 0.105,
            conf.level = 0.95) # 0.000106
 
 # Count the number of pipelines that were successful per seed patient pair
-test <- count(phylowgs, seed, patient); 
+test <- count(phylowgs, seed, patient);
 test.rates <- aggregate(test$n, by = list(test$patient, test$seed), FUN = min);
 
 # Patient seed pairs which only succeed for 1 pipeline
@@ -364,14 +364,14 @@ patient.get.mode <- function(pipeline) {
     pipeline.mode <- setDT(pipeline)[,list(mode = get.mode(n_clones), gets_mode = sum(n_clones == get.mode(n_clones))), by = list(patient)];
     gets.mode <- sum(pipeline.mode$gets_mode)
     print(gets.mode)
-    return(round((gets.mode/nrow(pipeline))*100, 1))
+    return(round((gets.mode / nrow(pipeline)) * 100, 1))
     };
 
 # function to see if seed gets the mode across all patients per pipeline
 seed.get.mode <- function(pipeline) {
     pipeline.mode <- setDT(pipeline)[,list(seed = seed, mode = get.mode(n_clones), gets_mode = n_clones == get.mode(n_clones)), by = list(pipeline, patient)];
     seed.mode <- aggregate(gets_mode ~ seed, pipeline.mode, function(x) sum(x == TRUE))
-    seed.mode$`ratio(%)` <- round(seed.mode$gets_mode/length(unique(pipeline$patient))*100, 1)
+    seed.mode$`ratio(%)` <- round(seed.mode$gets_mode / length(unique(pipeline$patient)) * 100, 1)
     seed.mode$`pipeline` <- unique(pipeline$pipeline)
     return(seed.mode)
     };
@@ -474,3 +474,4 @@ write.xlsx(
     sheetName = 'Table3_StatsBySeed',
     col.names = TRUE, row.names = FALSE, append = TRUE
     );
+                              
