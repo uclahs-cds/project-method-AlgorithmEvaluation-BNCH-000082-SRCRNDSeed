@@ -422,6 +422,7 @@ dpc.seed.mean <- aggregate(`ratio(%)` ~ seed, dpc.seed, FUN = mean);
 wgs.seed <- stats.by.seed[grepl('PhyloWGS-sr', stats.by.seed$pipeline), ];
 wgs.seed.mean <- aggregate(`ratio(%)` ~ seed, wgs.seed, FUN = mean);
 seed.mean <- aggregate(`ratio(%)` ~ seed, pyc.sr.seed, FUN = mean);
+pipeline.see.mean <- setDT(stats.by.seed)[,list(`seed_fetmode_ratio(%)` = mean(`ratio(%)`)), by = list(pipeline)];
 
 # Pipelines with seeds that are consistent across all samples (RandomSeed_stats.txt)
 # mutect2.battenberg.pyclone.vi.sr          838004
