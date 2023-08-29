@@ -473,4 +473,4 @@ write.xlsx(
     file = 'RandomSeed_SupplementaryTables.xlsx',
     sheetName = 'Table3_StatsBySeed',
     col.names = TRUE, row.names = FALSE, append = TRUE
-    );        
+    );
