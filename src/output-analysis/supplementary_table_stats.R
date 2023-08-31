@@ -63,33 +63,6 @@ number.of.subclones <- rbind(
 # Average number of subclones by pipeline
 pipe.ave <- aggregate(number.of.subclones$n_clones, by = list(number.of.subclones$pipeline), FUN = mean);
 
-#### sSNV-Callers #################################################################################
-mutect2 <- rbind(
-    mutect2.battenberg.pyclone.vi.mr,
-    mutect2.battenberg.pyclone.vi.sr,
-    mutect2.battenberg.dpclust.sr,
-    strelka2.battenberg.phylowgs.sr
-    );
-
-strelka2 <- rbind(
-    strelka2.battenberg.pyclone.vi.mr,
-    strelka2.battenberg.pyclone.vi.sr,
-    strelka2.battenberg.dpclust.sr,
-    strelka2.battenberg.phylowgs.sr
-    );
-
-somaticsniper <- rbind(
-    somaticsniper.battenberg.pyclone.vi.mr,
-    somaticsniper.battenberg.pyclone.vi.sr,
-    somaticsniper.battenberg.dpclust.sr,
-    somaticsniper.battenberg.phylowgs.sr
-    );
-
-# Average number of subclones across patients and across src algorithms
-mut.ave <- mean(mutect2$n_clones);        # 2.503185
-str.ave <- mean(strelka2$n_clones);       # 2.664544
-som.ave <- mean(somaticsniper$n_clones);  # 2.451745
-
 #### PyClone-VI ###################################################################################
 pyclone.vi.sr <- rbind(
     mutect2.battenberg.pyclone.vi.sr,
@@ -227,7 +200,7 @@ wgs.ave <- mean(phylowgs$n_clones); # 1.957447
 # PhyloWGS results stats across seeds per patient and per SNV caller
 phylowgs.pipeline <- setDT(phylowgs)[,
     list(
-        median = as.numeric(median(n_clones), na.rm = TRUE),
+        median = as.numeric(median(n_clones, na.rm = T)),
         IQR = IQR(n_clones),
         mean = mean(n_clones),
         sd = sd(n_clones)
@@ -283,11 +256,12 @@ num.pipelines <- length(unique(phylowgs$pipeline));
 
 # PhyloWGS patient failure rates across pipelines (RandomSeed-stats.txt)
 wgs.fail.patient <- count(phylowgs, patient);
-wgs.fail.rates <- 1 - wgs.fail.patient$n / (num.seeds * num.pipelines);
+wgs.fail.patient$fail.rate <- 1 - (wgs.fail.patient$n / (num.seeds * num.pipelines));
 
 # PhyloWGS seed failure rates across pipelines (RandomSeed-stats.txt)
 wgs.fail.seed <- count(phylowgs, seed);
-wgs.fail.seed.rates <- 1 - wgs.fail.seed$n / (num.patients * num.pipelines);
+wgs.fail.seed$n.fail <- num.patients * num.pipelines - wgs.fail.seed$n;
+wgs.fail.seed$fail.rate <- 1 - (wgs.fail.seed$n / (num.patients * num.pipelines));
 
 # overall failure rate of 89.5%
 # probability of a seed failing ~10.5%
@@ -306,23 +280,26 @@ prb # 111
 
 # P-values of seed/patient failure rates with a p(failure) = 0.105
 # x failures, n trials, with p hypothesized probability of failure
-binom.test(238, 1000, p = 0.105,
-           alternative = 'greater',
-           conf.level = 0.95) # 2.2e-16
-binom.test(214, 1000, p = 0.105,
-           alternative = 'greater',
-           conf.level = 0.95) # 2.2e-16
-binom.test(167, 1000, p = 0.105,
-           alternative = 'greater',
-           conf.level = 0.95) # 1.653e-09
-binom.test(143, 1000, p = 0.105,
-           alternative = 'greater',
-           conf.level = 0.95) # 0.000106
+wgs.fail.seed$binom.p.value <- apply(X = wgs.fail.seed,
+    MARGIN = 1,
+    FUN = function(t) {
+        p.value <- binom.test(
+            x = t[3],
+            n = num.patients * num.pipelines,
+            p = 0.105,
+            alternative = 'greater',
+            conf.level = 0.95)$p.value
+        paste0(round(x = p.value, 6)) 
+        }
+    );
+
+# Adjust p.values for multiple testing
+multiple.test <- p.adjust(wgs.fail.seed$binom.p.value, method = 'bonferroni', n = nrow(wgs.fail.seed));
+# 1.00000 0.27988 1.00000 1.00000 1.00000 1.00000 1.00000 0.10201 1.00000 1.00000
+multiple.test <- p.adjust(wgs.fail.seed$binom.p.value, method = 'hochberg', n = nrow(wgs.fail.seed));
+# 1.000000 0.251892 1.000000 1.000000 1.000000 1.000000 1.000000 0.102010 1.000000 1.000000
 
 # Count the number of pipelines that were successful per seed patient pair
-test <- count(phylowgs, seed, patient);
-test.rates <- aggregate(test$n, by = list(test$patient, test$seed), FUN = min);
-
 # Patient seed pairs which only succeed for 1 pipeline
 # 13142, P04
 # 13142, P09
@@ -369,7 +346,7 @@ patient.get.mode <- function(pipeline) {
 
 # function to see if seed gets the mode across all patients per pipeline
 seed.get.mode <- function(pipeline) {
-    pipeline.mode <- setDT(pipeline)[,list(seed = seed, mode = get.mode(n_clones), gets_mode = n_clones == get.mode(n_clones)), by = list(pipeline, patient)];
+    pipeline.mode <- setDT(pipeline)[,list(seed = seed, mode = get.mode(n_clones), gets_mode = n_clones == get.mode(n_clones)), by = list(patient)];
     seed.mode <- aggregate(gets_mode ~ seed, pipeline.mode, function(x) sum(x == TRUE))
     seed.mode$`ratio(%)` <- round(seed.mode$gets_mode / length(unique(pipeline$patient)) * 100, 1)
     seed.mode$`pipeline` <- unique(pipeline$pipeline)
@@ -425,6 +402,8 @@ seed.mean <- aggregate(`ratio(%)` ~ seed, pyc.sr.seed, FUN = mean);
 pipeline.see.mean <- setDT(stats.by.seed)[,list(`seed_getmode_ratio(%)` = mean(`ratio(%)`)), by = list(pipeline)];
 
 # Pipelines with seeds that are consistent across all samples (RandomSeed_stats.txt)
+# get.100 <- stats.by.seed[stats.by.seed$`ratio(%)` == 100,]
+# count(get.100, seed)
 # mutect2.battenberg.pyclone.vi.sr          838004
 # mutect2.battenberg.pyclone.vi.mr          13142, 97782, 366306, 659767
 # strelka2.battenberg.pyclone.vi.mr         13142, 423647
