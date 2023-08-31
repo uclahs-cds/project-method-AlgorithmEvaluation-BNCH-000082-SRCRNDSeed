@@ -284,7 +284,7 @@ wgs.fail.seed$binom.p.value <- apply(X = wgs.fail.seed,
     MARGIN = 1,
     FUN = function(t) {
         p.value <- binom.test(
-            x = t[3],
+            x = n.fail,
             n = num.patients * num.pipelines,
             p = 0.105,
             alternative = 'greater',
