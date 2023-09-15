@@ -294,7 +294,7 @@ wgs.fail.seed$binom.p.value <- apply(X = wgs.fail.seed,
             p = 0.105,
             alternative = 'greater',
             conf.level = 0.95)$p.value
-        paste0(round(x = p.value, 6)) 
+        paste0(round(x = p.value, 6))
         }
     );
 
