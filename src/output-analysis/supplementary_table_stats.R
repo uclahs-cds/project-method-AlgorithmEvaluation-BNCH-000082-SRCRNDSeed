@@ -79,6 +79,9 @@ pyclone.vi.mr <- rbind(
 # PyClone-VI average number of subclones across patients and across SNV callers
 pyc.sr.ave <- mean(pyclone.vi.sr$n_clones); # 2.307143
 pyc.mr.ave <- mean(pyclone.vi.mr$n_clones); # 1.942857
+pyc.sr.sd <- sd(pyclone.vi.sr$n_clones); # 1.29196
+pyc.mr.sd <- sd(pyclone.vi.mr$n_clones); # 1.092196
+
 
 # PyClone-VI results stats across seeds, per patient and per SNV caller
 pyclone.vi.sr.pipeline <- setDT(pyclone.vi.sr)[,
@@ -152,6 +155,7 @@ dpclust <- rbind(
 
 # DPClust average number of subclones across patients and across SNV callers
 dpc.ave <- mean(dpclust$n_clones); # 3.728571
+dpc.sd <- sd(dpclust$n_clones); # 1.894003
 
 # DPClust results stats across seeds, per patient and per SNV caller
 dpclust.pipeline <- setDT(dpclust)[,
@@ -196,6 +200,7 @@ phylowgs <- rbind(
 ## Statistical evaluation
 # PhyloWGS average number of subclones across patients and across SNV callers
 wgs.ave <- mean(phylowgs$n_clones); # 1.957447
+wgs.sd <- sd(phylowgs$n_clones); # 1.109137
 
 # PhyloWGS results stats across seeds per patient and per SNV caller
 phylowgs.pipeline <- setDT(phylowgs)[,
@@ -284,7 +289,7 @@ wgs.fail.seed$binom.p.value <- apply(X = wgs.fail.seed,
     MARGIN = 1,
     FUN = function(t) {
         p.value <- binom.test(
-            x = n.fail,
+            x = t['n.fail'],
             n = num.patients * num.pipelines,
             p = 0.105,
             alternative = 'greater',
@@ -294,10 +299,13 @@ wgs.fail.seed$binom.p.value <- apply(X = wgs.fail.seed,
     );
 
 # Adjust p.values for multiple testing
-multiple.test <- p.adjust(wgs.fail.seed$binom.p.value, method = 'bonferroni', n = nrow(wgs.fail.seed));
+multiple.test.bon <- p.adjust(wgs.fail.seed$binom.p.value, method = 'bonferroni', n = nrow(wgs.fail.seed));
 # 1.00000 0.27988 1.00000 1.00000 1.00000 1.00000 1.00000 0.10201 1.00000 1.00000
-multiple.test <- p.adjust(wgs.fail.seed$binom.p.value, method = 'hochberg', n = nrow(wgs.fail.seed));
+multiple.test.hob <- p.adjust(wgs.fail.seed$binom.p.value, method = 'hochberg', n = nrow(wgs.fail.seed));
 # 1.000000 0.251892 1.000000 1.000000 1.000000 1.000000 1.000000 0.102010 1.000000 1.000000
+multiple.test.fdr <- p.adjust(wgs.fail.seed$binom.p.value, method = 'fdr', n = nrow(wgs.fail.seed));
+# 0.4876967 0.1399400 1.0000000 1.0000000 1.0000000 1.0000000 1.0000000 0.1020100 0.6897500 1.0000000
+wgs.fail.seed$fdr.p.adjust <- multiple.test.fdr;
 
 # Count the number of pipelines that were successful per seed patient pair
 # Patient seed pairs which only succeed for 1 pipeline
