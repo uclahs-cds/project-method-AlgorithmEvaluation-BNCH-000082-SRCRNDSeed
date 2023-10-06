@@ -27,7 +27,7 @@ do
         while [ $submit_signal == "false" ]
         do
             sleep 60
-            jobs_running=$((`squeue -u psteinberg | wc -l` - 1))
+            jobs_running=$(($(squeue -u psteinberg | wc -l) - 1))
             echo "jobs running: $jobs_running"
             if [ $jobs_running -lt 5 ]
             then
@@ -36,9 +36,9 @@ do
         done
         python3 /hot/software/package/tool-submit-nf/Python/release/2.2.0/submit_nextflow_pipeline.py \
             --nextflow_script /hot/user/yashpatel/pipeline-call-SRC/pipeline-call-SRC/main.nf \
-            --nextflow_config /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-phylowgs/input/config/seed_${seed}.config \
-            --nextflow_yaml /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/somaticsniper_battenberg_yamls/single-region/${patient}.yaml \
-            --pipeline_run_name ${patient}_${seed}_SomaticSniper-Battenberg-PhyloWGS-sr \
+            --nextflow_config /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-somaticsniper-battenberg-phylowgs/input/config/seed_"${seed}".config \
+            --nextflow_yaml /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/somaticsniper_battenberg_yamls/single-region/"${patient}".yaml \
+            --pipeline_run_name "${patient}"_"${seed}"_SomaticSniper-Battenberg-PhyloWGS-sr \
             --partition_type F72 \
             --email psteinberg@mednet.ucla.edu
     done

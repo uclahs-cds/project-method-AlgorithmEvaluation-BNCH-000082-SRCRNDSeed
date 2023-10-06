@@ -27,7 +27,7 @@ do
         while [ $submit_signal == "false" ]
         do
             sleep 300
-            jobs_running=$((`squeue -u psteinberg | wc -l` - 1))
+            jobs_running=$(($(squeue -u psteinberg | wc -l) - 1))
             echo "jobs running: $jobs_running"
             if [ $jobs_running -lt 6 ]
             then
@@ -36,9 +36,9 @@ do
         done
         python3 /hot/software/package/tool-submit-nf/Python/release/2.2.0/submit_nextflow_pipeline.py \
             --nextflow_script /hot/software/pipeline/pipeline-call-SRC/Nextflow/release/1.0.0-rc.1/main.nf \
-            --nextflow_config /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-phylowgs/input/config/seed_${seed}.config \
-            --nextflow_yaml /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/strelka2_battenberg_yamls/single-region/${patient}.yaml \
-            --pipeline_run_name ${patient}_${seed}_Strelka2-Battenberg-PhyloWGS \
+            --nextflow_config /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/run-strelka2-battenberg-phylowgs/input/config/seed_"${seed}".config \
+            --nextflow_yaml /hot/project/method/AlgorithmEvaluation/BNCH-000082-SRCRNDSeed/pipeline-call-src/strelka2_battenberg_yamls/single-region/"${patient}".yaml \
+            --pipeline_run_name "${patient}"_"${seed}"_Strelka2-Battenberg-PhyloWGS \
             --partition_type F72 \
             --email psteinberg@mednet.ucla.edu
     done
