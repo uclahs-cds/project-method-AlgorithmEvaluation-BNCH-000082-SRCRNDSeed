@@ -29,16 +29,16 @@ src.colour <- pipeline.colour.scheme[src.tool];
 ### SR FUNCTION ###################################################################################
 plot.sr <- function(df) {
     plot <- create.boxplot(
-        formula = n_clones ~ patient,
-        data = subclones.data,
+        formula = patient ~ n_clones,
+        data = df,
         filename = generate.filename(
             'proj-seed',
             paste0(args$pipeline, '_', args$mode, '_subclones_box'),
             'pdf'
             ),
         main = args$pipeline,
-        ylab.label = 'Number of Subclones',
-        xlab.label = 'Patient',
+        xlab.label = 'Number of Subclones',
+        ylab.label = 'Patient',
         main.just = 'center',
         main.x = 0.52,
         ylimits = c(0.5, 9.5),
@@ -51,11 +51,11 @@ plot.sr <- function(df) {
         points.alpha = 1,
         col = src.colour,
         alpha.rectangle = 0.8,
-        main.cex = 1.1,
+        main.cex = 1.4,
         xaxis.cex = 0.8,
         yaxis.cex = 0.8,
-        xlab.cex = 1.1,
-        ylab.cex = 1.1,
+        xlab.cex = 1.4,
+        ylab.cex = 1.4,
         xaxis.tck = c(1, 0),
         yaxis.tck = c(1, 0),
         xaxis.rot = 0,
@@ -67,24 +67,24 @@ plot.sr <- function(df) {
         left.padding = 1,
         ylab.axis.padding = 1,
         description = 'Boxplot created by BoutrosLab.plotting.general',
-        height = 4,
-        width = 7
+        height = 8,
+        width = 4
         );
     };
 
 ### MR FUNCTION ###################################################################################
 plot.mr <- function(df) {
     plot <- create.boxplot(
-        formula = n_clones ~ patient,
-        data = subclones.data,
+        formula = patient ~ n_clones,
+        data = df,
         filename = generate.filename(
             'proj-seed',
             paste0(args$pipeline, '_', args$mode, '_subclones_box'),
             'pdf'
             ),
         main = args$pipeline,
-        ylab.label = 'Number of Subclones',
-        xlab.label = 'Patient',
+        xlab.label = 'Number of Subclones',
+        ylab.label = 'Patient',
         main.just = 'center',
         main.x = 0.52,
         ylimits = c(0.5, 9.5),
@@ -97,11 +97,11 @@ plot.mr <- function(df) {
         points.alpha = 1,
         col = src.colour,
         alpha.rectangle = 0.8,
-        main.cex = 1.1,
+        main.cex = 1.4,
         xaxis.cex = 0.8,
         yaxis.cex = 0.8,
-        xlab.cex = 1.1,
-        ylab.cex = 1.1,
+        xlab.cex = 1.4,
+        ylab.cex = 1.4,
         xaxis.tck = c(1, 0),
         yaxis.tck = c(1, 0),
         xaxis.rot = 0,
@@ -116,8 +116,8 @@ plot.mr <- function(df) {
         #legend = list(
         #    right = list(fun = algorithm.legends.grob)
         #    ),
-        height = 4,
-        width = 7
+        height = 8,
+        width = 4
         );
     };
 
