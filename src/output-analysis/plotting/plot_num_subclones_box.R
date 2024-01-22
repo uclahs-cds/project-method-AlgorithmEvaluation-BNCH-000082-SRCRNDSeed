@@ -34,7 +34,11 @@ plot.sr <- function(df) {
     plot <- create.boxplot(
         formula = patient ~ n_clones,
         data = df,
-        filename = filename,
+        filename = generate.filename(
+            'proj-seed',
+            paste0(args$pipeline, '_', args$mode, '_subclones_box'),
+            'pdf'
+            ),
         main = args$pipeline,
         xlab.label = 'Number of Subclones',
         ylab.label = 'Patient',
@@ -76,7 +80,11 @@ plot.mr <- function(df) {
     plot <- create.boxplot(
         formula = patient ~ n_clones,
         data = df,
-        filename = filename,
+        filename = generate.filename(
+            'proj-seed',
+            paste0(args$pipeline, '_', args$mode, '_subclones_box'),
+            'pdf'
+            ),
         main = args$pipeline,
         xlab.label = 'Number of Subclones',
         ylab.label = 'Patient',
