@@ -26,24 +26,23 @@ subclones.data <- read.table(file = args$file, sep = '\t', header = TRUE);
 src.tool <- strsplit(args$pipeline, '-')[[1]][3];
 src.colour <- pipeline.colour.scheme[src.tool];
 
+filename <- paste0('2024_01_01-', args$pipeline, '_', args$mode, '_subclones_box.pdf');
+print(filename);
+
 ### SR FUNCTION ###################################################################################
 plot.sr <- function(df) {
     plot <- create.boxplot(
         formula = patient ~ n_clones,
         data = df,
-        filename = generate.filename(
-            'proj-seed',
-            paste0(args$pipeline, '_', args$mode, '_subclones_box'),
-            'pdf'
-            ),
+        filename = filename,
         main = args$pipeline,
         xlab.label = 'Number of Subclones',
         ylab.label = 'Patient',
         main.just = 'center',
         main.x = 0.52,
-        ylimits = c(0.5, 9.5),
-        yat = seq(1, 9, 1),
-        xaxis.lab = patients.sr,
+        xlimits = c(0.5, 9.5),
+        xat = seq(1, 9, 1),
+        yaxis.lab = patients.sr,
         add.stripplot = TRUE,
         points.pch = 19,
         points.col = 'black',
@@ -51,13 +50,13 @@ plot.sr <- function(df) {
         points.alpha = 1,
         col = src.colour,
         alpha.rectangle = 0.8,
-        main.cex = 1.4,
-        xaxis.cex = 0.8,
-        yaxis.cex = 0.8,
-        xlab.cex = 1.4,
-        ylab.cex = 1.4,
+        main.cex = 1.6,
+        xaxis.cex = 1.6,
+        yaxis.cex = 1.6,
+        xlab.cex = 1.6,
+        ylab.cex = 1.6,
         xaxis.tck = c(1, 0),
-        yaxis.tck = c(1, 0),
+        yaxis.tck = c(1, 0, 1),
         xaxis.rot = 0,
         xaxis.fontface = 1,
         yaxis.fontface = 1,
@@ -77,47 +76,40 @@ plot.mr <- function(df) {
     plot <- create.boxplot(
         formula = patient ~ n_clones,
         data = df,
-        filename = generate.filename(
-            'proj-seed',
-            paste0(args$pipeline, '_', args$mode, '_subclones_box'),
-            'pdf'
-            ),
+        filename = filename,
         main = args$pipeline,
         xlab.label = 'Number of Subclones',
         ylab.label = 'Patient',
         main.just = 'center',
         main.x = 0.52,
-        ylimits = c(0.5, 9.5),
+        xlimits = c(0.5, 9.5),
+        xat = seq(1, 9, 1),
+        yaxis.lab = patients.mr,
         yat = seq(1, 9, 1),
-        xaxis.lab = patients.mr,
         add.stripplot = TRUE,
         points.pch = 19,
         points.col = 'black',
-        points.cex = 0.6,
+        points.cex = 0.4,
         points.alpha = 1,
         col = src.colour,
         alpha.rectangle = 0.8,
-        main.cex = 1.4,
-        xaxis.cex = 0.8,
-        yaxis.cex = 0.8,
-        xlab.cex = 1.4,
-        ylab.cex = 1.4,
+        main.cex = 1.6,
+        xaxis.cex = 1.6,
+        yaxis.cex = 1.6,
+        xlab.cex = 1.6,
+        ylab.cex = 1.6,
         xaxis.tck = c(1, 0),
         yaxis.tck = c(1, 0),
         xaxis.rot = 0,
         xaxis.fontface = 1,
         yaxis.fontface = 1,
-        top.padding = 1,
+        top.padding = 35,
         bottom.padding = 1,
         right.padding = 1,
         left.padding = 1,
         ylab.axis.padding = 1,
-        description = 'Boxplot created by BoutrosLab.plotting.general',
-        #legend = list(
-        #    right = list(fun = algorithm.legends.grob)
-        #    ),
-        height = 8,
-        width = 4
+        size.units = "inches",
+        description = 'Boxplot created by BoutrosLab.plotting.general'
         );
     };
 
@@ -127,7 +119,7 @@ setwd(args$output);
 if (args$mode == 'sr') {
     plot.sr(subclones.data)
     print('plotting sr')
-  } else {
-      plot.mr(subclones.data)
-      print('plotting mr')
-      };
+} else {
+    plot.mr(subclones.data)
+    print('plotting mr')
+    };
