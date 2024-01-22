@@ -116,7 +116,7 @@ plot.mr <- function(df) {
         right.padding = 1,
         left.padding = 1,
         ylab.axis.padding = 1,
-        size.units = "inches",
+        size.units = 'inches',
         description = 'Boxplot created by BoutrosLab.plotting.general'
         );
     };
