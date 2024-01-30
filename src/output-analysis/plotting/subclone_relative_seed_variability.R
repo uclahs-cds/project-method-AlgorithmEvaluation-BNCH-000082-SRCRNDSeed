@@ -88,29 +88,29 @@ symbol.matrix <- matrix(subclones.data.toplot$compare, nrow = length(unique(subc
 # reverse rows since row order is reversed in a heatmap
 symbol.matrix <- symbol.matrix[nrow(symbol.matrix):1, ]
 # output every index of the matrix to indicate where each symbol should go
-nclones_ind <- which(symbol.matrix != '', arr.ind = TRUE);
-nclones_x <- nclones_ind[, 2];
-nclones_y <- nclones_ind[, 1];
+nclones.ind <- which(symbol.matrix != '', arr.ind = TRUE);
+nclones.x <- nclones.ind[, 2];
+nclones.y <- nclones.ind[, 1];
 
 # get all symbols in the order of the indices
-nclones_text <- apply(nclones_ind, 1, function(x) symbol.matrix[x[1], x[2]])
+nclones.text <- apply(nclones.ind, 1, function(x) symbol.matrix[x[1], x[2]])
 # convert the symbols to unicode to actually plot
-nclones_3_cex <- c('\U2212', '=', '+');
-names(nclones_3_cex) <- c('−', '=', '+');
-nclones_text <- nclones_3_cex[nclones_text]
+nclones.3.cex <- c('\U2212', '=', '+');
+names(nclones.3.cex) <- c('−', '=', '+');
+nclones.text <- nclones.3.cex[nclones.text]
 
 # get all colours in the order of the indices
 col.matrix <- matrix(subclones.data.toplot$col, nrow = length(unique(subclones.data.toplot$patient)), ncol = length(seeds), byrow = TRUE)
 col.matrix <- col.matrix[nrow(col.matrix):1, ]
-nclones_col <- apply(nclones_ind, 1, function(x) col.matrix[x[1], x[2]])
+nclones.col <- apply(nclones.ind, 1, function(x) col.matrix[x[1], x[2]])
 
 # cnas_text <- rep('+', length(cnas_x))
-nclones_pos <- rep(3, length(nclones_text));
-nclones_offset <- rep(-0.3, length(nclones_text));
-nclones_cex <- rep(1.6, length(nclones_text));
+nclones.pos <- rep(3, length(nclones.text));
+nclones.offset <- rep(-0.3, length(nclones.text));
+nclones.cex <- rep(1.6, length(nclones.text));
 
 # readjust seed labels
-adjust_seed_labs <- function(labels) {
+adjust.seed.labs <- function(labels) {
     for (i in seq_along(labels)) {
         if (i %% 2 == 0) {
             labels[i] <- paste0("\n", labels[i])
@@ -118,17 +118,17 @@ adjust_seed_labs <- function(labels) {
         }
     return(labels)
     };
-seed_labs <- adjust_seed_labs(seeds);
+seed.labs <- adjust.seed.labs(seeds);
 
 ### SR FUNCTION ###################################################################################
 plot.sr <- function(df) {
-    blank_heatmap <- matrix(
-        rep(c("grey95", "white"), length.out = 14), 
+    blank.heatmap <- matrix(
+        rep(c('grey95', 'white'), length.out = 14), 
         ncol = length(seeds), 
         nrow = length(unique(df$patient))
         )
     create.heatmap(
-        x = blank_heatmap,
+        x = blank.heatmap,
         same.as.matrix = TRUE,
         input.colours = TRUE,
         clustering.method = 'none',
@@ -151,7 +151,7 @@ plot.sr <- function(df) {
         yaxis.rot = 0,
         yat = 1:length(patients.sr),
         xat = seq(1, 10, 1),
-        xaxis.lab = seed_labs,
+        xaxis.lab = seed.labs,
         xaxis.rot = 0,
         xaxis.tck = c(1, 0),
         yaxis.tck = c(1, 0),
@@ -162,14 +162,14 @@ plot.sr <- function(df) {
         grid.row = FALSE,
         force.grid.row = TRUE,
         row.colour = 'grey50',
-        row.pos = nclones_y,
-        col.pos = nclones_x,
-        cell.text = nclones_text,
+        row.pos = nclones.y,
+        col.pos = nclones.x,
+        cell.text = nclones.text,
         text.fontface = 1,
-        text.col = nclones_col,
-        text.cex = nclones_cex,
-        text.position = nclones_pos,
-        text.offset = nclones_offset,
+        text.col = nclones.col,
+        text.cex = nclones.cex,
+        text.position = nclones.pos,
+        text.offset = nclones.offset,
         height = 6,
         width = 6
         )
@@ -177,13 +177,13 @@ plot.sr <- function(df) {
 
 ### MR FUNCTION ###################################################################################
 plot.mr <- function(df) {
-    blank_heatmap <- matrix(
-        rep(c("grey95", "white"), length.out = 7), 
+    blank.heatmap <- matrix(
+        rep(c('grey95', 'white'), length.out = 7), 
         ncol = length(seeds), 
         nrow = length(unique(df$patient))
     )
     create.heatmap(
-        x = blank_heatmap,
+        x = blank.heatmap,
         same.as.matrix = TRUE,
         input.colours = TRUE,
         clustering.method = 'none',
@@ -206,7 +206,7 @@ plot.mr <- function(df) {
         yaxis.rot = 0,
         yat = 1:length(patients.mr),
         xat = seq(1, 10, 1),
-        xaxis.lab = seed_labs,
+        xaxis.lab = seed.labs,
         xaxis.rot = 0,
         xaxis.tck = c(1, 0),
         yaxis.tck = c(1, 0),
@@ -217,14 +217,14 @@ plot.mr <- function(df) {
         grid.row = FALSE,
         force.grid.row = TRUE,
         row.colour = 'grey50',
-        row.pos = nclones_y,
-        col.pos = nclones_x,
-        cell.text = nclones_text,
+        row.pos = nclones.y,
+        col.pos = nclones.x,
+        cell.text = nclones.text,
         text.fontface = 1,
-        text.col = nclones_col,
-        text.cex = nclones_cex,
-        text.position = nclones_pos,
-        text.offset = nclones_offset,
+        text.col = nclones.col,
+        text.cex = nclones.cex,
+        text.position = nclones.pos,
+        text.offset = nclones.offset,
         height = 4,
         width = 6
         )
