@@ -113,7 +113,7 @@ nclones.cex <- rep(1.6, length(nclones.text));
 adjust.seed.labs <- function(labels) {
     for (i in seq_along(labels)) {
         if (i %% 2 == 0) {
-            labels[i] <- paste0("\n", labels[i])
+            labels[i] <- paste0('\n', labels[i])
             }
         }
     return(labels)
@@ -123,8 +123,8 @@ seed.labs <- adjust.seed.labs(seeds);
 ### SR FUNCTION ###################################################################################
 plot.sr <- function(df) {
     blank.heatmap <- matrix(
-        rep(c('grey95', 'white'), length.out = 14), 
-        ncol = length(seeds), 
+        rep(c('grey95', 'white'), length.out = 14),
+        ncol = length(seeds),
         nrow = length(unique(df$patient))
         )
     create.heatmap(
@@ -178,8 +178,8 @@ plot.sr <- function(df) {
 ### MR FUNCTION ###################################################################################
 plot.mr <- function(df) {
     blank.heatmap <- matrix(
-        rep(c('grey95', 'white'), length.out = 7), 
-        ncol = length(seeds), 
+        rep(c('grey95', 'white'), length.out = 7),
+        ncol = length(seeds),
         nrow = length(unique(df$patient))
     )
     create.heatmap(
