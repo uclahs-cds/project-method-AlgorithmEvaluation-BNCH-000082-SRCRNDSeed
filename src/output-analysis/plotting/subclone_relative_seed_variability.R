@@ -85,8 +85,6 @@ subclones.data.toplot <- process.subclones.for.plotting.mode(subclones.data)
 
 # reprocess symbols into a matrix as should be plotted
 symbol.matrix <- matrix(subclones.data.toplot$compare, nrow = length(unique(subclones.data.toplot$patient)), ncol = length(seeds), byrow = TRUE)
-# reverse rows since row order is reversed in a heatmap
-symbol.matrix <- symbol.matrix[nrow(symbol.matrix):1, ]
 # output every index of the matrix to indicate where each symbol should go
 nclones.ind <- which(symbol.matrix != '', arr.ind = TRUE);
 nclones.x <- nclones.ind[, 2];
@@ -101,7 +99,6 @@ nclones.text <- nclones.3.cex[nclones.text]
 
 # get all colours in the order of the indices
 col.matrix <- matrix(subclones.data.toplot$col, nrow = length(unique(subclones.data.toplot$patient)), ncol = length(seeds), byrow = TRUE)
-col.matrix <- col.matrix[nrow(col.matrix):1, ]
 nclones.col <- apply(nclones.ind, 1, function(x) col.matrix[x[1], x[2]])
 
 nclones.pos <- rep(3, length(nclones.text));
