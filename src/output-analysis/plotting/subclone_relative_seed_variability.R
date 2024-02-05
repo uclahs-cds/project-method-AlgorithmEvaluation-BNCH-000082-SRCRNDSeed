@@ -104,7 +104,6 @@ col.matrix <- matrix(subclones.data.toplot$col, nrow = length(unique(subclones.d
 col.matrix <- col.matrix[nrow(col.matrix):1, ]
 nclones.col <- apply(nclones.ind, 1, function(x) col.matrix[x[1], x[2]])
 
-# cnas_text <- rep('+', length(cnas_x))
 nclones.pos <- rep(3, length(nclones.text));
 nclones.offset <- rep(-0.3, length(nclones.text));
 nclones.cex <- rep(1.6, length(nclones.text));
